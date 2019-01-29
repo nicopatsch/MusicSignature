@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+    <script src="utils.js"></script>
+    <script src='jquery-1.8.1.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="styleshit" href="style.css">
+  </head>
+   
+
+  <body>
+    <input type='file' id="musicSheetInput" accept='text/json' onclick="this.value = null;" onchange='openFile(event)' multiple><br>
+    Nb notes in a repetition : <input type="number" id="nbNotesInRep" name="nbNotesInRep" min="1" max="50" value="4"> <br>
+    
+    Space between notes : <input type="number" id="spaceBetweenNotes" name="spaceBetweenNotes" min="0" max="50" value="0"> <br>
+    
+    Color squares :<input type="checkbox" id="squaresAreColored" name="squaresAreColored" checked> <br>
+
+    Full square :<input type="checkbox" id="fullSquare" name="fullSquare" checked> <br>
+
+    <br/><br/>
+
+    <!-- This isn't working but you might want to check it out later...
+    <div >
+      <svg id="vueCanvas" class="matrix" viewBox="0 0 20 20" height="200px" width="200px">
+        <note v-for="item in noteList"
+              v-bind:x="x"
+              v-bind:y="y"
+              v-bind:color="color"
+              v-bind:key="item.id">
+         </note>
+       </svg>
+    </div> -->
+
+
+    <svg id="drawingBox" class="matrix" height="500px" width="500px">
+      <g>
+        <g class="matrixHighlights"></g>
+        <g id="rectList">
+        </g>
+      </g>
+    </svg>
+
+    <script src="script.js"></script>
+  </body>
+</html>
