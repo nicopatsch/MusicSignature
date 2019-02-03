@@ -5,42 +5,28 @@ var squaresAreColored = true;
 var fullSquare = true;
 
 $( document ).ready(function() {
-    console.log( "ready!" );
-    //printSquares(20);
-    rectList = $("#rectList");
+    //rectList = $("#rectList");
 });
 
-// This isn't working but you might want to check it out later...
-// Vue.component('note', {
-// 	props: ['x', 'y', 'color'],
-//   	template: '<rect class="wordrect" x="2" y="2" width="1" height="1" fill="blue"></rect>'
-//   	//template: '<rect class="wordrect" x="{{ x }}" y="{{ y }}" width="1" height="1" fill="{{ color }}"></rect>'
-// })
 
-// var app = new Vue({
-//   el: '#vueCanvas',
-//   data: {
-//   	noteList: [
-// 	  	{ id:0, x: 1, y: 1, color: 'blue' },
-// 	  	{ id:1, x: 2, y: 2, color: 'red' },
-// 	  	{ id:2, x: 3, y: 3, color: 'green' }
-// 	]
-//   }
-// })
+function displayMatrixXML() {
+    console.log(musicXML);
+    //fullMusicJson = parseXml(musicXML);
+    console.log(fullMusicJson);
+
+    musicJson = reduceJsonFile();
+    console.log(musicJson);
+    maxNbParts = $("#maxNbParts").val();
 
 
-// $("#musicSheetInput")onclick = function () {
-//     this.value = null;
-// };
-
-// input.onchange = function () {
-//     alert(this.value);
-// };​
-
-
-function colorify(i, totalValues) {
-    var hue = Math.min(360, Math.floor(360 * i/totalValues));
-    return hslToHex(hue, 100, 70);
+    //Clean current HTML
+    $('#matrixRowContainer').empty();
+    $('#matrixRowContainer').html(function(){return this.innerHTML});
+    for(var partId = 0; partId < Math.min(maxNbParts, musicJson.parts.length); partId++) {
+    	createNewBox(partId);
+    	part = musicJson.parts[partId];
+    	createRectangles(part, partId);
+    }
 }
 
 
@@ -127,8 +113,9 @@ function displayMatrix(notesString) {
 			if(n>=nbNotesInRep /*&& diff==0*/) {
 				for(var c=0; c<n; c++) {
 					//console.log(i, j, n);
-					if(i==j) printSquare(notesArray[i+c]-minFreq, i+c, j+c, maxFreq-minFreq, 1);
-					else printSquare(notesArray[i+c]-minFreq, i+c, j+c, maxFreq-minFreq, n);
+					var color = squaresAreColored ? colorify(notesArray[i+c]-minFreq, maxFreq-minFreq) : "black";
+                    if(i==j) printSquare(notesArray[i+c]-minFreq, i+c, j+c, color, 1);
+                    else printSquare(notesArray[i+c]-minFreq, i+c, j+c, color, n);
 				}
 			}
 			//j+=n - 1;
@@ -168,35 +155,154 @@ function displayMatrix(notesString) {
 	rectList.html(function(){return this.innerHTML});
 }
 
-function printSquare(i, x, y, nbSquares, n) {
-	//var size = Math.round(n/4);
+function printSquare(/*(remove i)i, */x, y, color/*(remove n), n*/) {
 	var size = 1;
-
-	var color = squaresAreColored ? colorify(i, nbSquares) : "black";
 	var newID = x.toString() + "-" + y.toString();
-	//console.log(newID);
+	var newSquare;
 	alreadyExistingSquare = $("#" + newID);
 	if(alreadyExistingSquare.length==0) {
-		rectList.append("<rect id=\"" + newID + "\" class=\"wordrect\" x=\"" + Math.round((spaceBetweenNotes+1)*x-size/2) + "\" y=\"" + Math.round((spaceBetweenNotes+1)*y-size/2) + "\" width=\"" + size + "\" height=\"" + size + "\" fill=\"" + color + "\" fill-opacity=\"1\"></rect>");
-		//rectList.append("<circle id=\"" + newID + "\" class=\"wordrect\" cx=\"" + Math.round(3*x-size/2) + "\" cy=\"" + Math.round(3*y-size/2) + "\" r=\"" + size + "\" fill=\"" + color + "\" fill-opacity=\"0.1\"></circle>");
+		newSquare = '<rect id="' + newID + '" class="wordrect" x="' + Math.round((spaceBetweenNotes+1)*x-size/2) + '" y="' + Math.round((spaceBetweenNotes+1)*y-size/2) + '" width="' + size + '" height="' + size + '" fill="' + color + '"></rect>';
+		//newSquare = "<circle id=\"" + newID + "\" class=\"wordrect\" cx=\"" + Math.round(3*x-size/2) + "\" cy=\"" + Math.round(3*y-size/2) + "\" r=\"" + size + "\" fill=\"" + color + "\" fill-opacity=\"0.1\"></circle>";
 	}
-	//rectList.append("<rect class=\"wordrect\" x=\"" + 3*x + "\" y=\"" + 3*y + "\" width=\"1\" height=\"1\" fill=\"" + color + "\"></rect>");console.log(color);
-	
-
-	// Refreshing HTML element so that new rectangles appear
-	//rectList.html(function(){return this.innerHTML});
+	rectList.append(newSquare);
 }
 
 
-function printSquares(nbSquares) {
-	var rectList = $("#rectList");
 
-	//Adding new rectangles
-	for (var i = 0; i < nbSquares; i++) {
-		//rectList.append("<rect class=\"wordrect\" x=\"" + i + "\" y=\"" + i + "\" width=\"1\" height=\"1\" fill=\"" + colorify(i, nbSquares) + "\"></rect>");
+
+
+
+
+
+
+
+function createNewBox(id) {
+	var height = 300;
+	var width = 300;
+
+	var svgString = '<svg id="drawingBox'+id+'" class="matrixSvg"><g><g class="matrixHighlights"></g><g id="rectList'+id+'"></g></g></svg>';
+	var rowId;
+
+	var newRect;
+
+	if(id%2==0) {
+		rowId = 'row'+id/2;
+
+		var newRow = '<div class="row blankRow"></div>';
+		newRow += '<div id="' + rowId + '" class="row"></div>';
+		$("#matrixRowContainer").append(newRow);
+
+		newRect = '<div class="col-5 matrixContainer left">' + svgString + '</div>';
+		newRect += '<div class="col-1 divide"></div>';
+	} 
+	else {
+		rowId = 'row'+(id-1)/2;
+
+		newRect = '<div class="col-5 matrixContainer right">' + svgString + '</div>';
+	}
+	
+
+	$('#'+rowId).append(newRect);
+}
+
+
+function compareNotes(note1, note2) {
+	return note1.freq == note2.freq && note1.freq != 0;
+}
+
+
+function createRectangle(note1, note2, indexNote1, indexNote2) {
+	var identical = false;
+
+	if(note1.isRest || note2.isRest) return;
+
+	if(note1.isUnpitched || note2.isUnpitched) {
+		console.log("Printing one rectangle...");
+		printSquare(indexNote1, indexNote2, "black");
 	}
 
-	// Refreshing HTML element so that new rectangles appear
-	rectList.html(function(){return this.innerHTML});
-	
+	else {
+		if(compareNotes(note1, note2)) {
+			identical = true;
+			var color = squaresAreColored ? colorify(note1.freq-minFreq, maxFreq-minFreq) : "black";
+			printSquare(indexNote1, indexNote2, color);
+		}
+	}
+
+	return identical;
+}
+
+
+function isThisARep(m1start, m2start, n1start, n2start, part, nbNotesInRep) {
+	var nbChecked = 0;
+	for(meas1 = m1start; meas1 < part.measures.length; meas1++) {
+    	for(no1 = n1start; no1 < part.measures[meas1].notes.length; no1++) {
+    		for(meas2 = m2start; meas2 < part.measures.length; meas2++) {
+    			for(no2 = n2start; no2 < part.measures[meas2].notes.length; no2++) {
+    				if(nbChecked >= nbNotesInRep) return true;
+					note1 = part.measures[meas1].notes[no1];
+    				note2 = part.measures[meas2].notes[no2];
+    				if(compareNotes(note1, note2)) nbChecked++;
+    				else return false;
+    			}
+    		}
+    	}
+    }
+    return false;
+}
+
+
+
+function createRectangles(part, id) {
+    nbNotesInRep = $("#nbNotesInRep").val();
+    console.log(nbNotesInRep);
+    squaresAreColored = document.getElementById('squaresAreColored').checked;
+    spaceBetweenNotes = $("#spaceBetweenNotes").val();
+
+    //Empty current rectangle list
+    rectList = $("#rectList"+id.toString());
+
+    rectList.empty();
+    rectList.html(function(){ return this.innerHTML });
+
+
+    //TODO Get min and max
+    maxFreq = part.maxFreq;
+    minFreq = part.minFreq;
+    console.log('minFreq: ', minFreq, ', maxFreq: ', maxFreq);
+
+    var note1, note2;
+    var indexNote1 = 0;
+    var currentlyInRep = false;
+    for(m1 in part.measures) {
+    	for(n1 in part.measures[m1].notes) {
+    		note1 = part.measures[m1].notes[n1];
+    		var indexNote2 = 0;
+    		for(m2 in part.measures) {
+    			for(n2 in part.measures[m2].notes) {
+    				note2 = part.measures[m2].notes[n2];
+    				if(currentlyInRep && compareNotes(note1, note2)) {
+    					//Still in repetition, print squares
+    					createRectangle(note1, note2, indexNote1, indexNote2);
+    				}
+    				else if(isThisARep(m1, m2, n1, n2, part, nbNotesInRep)) {
+    					currentlyInRep = true;
+    					createRectangle(note1, note2, indexNote1, indexNote2);	
+    				}
+    				else currentlyInRep = false;
+    				
+    				indexNote2++;
+    			}
+    		}
+    		indexNote1++;
+    	}
+    		
+    }
+
+    //var maxIndex = part.nbOfNotes;
+    var maxIndex = indexNote1;
+    jQuery("#drawingBox"+id.toString()).attr("viewBox", "0 0 " + ((spaceBetweenNotes+1)*maxIndex).toString() + " " + ((spaceBetweenNotes+1)*maxIndex).toString());
+
+    // Refreshing HTML element so that new rectangles appear
+    rectList.html(function(){return this.innerHTML});
 }

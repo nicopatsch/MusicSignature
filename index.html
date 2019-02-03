@@ -3,22 +3,27 @@
   <head>
     <meta charset="utf-8">
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
-    <script src="utils.js"></script>
     <script src='jquery-1.8.1.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="styleshit" href="style.css">
+    <script src="https://unpkg.com/@rgrove/parse-xml/dist/umd/parse-xml.min.js"></script>
+    <script src="utils.js"></script>
+    <script src="MusicXMLReader.js"></script>
+    <link rel="stylesheet" type="text/css" href="grid/simple-grid.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
    
 
   <body>
-    <input type='file' id="musicSheetInput" accept='text/json' onclick="this.value = null;" onchange='openFile(event)' multiple><br>
+    <!-- String file : <input type='file' id="musicSheetInput" accept='text/json' onclick="this.value = null;" onchange='openFile(event)' multiple><br> -->
+    MusicXML file : <input type='file' id="musicSheet" accept='text/xml' onclick="this.value = null;" onchange='readMusicXMLFile(event)' multiple><br>
     Nb notes in a repetition : <input type="number" id="nbNotesInRep" name="nbNotesInRep" min="1" max="50" value="4"> <br>
+    Max number of instruments to be displayed : <input type="number" id="maxNbParts" name="maxNbParts" min="1" max="50" value="5"> <br>
     
     Space between notes : <input type="number" id="spaceBetweenNotes" name="spaceBetweenNotes" min="0" max="50" value="0"> <br>
     
     Color squares :<input type="checkbox" id="squaresAreColored" name="squaresAreColored" checked> <br>
 
-    Full square :<input type="checkbox" id="fullSquare" name="fullSquare" checked> <br>
+    <!-- Full square :<input type="checkbox" id="fullSquare" name="fullSquare" checked> <br> -->
 
     <br/><br/>
 
@@ -34,14 +39,9 @@
        </svg>
     </div> -->
 
+    <div id="matrixRowContainer" class="container">
+    </div>
 
-    <svg id="drawingBox" class="matrix" height="500px" width="500px">
-      <g>
-        <g class="matrixHighlights"></g>
-        <g id="rectList">
-        </g>
-      </g>
-    </svg>
 
     <script src="script.js"></script>
   </body>

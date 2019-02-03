@@ -53,3 +53,73 @@ function hslToRgba(h, s, l) {
   }
   return `rgba(${r},${g},${b},0.2)`;
 }
+
+
+function colorify(i, totalValues) {
+    var hue = Math.min(360, Math.floor(360 * i/totalValues));
+    //console.log(i, totalValues);
+    return hslToHex(hue, 100, 70);
+}
+
+
+var pitchDict = {
+  "C": 0,
+  "D": 2,
+  "E": 4,
+  "F": 5,
+  "G": 7,
+  "A": 9,
+  "B": 11
+};
+
+var accToStepDict = {
+    "#": 1,
+    "b": -1,
+    "n": 0
+};
+
+var stepToAccDict = {
+    '1' : "#",
+    '-1': "b",
+    '0' : "n"
+};
+
+class Note {
+    constructor(pitch, octave, acc) {
+        var fA4 = 440; //Base frequency (for an A4)
+        var a = 1.059463094359;
+
+        //Note parameters
+        this.pitch = pitch;
+        this.octave = octave;
+        this.acc = acc;
+        var n = pitchDict[pitch]+accToStepDict[acc] + octave*12 - (pitchDict['A'] + 4*12);
+        this.freq = fA4 * Math.pow(a, n);
+        this.isRest == false;
+        this.isUnpitched = false;
+    }
+}
+
+
+class Rest {
+    constructor() {
+        this.pitch = 0;
+        this.octave = 0;
+        this.acc = 'n';
+        this.freq = 0;
+        this.isRest == true;
+        this.isUnpitched = false;
+    }
+}
+
+
+class Unpitched {
+    constructor() {
+        this.pitch = 0;
+        this.octave = 0;
+        this.acc = 'n';
+        this.freq = 0;
+        this.isRest == false;
+        this.isUnpitched = true;
+    }
+}

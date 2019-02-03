@@ -1,7 +1,10 @@
-.matrix {
-    width:200px;
+.matrixContainer {
+    border: 2px solid #777;
 }
 
+.blankRow {
+    height: 50px;
+}
 
 .matrixHighlights {
     /* So that we don't get spurious mouseLeave events when a highlight rect
