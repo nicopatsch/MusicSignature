@@ -104,6 +104,7 @@ function reduceJsonPart(part) {
     var newNote;
     for(measure in rawJsonMeasures) {
         var cleanMeasure = [];
+        var nbNotesInMeasure = 0;
         for(child in rawJsonMeasures[measure].children) {
             var element = rawJsonMeasures[measure].children[child];
             if(element.name == "note") {
@@ -116,7 +117,8 @@ function reduceJsonPart(part) {
                 if(newNote.freq < minFreq && newNote.freq!=0) minFreq = newNote.freq;
                 
                 cleanMeasure.push(newNote);
-                noteIndices.push( { 'measure': measure, 'note': child } );
+                noteIndices.push( { 'measure': measure, 'note': nbNotesInMeasure } );
+                nbNotesInMeasure++
             }
         }
         //console.log(cleanMeasure);

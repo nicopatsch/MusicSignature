@@ -212,12 +212,15 @@ function compareNotes(note1, note2) {
 
 
 function createRectangle(note1, note2, indexNote1, indexNote2) {
+	//console.log(note1, note2, indexNote1, indexNote2);
+
 	var identical = false;
 	if(note1.isRest || note2.isRest) return;
 
 	if(note1.isUnpitched || note2.isUnpitched) {
 		console.log("Printing one rectangle...");
 		printSquare(indexNote1, indexNote2, "black");
+		printSquare(indexNote2, indexNote1, "black");
 	}
 
 	else {
@@ -225,6 +228,7 @@ function createRectangle(note1, note2, indexNote1, indexNote2) {
 			identical = true;
 			var color = squaresAreColored ? colorify(note1.freq-minFreq, maxFreq-minFreq) : "black";
 			printSquare(indexNote1, indexNote2, color);
+			printSquare(indexNote2, indexNote1, color);
 		}
 	}
 
@@ -266,6 +270,27 @@ function isThisARep(m1start, m2start, n1start, n2start, part, nbNotesInRep) {
 
 
 
+function nbRep(jstart, istart, part) {
+	var nbChecked = 0;
+
+	for(var j = jstart; jstart < part.noteIndices.length; j++) {
+		for(var i = istart; istart < part.noteIndices.length; i++) {
+
+	    	//Getting the corresponding notes
+    		indexNote1 = part.noteIndices[parseInt(j)+parseInt(i)];
+    		note1 = part.measures[indexNote1.measure].notes[indexNote1.note];
+    		indexNote2 = part.noteIndices[i];
+    		note2 = part.measures[indexNote2.measure].notes[indexNote2.note];
+
+    		if(compareNotes(note1, note2)) nbChecked++;
+    		else return nbChecked;
+
+    	}
+    }
+    return nbChecked;
+}
+
+
 function createRectangles(part, id) {
     nbNotesInRep = $("#nbNotesInRep").val();
     console.log(nbNotesInRep);
@@ -279,81 +304,52 @@ function createRectangles(part, id) {
     rectList.html(function(){ return this.innerHTML });
 
 
-    //TODO Get min and max
     maxFreq = part.maxFreq;
     minFreq = part.minFreq;
     console.log('minFreq: ', minFreq, ', maxFreq: ', maxFreq);
 
+
+
     var note1, note2;
-    var indexNote1 = 0;
+    var indexNote1, indexNote2;
+    //var indexNote1 = part.noteIndices[0];
     var currentlyInRep = false;
-    for(m1 in part.measures) {
-    	for(n1 in part.measures[m1].notes) {
-    		note1 = part.measures[m1].notes[n1];
-    		var indexNote2 = 0;
-    		for(m2 in part.measures) {
-    			for(n2 in part.measures[m2].notes) {
-    				note2 = part.measures[m2].notes[n2];
-    				
-    				// if(currentlyInRep && compareNotes(note1, note2)) {
-    				// 	//Still in repetition, print squares
-    				// 	createRectangle(note1, note2, indexNote1, indexNote2);
-    				// }
-    				// else if(isThisARep(m1, m2, n1, n2, part, nbNotesInRep)) {
-    				// 	currentlyInRep = true;
-    				// 	createRectangle(note1, note2, indexNote1, indexNote2);	
-    				// }
-    				// else currentlyInRep = false;
-    				
-    				createRectangle(note1, note2, indexNote1, indexNote2);
-    				
-    				indexNote2++;
-    			}
-    		}
-    		indexNote1++;
+
+    for(var j in part.noteIndices) {
+    	
+    	for(var i = 0; i<part.noteIndices.length - j; i++) {
+
+    		//Getting the corresponding notes
+    		indexNote1 = part.noteIndices[parseInt(j)+parseInt(i)];
+    		note1 = part.measures[indexNote1.measure].notes[indexNote1.note];
+    		indexNote2 = part.noteIndices[i];
+    		note2 = part.measures[indexNote2.measure].notes[indexNote2.note];
+
+    		var repLength = nbRep(j, i, part);
+
+    		if(repLength >= nbNotesInRep) {
+    			// for(var n = 0; n < repLength; n++) {
+  
+		    	// 	//Getting the corresponding notes
+		    	// 	indexNote1 = part.noteIndices[parseInt(j)+parseInt(i)+n];
+		    	// 	note1 = part.measures[indexNote1.measure].notes[indexNote1.note];
+		    	// 	indexNote2 = part.noteIndices[i+n];
+		    	// 	note2 = part.measures[indexNote2.measure].notes[indexNote2.note];
+
+		    	// 	createRectangle(note1, note2, parseInt(j)+parseInt(i)+n, i+n);
+
+		    	// }
+
+			    // j+=n;
+			    // i+=n;
+			    createRectangle(note1, note2, parseInt(j)+parseInt(i), i);
+		    }
     	}
-    		
     }
 
 
-    // var measureIndex;
-    // var noteIndexInMeas;
-    // var tempIndexNote1 = 0;
-    // for(m1 in part.measures) {
-    // 	for(n1 in part.measures[m1].notes) {
-    // 		var indexNote2 = 0;
-    // 		indexNote1 = tempIndexNote1;
-    // 		for(var i = 0; i<part.measures.length; i++) {
-    // 			console.log('part.measures, m1, i, part.measures[0]: ', part.measures, m1, i, part.measures[0]);
-    // 			measureIndex = parseInt(m1)+i;
-    // 			for(var j = 0; j < part.measures[measureIndex].notes.length; j++) {
-    // 				//console.log(indexNote1, indexNote2);
-    // 				noteIndexInMeas = parseInt(n1)+j;
-    // 				note1 = part.measures[measureIndex].notes[noteIndexInMeas];
-				// 	note2 = part.measures[i].notes[j];
-				// 	createRectangle(note1, note2, indexNote1, indexNote2);
-
-    // 				// if(currentlyInRep && compareNotes(note1, note2)) {
-    // 				// 	//Still in repetition, print squares
-    // 				// 	createRectangle(note1, note2, indexNote1, indexNote2);
-    // 				// }
-    // 				// else if(isThisARep(m1, m2, n1, n2, part, nbNotesInRep)) {
-    // 				// 	currentlyInRep = true;
-    // 				// 	createRectangle(note1, note2, indexNote1, indexNote2);	
-    // 				// }
-    // 				// else currentlyInRep = false;
-    				
-    // 				indexNote2++;
-    // 				indexNote1++;
-    // 			}
-    // 		}
-    // 		tempIndexNote1++;
-    // 	}
-    		
-    // }
-
-    //var maxIndex = part.nbOfNotes;
-    var maxIndex = indexNote1;
+    var maxIndex = part.nbOfNotes;
+    //var maxIndex = indexNote1;
     jQuery("#drawingBox"+id.toString()).attr("viewBox", "0 0 " + ((spaceBetweenNotes+1)*maxIndex).toString() + " " + ((spaceBetweenNotes+1)*maxIndex).toString());
 
     // Refreshing HTML element so that new rectangles appear
