@@ -89,11 +89,30 @@ function checkNoteIsUnPitched(note) {
     return unpitched != null;
 }
 
+function getByName(object, name) {
+    return object.children.find(function(element) {
+        return element.name == name;
+    });
+}
+
+
+function getInstrumentName(part) {
+    //Getting the instrument name (aaarf)
+    var partID = part.attributes.id;
+
+    var partList = getByName(fullMusicJson.children[0], "part-list");
+    var instrumentPart = partList.children.find(function(element) {
+        return element.attributes.id == partID;
+    });
+    var instrumentNameObj = getByName(instrumentPart, "score-instrument");
+    return instrumentNameObj.children[0].children[0].text;
+}
 
 function reduceJsonPart(part) {
     //Get basic info on the part
-    var instrumentName = "";
     var partID = part.attributes.id;
+
+    var instrumentName = getInstrumentName(part);
 
     var minFreq = 1000, maxFreq = 0;
     var cleanJsonMeasures = [];

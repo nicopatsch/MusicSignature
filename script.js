@@ -22,9 +22,14 @@ function displayMatrixXML() {
     //Clean current HTML
     $('#matrixRowContainer').empty();
     $('#matrixRowContainer').html(function(){return this.innerHTML});
+
+    $('#songName').text(musicJson.songName + " – " + musicJson.artist);
+
     for(var partId = 0; partId < Math.min(maxNbParts, musicJson.parts.length); partId++) {
-    	createNewBox(partId);
     	part = musicJson.parts[partId];
+
+    	var instrumentName = part.instrumentName;
+    	createNewBox(partId, instrumentName);
     	createRectangles(part, partId);
     }
 }
@@ -176,11 +181,13 @@ function printSquare(/*(remove i)i, */x, y, color/*(remove n), n*/) {
 
 
 
-function createNewBox(id) {
+function createNewBox(id, instrumentName) {
 	var height = 300;
 	var width = 300;
 
 	var svgString = '<svg id="drawingBox'+id+'" class="matrixSvg"><g><g class="matrixHighlights"></g><g id="rectList'+id+'"></g></g></svg>';
+	var instrumentText = '<h3 class="instrumentName" id="instrumentName' + id + '">' + instrumentName + '</h3>';
+
 	var rowId;
 
 	var newRect;
@@ -192,13 +199,13 @@ function createNewBox(id) {
 		newRow += '<div id="' + rowId + '" class="row"></div>';
 		$("#matrixRowContainer").append(newRow);
 
-		newRect = '<div class="col-5 matrixContainer left">' + svgString + '</div>';
+		newRect = '<div class="col-5"><div class="matrixContainer">' + svgString + '</div>' + instrumentName + '</div>';
 		newRect += '<div class="col-1 divide"></div>';
 	} 
 	else {
 		rowId = 'row'+(id-1)/2;
 
-		newRect = '<div class="col-5 matrixContainer right">' + svgString + '</div>';
+		newRect = '<div class="col-5"><div class="matrixContainer">' + svgString + '</div>' + instrumentName + '</div>';
 	}
 	
 
@@ -273,13 +280,17 @@ function isThisARep(m1start, m2start, n1start, n2start, part, nbNotesInRep) {
 function nbRep(jstart, istart, part) {
 	var nbChecked = 0;
 
-	for(var j = jstart; jstart < part.noteIndices.length; j++) {
-		for(var i = istart; istart < part.noteIndices.length; i++) {
+	for(var j = jstart; j < part.noteIndices.length; j++) {
+		for(var i = istart; i < part.noteIndices.length; i++) {
 
 	    	//Getting the corresponding notes
     		indexNote1 = part.noteIndices[parseInt(j)+parseInt(i)];
-    		note1 = part.measures[indexNote1.measure].notes[indexNote1.note];
     		indexNote2 = part.noteIndices[i];
+
+    		if(indexNote2 == null || indexNote1 == null) {
+    			console.log(j, i, indexNote1, indexNote2, part.noteIndices);
+    		}
+    		note1 = part.measures[indexNote1.measure].notes[indexNote1.note];
     		note2 = part.measures[indexNote2.measure].notes[indexNote2.note];
 
     		if(compareNotes(note1, note2)) nbChecked++;
