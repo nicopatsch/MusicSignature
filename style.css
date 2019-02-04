@@ -2,6 +2,11 @@
     border: 2px solid #777;
 }
 
+.container {
+    width: 100%;
+    margin:0px;
+}
+
 .blankRow {
     height: 50px;
 }

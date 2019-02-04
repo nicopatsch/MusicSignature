@@ -213,7 +213,6 @@ function compareNotes(note1, note2) {
 
 function createRectangle(note1, note2, indexNote1, indexNote2) {
 	var identical = false;
-
 	if(note1.isRest || note2.isRest) return;
 
 	if(note1.isUnpitched || note2.isUnpitched) {
@@ -235,10 +234,10 @@ function createRectangle(note1, note2, indexNote1, indexNote2) {
 
 function isThisARep(m1start, m2start, n1start, n2start, part, nbNotesInRep) {
 	var nbChecked = 0;
-	for(meas1 = m1start; meas1 < part.measures.length; meas1++) {
-    	for(no1 = n1start; no1 < part.measures[meas1].notes.length; no1++) {
-    		for(meas2 = m2start; meas2 < part.measures.length; meas2++) {
-    			for(no2 = n2start; no2 < part.measures[meas2].notes.length; no2++) {
+	for(var meas1 = m1start; meas1 < part.measures.length; meas1++) {
+    	for(var no1 = n1start; no1 < part.measures[meas1].notes.length; no1++) {
+    		for(var meas2 = m2start; meas2 < part.measures.length; meas2++) {
+    			for(var no2 = n2start; no2 < part.measures[meas2].notes.length; no2++) {
     				if(nbChecked >= nbNotesInRep) return true;
 					note1 = part.measures[meas1].notes[no1];
     				note2 = part.measures[meas2].notes[no2];
@@ -248,6 +247,20 @@ function isThisARep(m1start, m2start, n1start, n2start, part, nbNotesInRep) {
     		}
     	}
     }
+
+ 	// for(var meas1 = m1start; meas1 < part.measures.length; meas1++) {
+  //   	for(var no1 = n1start; no1 < part.measures[meas1].notes.length; no1++) {
+  //   		note1 = part.measures[meas1].notes[no1];
+  //   		for(var i = m2start; i < part.measures.length; i++) {
+  //   			for(var j = n2start; j < part.measures[meas1+i].notes.length; j++) {
+  //   				if(nbChecked >= nbNotesInRep) return true;
+  //   				note2 = part.measures[meas1+i].notes[no1+j];
+  //   				if(compareNotes(note1, note2)) nbChecked++;
+  //   				else return false;
+  //   			}
+  //   		}
+  //   	}
+  //   }
     return false;
 }
 
@@ -281,15 +294,18 @@ function createRectangles(part, id) {
     		for(m2 in part.measures) {
     			for(n2 in part.measures[m2].notes) {
     				note2 = part.measures[m2].notes[n2];
-    				if(currentlyInRep && compareNotes(note1, note2)) {
-    					//Still in repetition, print squares
-    					createRectangle(note1, note2, indexNote1, indexNote2);
-    				}
-    				else if(isThisARep(m1, m2, n1, n2, part, nbNotesInRep)) {
-    					currentlyInRep = true;
-    					createRectangle(note1, note2, indexNote1, indexNote2);	
-    				}
-    				else currentlyInRep = false;
+    				
+    				// if(currentlyInRep && compareNotes(note1, note2)) {
+    				// 	//Still in repetition, print squares
+    				// 	createRectangle(note1, note2, indexNote1, indexNote2);
+    				// }
+    				// else if(isThisARep(m1, m2, n1, n2, part, nbNotesInRep)) {
+    				// 	currentlyInRep = true;
+    				// 	createRectangle(note1, note2, indexNote1, indexNote2);	
+    				// }
+    				// else currentlyInRep = false;
+    				
+    				createRectangle(note1, note2, indexNote1, indexNote2);
     				
     				indexNote2++;
     			}
@@ -298,6 +314,43 @@ function createRectangles(part, id) {
     	}
     		
     }
+
+
+    // var measureIndex;
+    // var noteIndexInMeas;
+    // var tempIndexNote1 = 0;
+    // for(m1 in part.measures) {
+    // 	for(n1 in part.measures[m1].notes) {
+    // 		var indexNote2 = 0;
+    // 		indexNote1 = tempIndexNote1;
+    // 		for(var i = 0; i<part.measures.length; i++) {
+    // 			console.log('part.measures, m1, i, part.measures[0]: ', part.measures, m1, i, part.measures[0]);
+    // 			measureIndex = parseInt(m1)+i;
+    // 			for(var j = 0; j < part.measures[measureIndex].notes.length; j++) {
+    // 				//console.log(indexNote1, indexNote2);
+    // 				noteIndexInMeas = parseInt(n1)+j;
+    // 				note1 = part.measures[measureIndex].notes[noteIndexInMeas];
+				// 	note2 = part.measures[i].notes[j];
+				// 	createRectangle(note1, note2, indexNote1, indexNote2);
+
+    // 				// if(currentlyInRep && compareNotes(note1, note2)) {
+    // 				// 	//Still in repetition, print squares
+    // 				// 	createRectangle(note1, note2, indexNote1, indexNote2);
+    // 				// }
+    // 				// else if(isThisARep(m1, m2, n1, n2, part, nbNotesInRep)) {
+    // 				// 	currentlyInRep = true;
+    // 				// 	createRectangle(note1, note2, indexNote1, indexNote2);	
+    // 				// }
+    // 				// else currentlyInRep = false;
+    				
+    // 				indexNote2++;
+    // 				indexNote1++;
+    // 			}
+    // 		}
+    // 		tempIndexNote1++;
+    // 	}
+    		
+    // }
 
     //var maxIndex = part.nbOfNotes;
     var maxIndex = indexNote1;

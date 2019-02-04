@@ -97,6 +97,8 @@ function reduceJsonPart(part) {
 
     var minFreq = 1000, maxFreq = 0;
     var cleanJsonMeasures = [];
+    var noteIndices = [];
+
     var rawJsonMeasures = part.children;
     var nbChordsInPart = 0, nbNotesInPart = 0, nbUnpitchedInPart = 0;
     var newNote;
@@ -112,14 +114,16 @@ function reduceJsonPart(part) {
                 newNote = reduceJsonNote(element);
                 if(newNote.freq > maxFreq) maxFreq = newNote.freq;
                 if(newNote.freq < minFreq && newNote.freq!=0) minFreq = newNote.freq;
+                
                 cleanMeasure.push(newNote);
+                noteIndices.push( { 'measure': measure, 'note': child } );
             }
         }
         //console.log(cleanMeasure);
         cleanJsonMeasures.push({ 'measureId': measure, 'notes': cleanMeasure });
     }
 
-    return { 'partID': partID, 'instrumentName': instrumentName, 'measures': cleanJsonMeasures, 'nbOfNotes': nbNotesInPart, 'nbOfChords': nbChordsInPart, 'nbOfUnpitched': nbUnpitchedInPart, 'minFreq':minFreq, 'maxFreq': maxFreq };
+    return { 'partID': partID, 'instrumentName': instrumentName, 'measures': cleanJsonMeasures, 'nbOfNotes': nbNotesInPart, 'noteIndices': noteIndices, 'nbOfChords': nbChordsInPart, 'nbOfUnpitched': nbUnpitchedInPart, 'minFreq':minFreq, 'maxFreq': maxFreq };
 }
 
 
