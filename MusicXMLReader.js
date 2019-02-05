@@ -3,6 +3,13 @@ var musicJson;
 var fullMusicJson;
 
 
+function getByName(object, name) {
+    return object.children.find(function(element) {
+        return element.name == name;
+    });
+}
+
+
 var readMusicXMLFile = function(event) {
     var input = event.target;
 
@@ -36,7 +43,12 @@ var readMusicXMLFile = function(event) {
 
 
 
-function reduceJsonNote(note) {
+function reduceJsonNote(note, timeCode, notePosition) {
+    //Get the duration of the note
+    var duration = parseInt(getByName(note, "duration").children[0].text);
+
+
+
     //Get the pitch of the note
     var pitch = note.children.find(function(element) {
         return  element.name == "pitch" ||
@@ -45,8 +57,8 @@ function reduceJsonNote(note) {
     });
 
     //If it's a rest and not a note, we return a Rest or an Unpitched object
-    if(pitch.name == "rest") return new Rest();
-    if(pitch.name == "unpitched") return new Unpitched();
+    if(pitch.name == "rest") return new Rest(duration, timeCode, notePosition);
+    if(pitch.name == "unpitched") return new Unpitched(duration, timeCode, notePosition);
     
 
     //Get the step, accidential and octave
@@ -64,7 +76,7 @@ function reduceJsonNote(note) {
         return element.name == "octave";
     }).children[0].text;
 
-    cleanNote = new Note(step, octave, accidental);
+    cleanNote = new Note(step, octave, accidental, duration, timeCode, notePosition);
 
     if(!cleanNote.isUnpitched && !cleanNote.isRest && cleanNote.freq==0) {
         console.log("There is an issue with the new note : it is supposed to be a normal note but freq == 0.");
@@ -87,12 +99,6 @@ function checkNoteIsUnPitched(note) {
         return  element.name == "unpitched";
     });
     return unpitched != null;
-}
-
-function getByName(object, name) {
-    return object.children.find(function(element) {
-        return element.name == name;
-    });
 }
 
 
@@ -121,30 +127,33 @@ function reduceJsonPart(part) {
     var rawJsonMeasures = part.children;
     var nbChordsInPart = 0, nbNotesInPart = 0, nbUnpitchedInPart = 0;
     var newNote;
+
+    var totalDuration = 0;
     for(measure in rawJsonMeasures) {
         var cleanMeasure = [];
         var nbNotesInMeasure = 0;
         for(child in rawJsonMeasures[measure].children) {
             var element = rawJsonMeasures[measure].children[child];
             if(element.name == "note") {
-                nbNotesInPart++;
                 if(checkNoteIsChord(element)) nbChordsInPart++;
                 if(checkNoteIsUnPitched(element)) nbUnpitchedInPart++;
 
-                newNote = reduceJsonNote(element);
+                newNote = reduceJsonNote(element, totalDuration, nbNotesInPart);
                 if(newNote.freq > maxFreq) maxFreq = newNote.freq;
                 if(newNote.freq < minFreq && newNote.freq!=0) minFreq = newNote.freq;
                 
                 cleanMeasure.push(newNote);
                 noteIndices.push( { 'measure': measure, 'note': nbNotesInMeasure } );
-                nbNotesInMeasure++
+                totalDuration+=newNote.duration;
+                nbNotesInMeasure++;
+                nbNotesInPart++;
             }
         }
         //console.log(cleanMeasure);
         cleanJsonMeasures.push({ 'measureId': measure, 'notes': cleanMeasure });
     }
 
-    return { 'partID': partID, 'instrumentName': instrumentName, 'measures': cleanJsonMeasures, 'nbOfNotes': nbNotesInPart, 'noteIndices': noteIndices, 'nbOfChords': nbChordsInPart, 'nbOfUnpitched': nbUnpitchedInPart, 'minFreq':minFreq, 'maxFreq': maxFreq };
+    return { 'partID': partID, 'instrumentName': instrumentName, 'measures': cleanJsonMeasures, 'nbOfNotes': nbNotesInPart, 'noteIndices': noteIndices, 'nbOfChords': nbChordsInPart, 'nbOfUnpitched': nbUnpitchedInPart, 'minFreq':minFreq, 'maxFreq': maxFreq, 'totalDuration': totalDuration };
 }
 
 

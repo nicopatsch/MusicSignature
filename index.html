@@ -22,23 +22,14 @@
     
     Space between notes : <input type="number" id="spaceBetweenNotes" name="spaceBetweenNotes" min="0" max="50" value="0"> <br>
     
-    Color squares :<input type="checkbox" id="squaresAreColored" name="squaresAreColored" checked> <br>
+    Color squares :<input type="checkbox" id="squaresAreColored" name="squaresAreColored"> <br>
+
+    Real duration :<input type="checkbox" id="realDuration" name="realDuration"> <br>
 
     <!-- Full square :<input type="checkbox" id="fullSquare" name="fullSquare" checked> <br> -->
 
     <br/><br/>
 
-    <!-- This isn't working but you might want to check it out later...
-    <div >
-      <svg id="vueCanvas" class="matrix" viewBox="0 0 20 20" height="200px" width="200px">
-        <note v-for="item in noteList"
-              v-bind:x="x"
-              v-bind:y="y"
-              v-bind:color="color"
-              v-bind:key="item.id">
-         </note>
-       </svg>
-    </div> -->
     <h2 id="songName"></h2>
     <div id="matrixRowContainer" class="container">
     </div>

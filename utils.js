@@ -85,7 +85,7 @@ var stepToAccDict = {
 };
 
 class Note {
-    constructor(pitch, octave, acc) {
+    constructor(pitch, octave, acc, duration, timeCode, position) {
         var fA4 = 440; //Base frequency (for an A4)
         var a = 1.059463094359;
 
@@ -97,29 +97,38 @@ class Note {
         this.freq = fA4 * Math.pow(a, n);
         this.isRest == false;
         this.isUnpitched = false;
+        this.duration = duration;
+        this.timeCode = timeCode;
+        this.position = position;
     }
 }
 
 
 class Rest {
-    constructor() {
+    constructor(duration, timeCode, position) {
         this.pitch = 0;
         this.octave = 0;
         this.acc = 'n';
         this.freq = 0;
         this.isRest == true;
         this.isUnpitched = false;
+        this.duration = duration;
+        this.timeCode = timeCode;
+        this.position = position;
     }
 }
 
 
 class Unpitched {
-    constructor() {
+    constructor(duration, timeCode, position) {
         this.pitch = 0;
         this.octave = 0;
         this.acc = 'n';
         this.freq = 0;
         this.isRest == false;
         this.isUnpitched = true;
+        this.duration = duration;
+        this.timeCode = timeCode;
+        this.position = position;
     }
 }

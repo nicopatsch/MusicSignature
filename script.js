@@ -3,6 +3,8 @@ var nbNotesInRep
 var spaceBetweenNotes = 0;
 var squaresAreColored = true;
 var fullSquare = true;
+var realDuration;
+
 
 $( document ).ready(function() {
     //rectList = $("#rectList");
@@ -35,149 +37,17 @@ function displayMatrixXML() {
 }
 
 
-var openFile = function(event) {
-    var input = event.target;
-
-    var fileContent;
-    var reader = new FileReader();  
-    
-    if(input.files.length <= 0) return;
-
-    var file = input.files[0];
-
-    reader.onload = function(e) {  
-        // get file content 
-        fileContent = e.target.result;
-        console.log("loaded file");
-        displayMatrix(fileContent);
-    }
-    reader.readAsText(file);
-
-};
-
-
-function displayMatrix(notesString) {
-	nbNotesInRep = $("#nbNotesInRep").val();
-	squaresAreColored = document.getElementById('squaresAreColored').checked;
-	spaceBetweenNotes = $("#spaceBetweenNotes").val();
-	fullSquare = document.getElementById('fullSquare').checked;
-
-	rectList.empty();
-	rectList.html(function(){return this.innerHTML});
-
-
-  	var notesStringArray = notesString.split(" ");
-  	var notesArray = [];
-
-  	// Starting at i = 1 to skip name of the instrument
-	for (var i = 1; i < notesStringArray.length; i++) {
-		var floatFreq = parseFloat(notesStringArray[i]);
-		if(!isNaN(floatFreq)) {
-			notesArray.push(floatFreq);
-		}
-	}
-
-	var timer1 = 0, timer2 = 0, timer3 = 0;
-
-	//var maxIndex = Math.min(500, notesArray.length);
-	var maxIndex = notesArray.length;
-	console.log(maxIndex);
-	jQuery("#drawingBox").attr("viewBox", "0 0 " + (spaceBetweenNotes+1)*maxIndex.toString() + " " + (spaceBetweenNotes+1)*maxIndex.toString());
-
-	// Get min and max, improve this
-	maxFreq = Math.max(...notesArray);
-	minFreq = Math.min(...notesArray);
-
-
-	console.log(maxFreq, minFreq);
-	var maxJ;
-	for (var i = 0; i < maxIndex; i++) {
-		maxJ = fullSquare ? maxIndex : i;
-		console.log(fullSquare, maxJ);
-		for (var j = 0; j < maxJ; j++) {
-
-			if(notesArray[i] == notesArray[j] && notesArray[i]==0.) {
-				break;
-			}
-			var diff = notesArray[i] - notesArray[j];
-			var isRep = true;
-			var n = 0;
-			while(isRep) {
-				if(notesArray[i+n] - notesArray[j+n] != diff) {
-					isRep = false;
-					break;
-				}
-				n++;
-			}
-			// for(var n=0; n < nbNotesInRep; n++) {
-			// 	if(notesArray[i+n] - notesArray[j+n] != diff) {
-			// 		isRep = false;
-			// 		break;
-			// 	}
-			// }	
-			if(n>=nbNotesInRep /*&& diff==0*/) {
-				for(var c=0; c<n; c++) {
-					//console.log(i, j, n);
-					var color = squaresAreColored ? colorify(notesArray[i+c]-minFreq, maxFreq-minFreq) : "black";
-                    if(i==j) printSquare(notesArray[i+c]-minFreq, i+c, j+c, color, 1);
-                    else printSquare(notesArray[i+c]-minFreq, i+c, j+c, color, n);
-				}
-			}
-			//j+=n - 1;
-
-			// if((notesArray[i] == notesArray[j] && notesArray[i]!=0.
-			// 	// && notesArray[i+1] == notesArray[j+1] /*&& notesArray[i+1]!=0.*/
-			// 	// && notesArray[i+2] == notesArray[j+2] /*&& notesArray[i+2]!=0.*/
-			// 	// && notesArray[i+3] == notesArray[j+3] /*&& notesArray[i+3]!=0.*/
-			// 	) || i == j) {
-				
-			// 	var isRep = true;
-			// 	for(var n=0; n < nbNotesInRep; n++) {
-			// 		if(notesArray[i+n] != notesArray[j+n]) {
-			// 			isRep = false;
-			// 			break;
-			// 		}
-			// 	}	
-			// 	if(isRep) {
-			// 		for(var c=0; c<nbNotesInRep; c++) {
-			// 			printSquare(notesArray[i+c]-minFreq, i+c, j+c, maxFreq-minFreq);
-			// 		}
-			// 	}
-			// 	//console.log(notesArray[i]);
-			// 	// printSquare(notesArray[i]-minFreq, i, j, maxFreq-minFreq);
-			// 	// printSquare(notesArray[i+1]-minFreq, i+1, j+1, maxFreq-minFreq);
-			// 	// printSquare(notesArray[i+2]-minFreq, i+2, j+2, maxFreq-minFreq);
-			// 	// printSquare(notesArray[i+3]-minFreq, i+3, j+3, maxFreq-minFreq);
-
-			// }
-		}
-	}
-
-	//console.log(notesArray);
-	//console.log(timer1/maxIndex, timer2/maxIndex, timer3/maxIndex);
-	
-	// Refreshing HTML element so that new rectangles appear
-	rectList.html(function(){return this.innerHTML});
-}
-
-function printSquare(/*(remove i)i, */x, y, color/*(remove n), n*/) {
-	var size = 1;
+function printSquare(x, y, width, height, color) {
+	//var size = 1;
 	var newID = x.toString() + "-" + y.toString();
 	var newSquare;
 	alreadyExistingSquare = $("#" + newID);
 	if(alreadyExistingSquare.length==0) {
-		newSquare = '<rect id="' + newID + '" class="wordrect" x="' + Math.round((spaceBetweenNotes+1)*x-size/2) + '" y="' + Math.round((spaceBetweenNotes+1)*y-size/2) + '" width="' + size + '" height="' + size + '" fill="' + color + '"></rect>';
+		newSquare = '<rect id="' + newID + '" class="wordrect" x="' + Math.round((spaceBetweenNotes+1)*x-width/2) + '" y="' + Math.round((spaceBetweenNotes+1)*y-height/2) + '" width="' + width + '" height="' + height + '" fill="' + color + '"></rect>';
 		//newSquare = "<circle id=\"" + newID + "\" class=\"wordrect\" cx=\"" + Math.round(3*x-size/2) + "\" cy=\"" + Math.round(3*y-size/2) + "\" r=\"" + size + "\" fill=\"" + color + "\" fill-opacity=\"0.1\"></circle>";
 	}
 	rectList.append(newSquare);
 }
-
-
-
-
-
-
-
 
 
 
@@ -214,28 +84,33 @@ function createNewBox(id, instrumentName) {
 
 
 function compareNotes(note1, note2) {
-	return note1.freq == note2.freq && note1.freq != 0;
+	return note1.freq == note2.freq && note1.duration == note2.duration && note1.freq != 0;
 }
 
 
 function createRectangle(note1, note2, indexNote1, indexNote2) {
 	//console.log(note1, note2, indexNote1, indexNote2);
 
+	var size1 = realDuration ? note1.duration : 1;
+	var size2 = realDuration ? note2.duration : 1;
+
+	var position1 = realDuration ? note1.timeCode : note1.position;
+	var position2 = realDuration ? note2.timeCode : note2.position;
+
 	var identical = false;
 	if(note1.isRest || note2.isRest) return;
 
 	if(note1.isUnpitched || note2.isUnpitched) {
-		console.log("Printing one rectangle...");
-		printSquare(indexNote1, indexNote2, "black");
-		printSquare(indexNote2, indexNote1, "black");
+		printSquare(position1, position2, size1, size2, "black");
+		printSquare(position2, position1, size2, size1, "black");
 	}
 
 	else {
 		if(compareNotes(note1, note2)) {
 			identical = true;
 			var color = squaresAreColored ? colorify(note1.freq-minFreq, maxFreq-minFreq) : "black";
-			printSquare(indexNote1, indexNote2, color);
-			printSquare(indexNote2, indexNote1, color);
+			printSquare(position1, position2, size1, size2, color);
+			printSquare(position2, position1, size2, size1, color);
 		}
 	}
 
@@ -306,6 +181,7 @@ function createRectangles(part, id) {
     nbNotesInRep = $("#nbNotesInRep").val();
     console.log(nbNotesInRep);
     squaresAreColored = document.getElementById('squaresAreColored').checked;
+    realDuration = document.getElementById('realDuration').checked;
     spaceBetweenNotes = $("#spaceBetweenNotes").val();
 
     //Empty current rectangle list
@@ -325,18 +201,26 @@ function createRectangles(part, id) {
     var indexNote1, indexNote2;
     //var indexNote1 = part.noteIndices[0];
     var currentlyInRep = false;
+    var repLength;
+
+    var note1X = 0, note2X = 0;
+    var totalDuration = 0;
 
     for(var j in part.noteIndices) {
-    	
+    	totalDuration = Math.max(totalDuration, note2X);
+    	note1X = parseInt(j);
+    	note2X = 0;
     	for(var i = 0; i<part.noteIndices.length - j; i++) {
-
     		//Getting the corresponding notes
     		indexNote1 = part.noteIndices[parseInt(j)+parseInt(i)];
     		note1 = part.measures[indexNote1.measure].notes[indexNote1.note];
     		indexNote2 = part.noteIndices[i];
     		note2 = part.measures[indexNote2.measure].notes[indexNote2.note];
 
-    		var repLength = nbRep(j, i, part);
+    		repLength = nbRep(j, i, part);
+
+    		note1X += note1.duration;
+    		note2X += note2.duration;
 
     		if(repLength >= nbNotesInRep) {
     			// for(var n = 0; n < repLength; n++) {
@@ -353,13 +237,18 @@ function createRectangles(part, id) {
 
 			    // j+=n;
 			    // i+=n;
-			    createRectangle(note1, note2, parseInt(j)+parseInt(i), i);
+			    
+
+			    //createRectangle(note1, note2, parseInt(j)+parseInt(i), i);
+			    createRectangle(note1, note2, note1X, note2X);
 		    }
     	}
     }
 
+    console.log(totalDuration);
 
-    var maxIndex = part.nbOfNotes;
+
+    var maxIndex = realDuration ? totalDuration : part.nbOfNotes;
     //var maxIndex = indexNote1;
     jQuery("#drawingBox"+id.toString()).attr("viewBox", "0 0 " + ((spaceBetweenNotes+1)*maxIndex).toString() + " " + ((spaceBetweenNotes+1)*maxIndex).toString());
 
