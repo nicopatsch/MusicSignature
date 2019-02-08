@@ -5,21 +5,15 @@ var squaresAreColored = true;
 var fullSquare = true;
 var realDuration;
 
-
 $( document ).ready(function() {
     //rectList = $("#rectList");
+    createSelectionMenu();
+    //loadServerPartFile("./music-parts/pop/All_Night_Long-_Lionel_Richie.xml");
 });
 
 
 function displayMatrixXML() {
-    console.log(musicXML);
-    //fullMusicJson = parseXml(musicXML);
-    console.log(fullMusicJson);
-
-    musicJson = reduceJsonFile();
-    console.log(musicJson);
     maxNbParts = $("#maxNbParts").val();
-
 
     //Clean current HTML
     $('#matrixRowContainer').empty();
@@ -43,7 +37,7 @@ function printSquare(x, y, width, height, color) {
 	var newSquare;
 	alreadyExistingSquare = $("#" + newID);
 	if(alreadyExistingSquare.length==0) {
-		newSquare = '<rect id="' + newID + '" class="wordrect" x="' + Math.round((spaceBetweenNotes+1)*x-width/2) + '" y="' + Math.round((spaceBetweenNotes+1)*y-height/2) + '" width="' + width + '" height="' + height + '" fill="' + color + '"></rect>';
+		newSquare = '<rect id="' + newID + '" class="wordrect" x="' + Math.round((spaceBetweenNotes+1)*x-width/2) + '" y="' + Math.round((spaceBetweenNotes+1)*y-height/2) + '" width="' + width + '" height="' + height + '"></rect>';
 		//newSquare = "<circle id=\"" + newID + "\" class=\"wordrect\" cx=\"" + Math.round(3*x-size/2) + "\" cy=\"" + Math.round(3*y-size/2) + "\" r=\"" + size + "\" fill=\"" + color + "\" fill-opacity=\"0.1\"></circle>";
 	}
 	rectList.append(newSquare);
@@ -69,7 +63,7 @@ function createNewBox(id, instrumentName) {
 		newRow += '<div id="' + rowId + '" class="row"></div>';
 		$("#matrixRowContainer").append(newRow);
 
-		newRect = '<div class="col-5"><div class="matrixContainer">' + svgString + '</div>' + instrumentName + '</div>';
+		newRect = '<div class="col-5"><div class="matrixContainer ' + instrumentType(instrumentName) + '">' + svgString + '</div>' + instrumentName + '</div>';
 		newRect += '<div class="col-1 divide"></div>';
 	} 
 	else {
@@ -134,19 +128,6 @@ function isThisARep(m1start, m2start, n1start, n2start, part, nbNotesInRep) {
     	}
     }
 
- 	// for(var meas1 = m1start; meas1 < part.measures.length; meas1++) {
-  //   	for(var no1 = n1start; no1 < part.measures[meas1].notes.length; no1++) {
-  //   		note1 = part.measures[meas1].notes[no1];
-  //   		for(var i = m2start; i < part.measures.length; i++) {
-  //   			for(var j = n2start; j < part.measures[meas1+i].notes.length; j++) {
-  //   				if(nbChecked >= nbNotesInRep) return true;
-  //   				note2 = part.measures[meas1+i].notes[no1+j];
-  //   				if(compareNotes(note1, note2)) nbChecked++;
-  //   				else return false;
-  //   			}
-  //   		}
-  //   	}
-  //   }
     return false;
 }
 
@@ -255,3 +236,103 @@ function createRectangles(part, id) {
     // Refreshing HTML element so that new rectangles appear
     rectList.html(function(){return this.innerHTML});
 }
+
+
+function createSelectionMenu() {
+	//TODO
+	var genreUl = $("#genre-ul");
+	for (var i = 0; i < musicList.genres.length; i++) {
+
+		//For each genre, create genre element
+		var genreObject = musicList.genres[i];
+
+		var genreLi = $("<li></li>").addClass("dropdown-submenu");
+
+		var genreA = $("<a></a>").attr({
+		    "tabindex" : "-1",
+		    "href" : "#"
+		  }).addClass("test").text(genreObject.name);
+
+
+		var musicUl = $("<ul></ul>").addClass("dropdown-menu");
+		for (var i = 0; i < genreObject.titleList.length; i++) {
+
+			//For each music in genre, create music element
+			var songObject = genreObject.titleList[i];
+
+			var musicLi = $("<li></li>");
+
+			var musicFilePath = "./music-parts/" + genreObject.name + "/" + songObject.filename + ".xml";
+			var musicA = $("<a></a>").attr({
+		    	"tabindex" : "-1",
+		   		"href" : "#",
+		   		"filePath" : musicFilePath,
+		   		"songName" : songObject.name,
+		   		"artist" : songObject.artist
+		 	})
+			.addClass("test")
+			.text(songObject.name + " – " + songObject.artist);
+
+			musicA.on("click", function() {
+				loadServerPartFile(
+					$(this).attr("songName"), 
+					$(this).attr("artist"), 
+					$(this).attr("filePath")
+				);
+			});	
+
+			musicLi.append(musicA);
+			musicUl.append(musicLi);
+		}
+
+		//Add everything to genre element
+
+		genreLi.append(genreA, musicUl);
+		genreUl.append(genreLi);
+
+
+
+		// <li class="dropdown-submenu">
+  //         <a class="test" tabindex="-1" href="#">Classic<span class="caret"></span></a>
+  //         <ul class="dropdown-menu"></ul>
+  //       </li>
+	}
+}
+
+
+
+// $(document).ready(function(){
+//   $('.dropdown-submenu a.test').on("click", function(e){
+//     $(this).next('ul').toggle();
+//     e.stopPropagation();
+//     e.preventDefault();
+//   });
+// });
+
+
+$(document).ready(function(){
+  $('.dropdown-submenu a.test').hover(function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  },
+  function(e) {
+  	//Nothing on hover out
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,6 +2,13 @@ var musicXML;
 var musicJson;
 var fullMusicJson;
 
+var cordeName = 'corde';
+var cuivreName = 'cuivre';
+var voiceName = 'voix';
+
+var instrumentList = [ {name: "Violin", type: "corde"} ]
+
+
 
 function getByName(object, name) {
     return object.children.find(function(element) {
@@ -10,6 +17,60 @@ function getByName(object, name) {
 }
 
 
+function instrumentType(insrtrumentName) {
+    return "cuivre";
+}
+
+
+function cleanXMLContent(fileContent) {
+    if (window.DOMParser) {
+        parser = new DOMParser();
+        musicXML = parser.parseFromString(fileContent, "text/xml");
+        
+
+        // This will delete all the unnecesary line breaks
+        var regex = /(\r|\n|\r\n) */g; 
+        fileContent = fileContent.replace(regex, "");
+        return parseXml(fileContent);
+        
+    }
+}
+
+
+
+/**
+ * This function will be called to process the file 
+ * when the user selects a song in the menu
+ */
+function loadServerPartFile(songName, artist, filePath) {
+    var result = null;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", filePath, false);
+    xmlhttp.send();
+    if (xmlhttp.status==200) {
+    result = xmlhttp.responseText;
+    }
+
+    fullMusicJson = cleanXMLContent(result);
+    musicJson = reduceJsonFile();
+
+    //  Here, we decide to use the song name and title specified in the musicList.json 
+    //  (passed as arguments to this function).
+    //  If we want to keep the song name and song title as said in the file,
+    //  just comment the next 2 lines.
+    musicJson.songName = songName;
+    musicJson.artist = artist;
+
+
+    displayMatrixXML();
+}
+
+
+
+
+/**
+ * This function will be called when the user loads a new file
+ */
 var readMusicXMLFile = function(event) {
     var input = event.target;
 
@@ -23,20 +84,12 @@ var readMusicXMLFile = function(event) {
     reader.onload = function(e) {  
         // get file content 
         fileContent = e.target.result;
-        console.log("loaded xml file");
-        
-        if (window.DOMParser) {
-            parser = new DOMParser();
-            musicXML = parser.parseFromString(fileContent, "text/xml");
-            
 
-            // This will delete all the unnecesary line breaks
-            var regex = /(\r|\n|\r\n) */g; 
-            fileContent = fileContent.replace(regex, "");
-            fullMusicJson = parseXml(fileContent);
-            
-            displayMatrixXML();
-        }
+        fullMusicJson = cleanXMLContent(fileContent);
+        musicJson = reduceJsonFile();
+
+        displayMatrixXML();
+
     }
     reader.readAsText(file);
 };
@@ -45,7 +98,15 @@ var readMusicXMLFile = function(event) {
 
 function reduceJsonNote(note, timeCode, notePosition) {
     //Get the duration of the note
-    var duration = parseInt(getByName(note, "duration").children[0].text);
+    var durationObj = getByName(note, "duration");
+    var duration;
+    if(durationObj == null) {
+        console.log("Null duration");
+        duration = 16;
+    }
+    else {
+        duration = parseInt(getByName(note, "duration").children[0].text);
+    }
 
 
 
@@ -137,7 +198,6 @@ function reduceJsonPart(part) {
             if(element.name == "note") {
                 if(checkNoteIsChord(element)) nbChordsInPart++;
                 if(checkNoteIsUnPitched(element)) nbUnpitchedInPart++;
-
                 newNote = reduceJsonNote(element, totalDuration, nbNotesInPart);
                 if(newNote.freq > maxFreq) maxFreq = newNote.freq;
                 if(newNote.freq < minFreq && newNote.freq!=0) minFreq = newNote.freq;
@@ -153,7 +213,7 @@ function reduceJsonPart(part) {
         cleanJsonMeasures.push({ 'measureId': measure, 'notes': cleanMeasure });
     }
 
-    return { 'partID': partID, 'instrumentName': instrumentName, 'measures': cleanJsonMeasures, 'nbOfNotes': nbNotesInPart, 'noteIndices': noteIndices, 'nbOfChords': nbChordsInPart, 'nbOfUnpitched': nbUnpitchedInPart, 'minFreq':minFreq, 'maxFreq': maxFreq, 'totalDuration': totalDuration };
+    return { 'partID': partID, 'instrumentName': instrumentName, 'instrumentType': instrumentType(instrumentName), 'measures': cleanJsonMeasures, 'nbOfNotes': nbNotesInPart, 'noteIndices': noteIndices, 'nbOfChords': nbChordsInPart, 'nbOfUnpitched': nbUnpitchedInPart, 'minFreq':minFreq, 'maxFreq': maxFreq, 'totalDuration': totalDuration };
 }
 
 

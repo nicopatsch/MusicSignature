@@ -6,15 +6,55 @@
     <script src='jquery-1.8.1.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://unpkg.com/@rgrove/parse-xml/dist/umd/parse-xml.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="utils.js"></script>
     <script src="MusicXMLReader.js"></script>
-    <!-- <link rel="stylesheet" type="text/css" href="grid/simple-grid.min.css"> -->
+    <script type="text/javascript" src="musicList.json"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="grid/simple-grid.min.css">
     <link rel="stylesheet" type="text/css" href="simple-grid.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
    
 
   <body>
+
+    <div id="music-menu" class="dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+        Tutorials<span class="caret"></span>
+      </button>
+      <ul id="genre-ul" class="dropdown-menu">
+
+        <!-- <li class="dropdown-submenu">
+          <a class="test" tabindex="-1" href="#">Classic<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
+            <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
+            <li class="dropdown-submenu">
+              <a class="test" href="#">Another dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li>This is a new section</li>
+                <li><a href="#">3rd level dropdown</a></li>
+                <li><a href="#">3rd level dropdown</a></li>
+                <li>This is a new section</li>
+                <li><a href="#">3rd level dropdown</a></li>
+                <li><a href="#">3rd level dropdown</a></li>
+              </ul>
+            </li>
+            <li class="dropdown-submenu">
+              <a class="test" href="#">Yet another one <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li>This is a new section</li>
+                <li><a href="#">Car</a></li>
+                <li><a href="#">Music</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li> -->
+      </ul>
+    </div>
+
+
     <!-- String file : <input type='file' id="musicSheetInput" accept='text/json' onclick="this.value = null;" onchange='openFile(event)' multiple><br> -->
     MusicXML file : <input type='file' id="musicSheet" accept='text/xml' onclick="this.value = null;" onchange='readMusicXMLFile(event)' multiple><br>
     Nb notes in a repetition : <input type="number" id="nbNotesInRep" name="nbNotesInRep" min="1" max="50" value="4"> <br>
