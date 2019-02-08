@@ -3,7 +3,7 @@ musicList = {
 		{ 
 			"name": "Classic",
 			"titleList": [
-			
+
 			]
 		},
 
@@ -13,7 +13,7 @@ musicList = {
 				{ 
 					"name": "All Night Long",
 					"artist": "Lionel Richie",
-					"filename": "All_Night_Long-_Lionel_Richie" 
+					"filename": "All_Night_Long" 
 				},
 				
 				{ 
