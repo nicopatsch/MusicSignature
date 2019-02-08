@@ -69,7 +69,7 @@ function createNewBox(id, instrumentName) {
 	else {
 		rowId = 'row'+(id-1)/2;
 
-		newRect = '<div class="col-5"><div class="matrixContainer">' + svgString + '</div>' + instrumentName + '</div>';
+		newRect = '<div class="col-5"><div class="matrixContainer ' + instrumentType(instrumentName) + '">' + svgString + '</div>' + instrumentName + '</div>';
 	}
 	
 
@@ -239,12 +239,12 @@ function createRectangles(part, id) {
 
 
 function createSelectionMenu() {
-	//TODO
-	var genreUl = $("#genre-ul");
-	for (var i = 0; i < musicList.genres.length; i++) {
 
+	var genreUl = $("#genre-ul");
+
+	for (genreIndex in musicList.genres) {
 		//For each genre, create genre element
-		var genreObject = musicList.genres[i];
+		var genreObject = musicList.genres[genreIndex];
 
 		var genreLi = $("<li></li>").addClass("dropdown-submenu");
 
@@ -253,12 +253,12 @@ function createSelectionMenu() {
 		    "href" : "#"
 		  }).addClass("test").text(genreObject.name);
 
-
+		console.log(genreObject.titleList)
 		var musicUl = $("<ul></ul>").addClass("dropdown-menu");
-		for (var i = 0; i < genreObject.titleList.length; i++) {
+		for (musicIndex in genreObject.titleList) {
 
 			//For each music in genre, create music element
-			var songObject = genreObject.titleList[i];
+			var songObject = genreObject.titleList[musicIndex];
 
 			var musicLi = $("<li></li>");
 

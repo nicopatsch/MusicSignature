@@ -3,7 +3,7 @@ musicList = {
 		{ 
 			"name": "Classic",
 			"titleList": [
-
+			
 			]
 		},
 
@@ -40,7 +40,11 @@ musicList = {
 		{ 
 			"name": "Rock",
 			"titleList": [
-
+				{ 
+					"name": "Bohemian Rhapsody",
+					"artist": "Queen",
+					"filename": "Queen-Bohemian_Rhapsody_Voice" 
+				},
 			]
 		},
 
