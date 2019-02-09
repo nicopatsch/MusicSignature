@@ -4,6 +4,7 @@ var spaceBetweenNotes = 0;
 var squaresAreColored = true;
 var fullSquare = true;
 var realDuration;
+var img;
 
 $( document ).ready(function() {
     //rectList = $("#rectList");
@@ -11,7 +12,52 @@ $( document ).ready(function() {
     addInstrumentColorsToCSS();
 
 	loadServerPartFile("Bohemian Rhapsody", "Queen", "./music-parts/Rock/Queen-Bohemian_Rhapsody_Voice.xml");
+
+	// $("#save-button").click(function() {
+
+
+	// });
 });
+
+
+
+function downloadPNGMatrix(svgID, fileName) {
+	var canvas = document.getElementById("canvas");
+	
+	// Adding the style of the stylesheet inside the <svg> element, 
+	// otherwise we won't have any color.
+	$.when($.get("style.css"))
+    .done(function(response) {
+        $('<style />').text(response).prependTo($('#'+svgID));
+
+
+        var svg = document.querySelector( '#'+svgID);
+		var svgData = new XMLSerializer().serializeToString( svg );
+
+		var canvas = document.getElementById( "canvas" );
+		var ctx = canvas.getContext( "2d" );
+
+		var img = document.createElement( "img" );
+		img.setAttribute( "src", "data:image/svg+xml;base64," + btoa( svgData ) );
+
+		img.onload = function() {
+		    ctx.drawImage( img, 0, 0 );
+		    
+		    // Now is done
+		    console.log( canvas.toDataURL( "image/png" ) );
+
+		    var downloadLink = document.createElement('a');
+			downloadLink.href = canvas.toDataURL( "image/png" );
+			downloadLink.download = fileName;
+
+			document.body.appendChild(downloadLink);
+			downloadLink.click();
+			document.body.removeChild(downloadLink);
+		};
+    });
+}
+
+
 
 
 function displayMatrixXML() {
@@ -130,9 +176,20 @@ function createNewBox(id, instrumentName, colClass) {
 	});
 
 
+	// Create the download button for the matrix
+	var downloadButton = $('<button></button>').text("Download").attr({
+		"svg-id": 'drawingBox'+id,
+		"filename": 'matrix.png'
+	}).on("click", function() {
+		downloadPNGMatrix(
+			$(this).attr("svg-id"), 
+			$(this).attr("filename")
+		);
+	});
+
 	// The matrix container, in his "column"
 	var newRect = $('<div></div>').addClass('col-6 content-col '+colClass).append(
-		$("<div></div>").addClass("matrixContainer " + instType).append(svgElement).append(instrumentNameEl)
+		$("<div></div>").addClass("matrixContainer " + instType).append(svgElement).append(instrumentNameEl, downloadButton)
 	);
 
 
@@ -320,17 +377,19 @@ function createRectangles(part, id) {
 function createSelectionMenu() {
 
 	var genreUl = $("#genre-ul");
+	var greyLi = false;
 
 	for (genreIndex in musicList.genres) {
 		//For each genre, create genre element
 		var genreObject = musicList.genres[genreIndex];
 
-		var genreLi = $("<li></li>").addClass("dropdown-submenu");
+		var genreLi = $("<li></li>").addClass("dropdown genre");
+		if(greyLi) genreLi.addClass("grey");
 
 		var genreA = $("<a></a>").attr({
 		    "tabindex" : "-1",
 		    "href" : "#"
-		  }).addClass("test").text(genreObject.name);
+		  }).addClass("test genre").text(genreObject.name);
 
 		console.log(genreObject.titleList)
 		var musicUl = $("<ul></ul>").addClass("dropdown-menu");
@@ -362,6 +421,7 @@ function createSelectionMenu() {
 
 			musicLi.append(musicA);
 			musicUl.append(musicLi);
+
 		}
 
 		//Add everything to genre element
@@ -370,7 +430,7 @@ function createSelectionMenu() {
 		genreUl.append(genreLi);
 
 
-
+		greyLi = !greyLi;
 		// <li class="dropdown-submenu">
   //         <a class="test" tabindex="-1" href="#">Classic<span class="caret"></span></a>
   //         <ul class="dropdown-menu"></ul>

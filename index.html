@@ -4,72 +4,62 @@
     <meta charset="utf-8">
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
     <script type="text/javascript" src="music-info.json"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvg/1.4/rgbcolor.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvg/dist/browser/canvg.min.js"></script>
+    
     <script src='jquery-1.8.1.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://unpkg.com/@rgrove/parse-xml/dist/umd/parse-xml.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="utils.js"></script>
     <script src="MusicXMLReader.js"></script>
+
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+
     <link rel="stylesheet" type="text/css" href="grid/simple-grid.min.css">
     <link rel="stylesheet" type="text/css" href="simple-grid.min.css">
   </head>
    
 
   <body>
+    <canvas style="display:none;" width="5000" height="5000" id="canvas"></canvas>
+    <div id="png-container"></div>
 
-    <div id="music-menu" class="dropdown">
-      <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-        Select your song<span class="caret"></span>
-      </button>
-      <ul id="genre-ul" class="dropdown-menu">
+    <div id="header-row" class="row content-row">
+      <div class="col-6 content-col">
+        
+        <div id="music-menu" class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" data-hover="dropdown" data-animations="{bottom} {left} {top} {right}">
+           Select your song <span class="caret"></span>
+          </button>
+          <ul id="genre-ul" class="dropdown-menu"></ul>
+        </div>
 
-        <!-- <li class="dropdown-submenu">
-          <a class="test" tabindex="-1" href="#">Classic<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-            <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-            <li class="dropdown-submenu">
-              <a class="test" href="#">Another dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li>This is a new section</li>
-                <li><a href="#">3rd level dropdown</a></li>
-                <li><a href="#">3rd level dropdown</a></li>
-                <li>This is a new section</li>
-                <li><a href="#">3rd level dropdown</a></li>
-                <li><a href="#">3rd level dropdown</a></li>
-              </ul>
-            </li>
-            <li class="dropdown-submenu">
-              <a class="test" href="#">Yet another one <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li>This is a new section</li>
-                <li><a href="#">Car</a></li>
-                <li><a href="#">Music</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li> -->
-      </ul>
+
+        <h2 id="songName"></h2>
+
+        <!-- String file : <input type='file' id="musicSheetInput" accept='text/json' onclick="this.value = null;" onchange='openFile(event)' multiple><br> -->
+        MusicXML file : <input type='file' id="musicSheet" accept='text/xml' onclick="this.value = null;" onchange='readMusicXMLFile(event)' multiple>
+        Nb notes in a repetition : <input type="number" id="nbNotesInRep" name="nbNotesInRep" min="1" max="50" value="2">
+        Max number of instruments to be displayed : <input type="number" id="maxNbParts" name="maxNbParts" min="1" max="50" value="5">
+        
+        Space between notes : <input type="number" id="spaceBetweenNotes" name="spaceBetweenNotes" min="0" max="50" value="0"> <br>
+        
+        Color squares :<input type="checkbox" id="squaresAreColored" name="squaresAreColored"> <br>
+
+        Real duration :<input type="checkbox" id="realDuration" name="realDuration"> <br>
+
+        <!-- Full square :<input type="checkbox" id="fullSquare" name="fullSquare" checked> <br> -->
+
+
+      </div>
+      <div class="col-6 content-col">
+      </div>
     </div>
-
-
-    <!-- String file : <input type='file' id="musicSheetInput" accept='text/json' onclick="this.value = null;" onchange='openFile(event)' multiple><br> -->
-    MusicXML file : <input type='file' id="musicSheet" accept='text/xml' onclick="this.value = null;" onchange='readMusicXMLFile(event)' multiple><br>
-    Nb notes in a repetition : <input type="number" id="nbNotesInRep" name="nbNotesInRep" min="1" max="50" value="2"> <br>
-    Max number of instruments to be displayed : <input type="number" id="maxNbParts" name="maxNbParts" min="1" max="50" value="5"> <br>
-    
-    Space between notes : <input type="number" id="spaceBetweenNotes" name="spaceBetweenNotes" min="0" max="50" value="0"> <br>
-    
-    Color squares :<input type="checkbox" id="squaresAreColored" name="squaresAreColored"> <br>
-
-    Real duration :<input type="checkbox" id="realDuration" name="realDuration"> <br>
-
-    <!-- Full square :<input type="checkbox" id="fullSquare" name="fullSquare" checked> <br> -->
-
-    <br/><br/>
-
-    <h2 id="songName"></h2>
     <div id="matrixRowContainer">
     </div>
 
@@ -78,4 +68,5 @@
   </body>
 
   <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="js/bootstrap-dropdownhover.min.js"></script>
 </html>
