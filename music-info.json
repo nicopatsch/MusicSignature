@@ -46,7 +46,14 @@ musicList = {
 					"name": "Should I Stay or Should I Go",
 					"artist": "The Clash",
 					"filename": "Should_I_Stay_or_Should_I_Go" 
+				},
+
+				{ 
+					"name": "Under Pressure",
+					"artist": "Queen, David Bowie",
+					"filename": "Under_Pressure" 
 				}
+
 
 			]
 		},
@@ -55,9 +62,15 @@ musicList = {
 			"name": "Rock",
 			"titleList": [
 				{ 
-					"name": "Bohemian Rhapsody",
+					"name": "Bohemian Rhapsody (voices)",
 					"artist": "Queen",
 					"filename": "Queen-Bohemian_Rhapsody_Voice" 
+				},
+
+				{ 
+					"name": "Bohemian Rhapsody",
+					"artist": "Queen",
+					"filename": "Queen-Bohemian_Rhapsody" 
 				},
 			]
 		}
@@ -120,6 +133,16 @@ instrumentList = [
 		"type": "drum"
 	},
 
+	{
+		"name": "acoustic drum",
+		"type": "drum"
+	},
+
+	{
+		"name": "acoustic bass drum",
+		"type": "drum"
+	},
+
 // WOODWINS
 	{
 		"name": "flute",
@@ -156,6 +179,27 @@ instrumentList = [
 		"type": "woodwind"
 	},
 
+	{
+		"name": "violoncello",
+		"type": "woodwind"
+	},
+
+	{
+		"name": "B♭ Clarinet",
+		"type": "woodwind"
+	},
+
+	{
+		"name": "tuba",
+		"type": "woodwind"
+	},
+
+	{
+		"name": "violoncello",
+		"type": "woodwind"
+	},
+
+
 // STRINGS
 	{
 		"name": "harp",
@@ -189,6 +233,16 @@ instrumentList = [
 
 	{
 		"name": "bass",
+		"type": "string"
+	},
+
+	{
+		"name": "electric guitar",
+		"type": "string"
+	},
+
+	{
+		"name": "bass guitar",
 		"type": "string"
 	},
 
@@ -232,6 +286,21 @@ instrumentList = [
 		"name": "brass ensemble",
 		"type": "copper"
 	},
+
+	{
+		"name": "B♭ Trumpet",
+		"type": "copper"
+	},
+
+	{
+		"name": "horn in f",
+		"type": "copper"
+	},
+
+	{
+		"name": "baritone",
+		"type": "copper"
+	}
 ];
 
 
@@ -240,7 +309,7 @@ typeColors = {
 	"voice" : "#ff1a66", //Pink
 	"drum" : "#ffcc00", //Yellow
 	"synthesizer" : "black",
-	"woodwin" : "#008000", //Green
+	"woodwind" : "#008000", //Green
 	"string" : "#e60000", //Red
 	"copper" : "#ff6600", //Orange
 	"unknown": "black"

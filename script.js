@@ -11,7 +11,7 @@ $( document ).ready(function() {
     createSelectionMenu();
     addInstrumentColorsToCSS();
 
-	loadServerPartFile("Bohemian Rhapsody", "Queen", "./music-parts/Rock/Queen-Bohemian_Rhapsody_Voice.xml");
+	loadServerPartFile("Bohemian Rhapsody", "Queen", "./music-parts/Pop/Under_Pressure.xml");
 
 	// $("#save-button").click(function() {
 
@@ -55,6 +55,18 @@ function downloadPNGMatrix(svgID, fileName) {
 }
 
 
+function drawNextMatrix(partId, nbPartsToDisplay) {
+	if(partId < nbPartsToDisplay) {
+		var part = musicJson.parts[partId];
+		var instrumentName = part.instrumentName;
+
+		createNewBox(partId, instrumentName);
+    	createRectangles(part, partId);
+	}
+	setTimeout(function() {
+    	drawNextMatrix(partId + 1, nbPartsToDisplay)
+    }, 1);
+}
 
 
 function displayMatrixXML() {
@@ -71,18 +83,8 @@ function displayMatrixXML() {
     var nbPartsToDisplay;
     if(maxNbParts) nbPartsToDisplay = Math.min(maxNbParts, musicJson.parts.length);
     else nbPartsToDisplay = musicJson.parts.length;
-
-    for(var partId = 0; partId < nbPartsToDisplay; partId++) {
-    	part = musicJson.parts[partId];
-
-    	var instrumentName = part.instrumentName;
-    	
-    	var colClass = "";
-    	//if(nbPartsToDisplay%2==1 && partId == nbPartsToDisplay-2) colClass='no-border';
-    	
-    	createNewBox(partId, instrumentName, colClass);
-    	createRectangles(part, partId);
-    }
+	
+	drawNextMatrix(0, nbPartsToDisplay);
 
     // If we need to, we add an empty column 
     // (so that the middle vertical line goes all the way down the screen)
@@ -155,7 +157,7 @@ function makeSVG(tag, attrs) {
 }
 
 
-function createNewBox(id, instrumentName, colClass) {
+function createNewBox(id, instrumentName) {
 	var instType = instrumentType(instrumentName);
 
 	// Create the SVG element
@@ -187,7 +189,7 @@ function createNewBox(id, instrumentName, colClass) {
 	var matrixInfo = $("<div></div>").append(instrumentNameEl, downloadButton).addClass('matrix-info ' + instType);
 
 	// The matrix container, in his "column"
-	var newRect = $('<div></div>').addClass('col-5 content-col '+colClass).append(
+	var newRect = $('<div></div>').addClass('col-5 content-col').append(
 		$("<div></div>").addClass("matrixContainer " + instType).append(svgElement).append(matrixInfo)
 	);
 
@@ -250,32 +252,13 @@ function createRectangle(note1, note2, indexNote1, indexNote2) {
 }
 
 
-function isThisARep(m1start, m2start, n1start, n2start, part, nbNotesInRep) {
-	var nbChecked = 0;
-	for(var meas1 = m1start; meas1 < part.measures.length; meas1++) {
-    	for(var no1 = n1start; no1 < part.measures[meas1].notes.length; no1++) {
-    		for(var meas2 = m2start; meas2 < part.measures.length; meas2++) {
-    			for(var no2 = n2start; no2 < part.measures[meas2].notes.length; no2++) {
-    				if(nbChecked >= nbNotesInRep) return true;
-					note1 = part.measures[meas1].notes[no1];
-    				note2 = part.measures[meas2].notes[no2];
-    				if(compareNotes(note1, note2)) nbChecked++;
-    				else return false;
-    			}
-    		}
-    	}
-    }
-
-    return false;
-}
-
-
 
 function nbRep(jstart, istart, part) {
 	var nbChecked = 0;
 
 	for(var j = jstart; j < part.noteIndices.length; j++) {
 		for(var i = istart; i < part.noteIndices.length; i++) {
+			if(parseInt(j)+parseInt(i) >= part.noteIndices.length) return nbChecked;
 
 	    	//Getting the corresponding notes
     		indexNote1 = part.noteIndices[parseInt(j)+parseInt(i)];
@@ -283,6 +266,7 @@ function nbRep(jstart, istart, part) {
 
     		note1 = part.measures[indexNote1.measure].notes[indexNote1.note];
     		note2 = part.measures[indexNote2.measure].notes[indexNote2.note];
+
 
     		if(compareNotes(note1, note2)) nbChecked++;
     		else return nbChecked;
