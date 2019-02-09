@@ -8,7 +8,9 @@ var realDuration;
 $( document ).ready(function() {
     //rectList = $("#rectList");
     createSelectionMenu();
-    //loadServerPartFile("./music-parts/pop/All_Night_Long-_Lionel_Richie.xml");
+    addInstrumentColorsToCSS();
+
+	loadServerPartFile("Bohemian Rhapsody", "Queen", "./music-parts/Rock/Queen-Bohemian_Rhapsody_Voice.xml");
 });
 
 
@@ -21,59 +23,136 @@ function displayMatrixXML() {
 
     $('#songName').text(musicJson.songName + " – " + musicJson.artist);
 
-    for(var partId = 0; partId < Math.min(maxNbParts, musicJson.parts.length); partId++) {
+    var nbPartsToDisplay = Math.min(maxNbParts, musicJson.parts.length);
+    for(var partId = 0; partId < nbPartsToDisplay; partId++) {
     	part = musicJson.parts[partId];
 
     	var instrumentName = part.instrumentName;
-    	createNewBox(partId, instrumentName);
+    	
+    	var colClass = "";
+    	//if(nbPartsToDisplay%2==1 && partId == nbPartsToDisplay-2) colClass='no-border';
+    	
+    	createNewBox(partId, instrumentName, colClass);
     	createRectangles(part, partId);
+    }
+
+    // If we need to, we add an empty column 
+    // (so that the middle vertical line goes all the way down the screen)
+    if(nbPartsToDisplay > 1 && nbPartsToDisplay%2==1) {
+
+    	console.log('addind empty row');
+    	var emptyRect = $('<div></div>').addClass('col-6 content-col empty-col');
+
+    	var rowId = 'row'+(nbPartsToDisplay-1)/2;
+    	$('#'+rowId).append(emptyRect);
     }
 }
 
 
 function printSquare(x, y, width, height, color) {
-	//var size = 1;
+	//TODO DELETE COLOR
 	var newID = x.toString() + "-" + y.toString();
 	var newSquare;
 	alreadyExistingSquare = $("#" + newID);
 	if(alreadyExistingSquare.length==0) {
-		newSquare = '<rect id="' + newID + '" class="wordrect" x="' + Math.round((spaceBetweenNotes+1)*x-width/2) + '" y="' + Math.round((spaceBetweenNotes+1)*y-height/2) + '" width="' + width + '" height="' + height + '"></rect>';
-		//newSquare = "<circle id=\"" + newID + "\" class=\"wordrect\" cx=\"" + Math.round(3*x-size/2) + "\" cy=\"" + Math.round(3*y-size/2) + "\" r=\"" + size + "\" fill=\"" + color + "\" fill-opacity=\"0.1\"></circle>";
+		//newSquare = '<rect id="' + newID + '" class="wordrect" x="' + Math.round((spaceBetweenNotes+1)*x-width/2) + '" y="' + Math.round((spaceBetweenNotes+1)*y-height/2) + '" width="' + width + '" height="' + height + '"></rect>';
+		newSquare = $('<rect></rect>').attr({
+			"id": newID,
+			"x": Math.round((spaceBetweenNotes+1)*x-width/2),
+			"y": Math.round((spaceBetweenNotes+1)*y-height/2),
+			"width": width,
+			"height": height
+		}).addClass('wordrect');
 	}
 	rectList.append(newSquare);
 }
 
 
 
-function createNewBox(id, instrumentName) {
-	var height = 300;
-	var width = 300;
+function instrumentType(instrumentName) {
 
-	var svgString = '<svg id="drawingBox'+id+'" class="matrixSvg"><g><g class="matrixHighlights"></g><g id="rectList'+id+'"></g></g></svg>';
-	var instrumentText = '<h3 class="instrumentName" id="instrumentName' + id + '">' + instrumentName + '</h3>';
+    console.log(instrumentList, instrumentName);
 
+    var instrument = instrumentList.find(function(inst) {
+        console.log(inst.name, instrumentName);
+        return inst.name.toLowerCase() == instrumentName.toLowerCase();
+    });
+
+    console.log(instrument);
+
+    return instrument == null ? "unknown" : instrument.type;
+}
+
+function instrumentColor(instrumentName) {
+	console.log(typeColors, instrumentType(instrumentName), typeColors[instrumentType(instrumentName)]);
+	return typeColors[instrumentType(instrumentName)];
+}
+
+
+
+function addInstrumentColorsToCSS() {
+	var cssStyle = "";
+
+	Object.keys(typeColors).forEach(function(type, index) {
+		cssStyle += '.' + type + ' rect' + ' { fill: ' + typeColors[type] + '; }\n';
+		cssStyle += 'svg.matrixSvg.' + type + ' { border-color: ' + /*typeColors[type]*/'black' + '; }\n';
+		cssStyle += '.' + type + ' { color: ' + typeColors[type] + '; }\n';
+		cssStyle += '\n';
+	});
+
+
+	var styleElement = $('<style></style>').text(cssStyle);
+	$("head").append(styleElement);
+}
+
+function makeSVG(tag, attrs) {
+	// Svg not supported by jQuery
+    var el= document.createElementNS('http://www.w3.org/2000/svg', tag);
+    for (var k in attrs)
+        el.setAttribute(k, attrs[k]);
+    return el;
+}
+
+
+function createNewBox(id, instrumentName, colClass) {
+	var instType = instrumentType(instrumentName);
+
+	// Create the SCG element
+	var gElement = makeSVG('g', { 'id': 'rectList'+id });
+	var svgElement = makeSVG('svg', { 'id': 'drawingBox'+id, 'class':'matrixSvg '+ instType });
+	svgElement.appendChild(gElement);
+	
+
+	// Instrument name to display below the matrix
+	var instrumentNameEl = $('<h3></h3>').text(instrumentName).attr({
+		'class': 'instrumentName',
+		'id': 'instrumentName' + id,
+	});
+
+
+	// The matrix container, in his "column"
+	var newRect = $('<div></div>').addClass('col-6 content-col '+colClass).append(
+		$("<div></div>").addClass("matrixContainer " + instType).append(svgElement).append(instrumentNameEl)
+	);
+
+
+	// Depending on the id of the part (even or odd)
+	// we put it on the right of the existing row,
+	// or create a new row and put it on the left
 	var rowId;
-
-	var newRect;
-
 	if(id%2==0) {
 		rowId = 'row'+id/2;
-
-		var newRow = '<div class="row blankRow"></div>';
-		newRow += '<div id="' + rowId + '" class="row"></div>';
+		var newRow = $("<div></div>").attr({ "id": rowId }).addClass("row content-row");
+		
 		$("#matrixRowContainer").append(newRow);
 
-		newRect = '<div class="col-5"><div class="matrixContainer ' + instrumentType(instrumentName) + '">' + svgString + '</div>' + instrumentName + '</div>';
-		newRect += '<div class="col-1 divide"></div>';
 	} 
 	else {
 		rowId = 'row'+(id-1)/2;
-
-		newRect = '<div class="col-5"><div class="matrixContainer ' + instrumentType(instrumentName) + '">' + svgString + '</div>' + instrumentName + '</div>';
 	}
-	
 
 	$('#'+rowId).append(newRect);
+	
 }
 
 

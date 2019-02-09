@@ -1,0 +1,240 @@
+musicList = {
+	"genres": [
+		{ 
+			"name": "Classic",
+			"titleList": [
+
+			]
+		},
+
+		{ 
+			"name": "Pop",
+			"titleList": [
+				{ 
+					"name": "All Night Long",
+					"artist": "Lionel Richie",
+					"filename": "All_Night_Long" 
+				},
+				
+				{ 
+					"name": "Beat It",
+					"artist": "Michael Jackson",
+					"filename": "Beat_It" 
+				},
+				
+				{ 
+					"name": "Bad Romance",
+					"artist": "Lady Gaga",
+					"filename": "Lady_Gaga-Bad_Romance" 
+				},
+
+				{ 
+					"name": "Should I Stay or Should I Go",
+					"artist": "The Clash",
+					"filename": "Should_I_Stay_or_Should_I_Go" 
+				}
+
+			]
+		},
+
+		{ 
+			"name": "Rock",
+			"titleList": [
+				{ 
+					"name": "Bohemian Rhapsody",
+					"artist": "Queen",
+					"filename": "Queen-Bohemian_Rhapsody_Voice" 
+				},
+			]
+		},
+
+		{ 
+			"name": "Metal",
+			"titleList": [
+
+			]
+		}
+	]
+};
+
+
+
+instrumentList = [
+// KEYBOARDS
+	{
+		"name": "piano",
+		"type": "keyboard"
+	},
+// VOICES
+	{
+		"name": "voice",
+		"type": "voice"
+	},
+
+	{
+		"name": "tenor",
+		"type": "voice"
+	},
+
+	{
+		"name": "alto",
+		"type": "voice"
+	},
+
+	{
+		"name": "soprano",
+		"type": "voice"
+	},
+
+// SYNTHESIZERS
+	{
+		"name": "synthesizer",
+		"type": "synthesizer"
+	},
+
+	{
+		"name": "recorder",
+		"type": "synthesizer"
+	},
+
+// DRUMS
+	{
+		"name": "timpani",
+		"type": "drum"
+	},
+
+	{
+		"name": "percussion",
+		"type": "drum"
+	},
+
+	{
+		"name": "bongo",
+		"type": "drum"
+	},
+
+// WOODWINS
+	{
+		"name": "flute",
+		"type": "woodwind"
+	},
+
+	{
+		"name": "bassoon",
+		"type": "woodwind"
+	},
+
+	{
+		"name": "clarinet",
+		"type": "woodwind"
+	},
+
+	{
+		"name": "accordion",
+		"type": "woodwind"
+	},
+
+	{
+		"name": "piccolo",
+		"type": "woodwind"
+	},
+
+	{
+		"name": "oboe",
+		"type": "woodwind"
+	},
+
+	{
+		"name": "organ",
+		"type": "woodwind"
+	},
+
+// STRINGS
+	{
+		"name": "harp",
+		"type": "string"
+	},
+
+	{
+		"name": "guitar",
+		"type": "string"
+	},
+
+	{
+		"name": "violin",
+		"type": "string"
+	},
+
+	{
+		"name": "viola",
+		"type": "string"
+	},
+
+	{
+		"name": "cello",
+		"type": "string"
+	},
+
+	{
+		"name": "contrabass",
+		"type": "string"
+	},
+
+	{
+		"name": "bass",
+		"type": "string"
+	},
+
+// COPPERS
+	{
+		"name": "trombone",
+		"type": "copper"
+	},
+
+	{
+		"name": "trumpet",
+		"type": "copper"
+	},
+
+	{
+		"name": "french horn",
+		"type": "copper"
+	},
+
+	{
+		"name": "alto saxophone",
+		"type": "copper"
+	},
+
+	{
+		"name": "soprano saxophone",
+		"type": "copper"
+	},
+
+	{
+		"name": "tenor saxophone",
+		"type": "copper"
+	},
+
+	{
+		"name": "baritone saxophone",
+		"type": "copper"
+	},
+
+	{
+		"name": "brass ensemble",
+		"type": "copper"
+	},
+];
+
+
+typeColors = {
+	"keyboard" : "#0000e6", //Bue
+	"voice" : "#ff1a66", //Pink
+	"drum" : "#ffcc00", //Yellow
+	"synthesizer" : "black",
+	"woodwin" : "#008000", //Green
+	"string" : "#e60000", //Red
+	"copper" : "#ff6600", //Orange
+	"unknown": "black"
+};

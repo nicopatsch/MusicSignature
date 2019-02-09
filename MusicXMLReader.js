@@ -2,23 +2,12 @@ var musicXML;
 var musicJson;
 var fullMusicJson;
 
-var cordeName = 'corde';
-var cuivreName = 'cuivre';
-var voiceName = 'voix';
-
-var instrumentList = [ {name: "Violin", type: "corde"} ]
-
 
 
 function getByName(object, name) {
     return object.children.find(function(element) {
         return element.name == name;
     });
-}
-
-
-function instrumentType(insrtrumentName) {
-    return "cuivre";
 }
 
 
@@ -40,7 +29,8 @@ function cleanXMLContent(fileContent) {
 
 /**
  * This function will be called to process the file 
- * when the user selects a song in the menu
+ * when the user selects a song in the menu.
+ * This is basically the Main function.
  */
 function loadServerPartFile(songName, artist, filePath) {
     var result = null;

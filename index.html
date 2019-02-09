@@ -3,17 +3,16 @@
   <head>
     <meta charset="utf-8">
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+    <script type="text/javascript" src="music-info.json"></script>
     <script src='jquery-1.8.1.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://unpkg.com/@rgrove/parse-xml/dist/umd/parse-xml.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="utils.js"></script>
     <script src="MusicXMLReader.js"></script>
-    <script type="text/javascript" src="musicList.json"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="grid/simple-grid.min.css">
     <link rel="stylesheet" type="text/css" href="simple-grid.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
    
 
@@ -57,7 +56,7 @@
 
     <!-- String file : <input type='file' id="musicSheetInput" accept='text/json' onclick="this.value = null;" onchange='openFile(event)' multiple><br> -->
     MusicXML file : <input type='file' id="musicSheet" accept='text/xml' onclick="this.value = null;" onchange='readMusicXMLFile(event)' multiple><br>
-    Nb notes in a repetition : <input type="number" id="nbNotesInRep" name="nbNotesInRep" min="1" max="50" value="4"> <br>
+    Nb notes in a repetition : <input type="number" id="nbNotesInRep" name="nbNotesInRep" min="1" max="50" value="2"> <br>
     Max number of instruments to be displayed : <input type="number" id="maxNbParts" name="maxNbParts" min="1" max="50" value="5"> <br>
     
     Space between notes : <input type="number" id="spaceBetweenNotes" name="spaceBetweenNotes" min="0" max="50" value="0"> <br>
@@ -71,10 +70,12 @@
     <br/><br/>
 
     <h2 id="songName"></h2>
-    <div id="matrixRowContainer" class="container">
+    <div id="matrixRowContainer">
     </div>
 
 
     <script src="script.js"></script>
   </body>
+
+  <link rel="stylesheet" type="text/css" href="style.css">
 </html>
