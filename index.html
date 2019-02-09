@@ -30,24 +30,35 @@
     <div id="png-container"></div>
 
     <div id="header-row" class="row content-row">
-      <div class="col-6 content-col">
-        
-        <div id="music-menu" class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" data-hover="dropdown" data-animations="{bottom} {left} {top} {right}">
-           Select your song <span class="caret"></span>
-          </button>
-          <ul id="genre-ul" class="dropdown-menu"></ul>
+      <div class="col-1">
+        <h2>MOTIF</h2>
+      </div>
+
+      <div class="col-5 content-col">
+
+        <div class="flex-container">
+
+          <div id="song-selector">
+            <div id="music-menu" class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" data-hover="dropdown" data-animations="{bottom} {left} {top} {right}">
+               Select your song <span class="caret"></span>
+              </button>
+              <ul id="genre-ul" class="dropdown-menu"></ul>
+            </div>
+          </div>
+
+          <div id="song-info">
+            <h2 id="songName"></h2>
+            <h2 id="artist"></h2>
+          </div>
+
         </div>
 
-
-        <h2 id="songName"></h2>
-
-        <!-- String file : <input type='file' id="musicSheetInput" accept='text/json' onclick="this.value = null;" onchange='openFile(event)' multiple><br> -->
-        MusicXML file : <input type='file' id="musicSheet" accept='text/xml' onclick="this.value = null;" onchange='readMusicXMLFile(event)' multiple>
-        Nb notes in a repetition : <input type="number" id="nbNotesInRep" name="nbNotesInRep" min="1" max="50" value="2">
-        Max number of instruments to be displayed : <input type="number" id="maxNbParts" name="maxNbParts" min="1" max="50" value="5">
+        <!-- <br/>MusicXML file : <input type='file' id="musicSheet" accept='text/xml' onclick="this.value = null;" onchange='readMusicXMLFile(event)' multiple> -->
+        Number of notes in a repetition: <input type="number" id="nbNotesInRep" name="nbNotesInRep" min="1" max="50" value="2">
+        <!-- Max number of instruments to be displayed : <input type="number" id="maxNbParts" name="maxNbParts" min="1" max="50" value="5"> -->
         
-        Space between notes : <input type="number" id="spaceBetweenNotes" name="spaceBetweenNotes" min="0" max="50" value="0"> <br>
+        <!-- Space between notes : <input type="number" id="spaceBetweenNotes" name="spaceBetweenNotes" min="0" max="50" value="0"> <br> -->
         
         Color squares :<input type="checkbox" id="squaresAreColored" name="squaresAreColored"> <br>
 
@@ -57,7 +68,10 @@
 
 
       </div>
-      <div class="col-6 content-col">
+      <div class="col-5 content-col">
+      </div>
+
+      <div class="col-1">
       </div>
     </div>
     <div id="matrixRowContainer">

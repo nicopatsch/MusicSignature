@@ -42,9 +42,6 @@ function downloadPNGMatrix(svgID, fileName) {
 
 		img.onload = function() {
 		    ctx.drawImage( img, 0, 0 );
-		    
-		    // Now is done
-		    console.log( canvas.toDataURL( "image/png" ) );
 
 		    var downloadLink = document.createElement('a');
 			downloadLink.href = canvas.toDataURL( "image/png" );
@@ -67,9 +64,14 @@ function displayMatrixXML() {
     $('#matrixRowContainer').empty();
     $('#matrixRowContainer').html(function(){return this.innerHTML});
 
-    $('#songName').text(musicJson.songName + " – " + musicJson.artist);
+    $('#songName').text(musicJson.songName);
+    $('#artist').text(musicJson.artist);
 
-    var nbPartsToDisplay = Math.min(maxNbParts, musicJson.parts.length);
+
+    var nbPartsToDisplay;
+    if(maxNbParts) nbPartsToDisplay = Math.min(maxNbParts, musicJson.parts.length);
+    else nbPartsToDisplay = musicJson.parts.length;
+
     for(var partId = 0; partId < nbPartsToDisplay; partId++) {
     	part = musicJson.parts[partId];
 
@@ -86,8 +88,7 @@ function displayMatrixXML() {
     // (so that the middle vertical line goes all the way down the screen)
     if(nbPartsToDisplay > 1 && nbPartsToDisplay%2==1) {
 
-    	console.log('addind empty row');
-    	var emptyRect = $('<div></div>').addClass('col-6 content-col empty-col');
+    	var emptyRect = $('<div></div>').addClass('col-5 content-col empty-col');
 
     	var rowId = 'row'+(nbPartsToDisplay-1)/2;
     	$('#'+rowId).append(emptyRect);
@@ -117,20 +118,14 @@ function printSquare(x, y, width, height, color) {
 
 function instrumentType(instrumentName) {
 
-    console.log(instrumentList, instrumentName);
-
     var instrument = instrumentList.find(function(inst) {
-        console.log(inst.name, instrumentName);
         return inst.name.toLowerCase() == instrumentName.toLowerCase();
     });
-
-    console.log(instrument);
 
     return instrument == null ? "unknown" : instrument.type;
 }
 
 function instrumentColor(instrumentName) {
-	console.log(typeColors, instrumentType(instrumentName), typeColors[instrumentType(instrumentName)]);
 	return typeColors[instrumentType(instrumentName)];
 }
 
@@ -163,7 +158,7 @@ function makeSVG(tag, attrs) {
 function createNewBox(id, instrumentName, colClass) {
 	var instType = instrumentType(instrumentName);
 
-	// Create the SCG element
+	// Create the SVG element
 	var gElement = makeSVG('g', { 'id': 'rectList'+id });
 	var svgElement = makeSVG('svg', { 'id': 'drawingBox'+id, 'class':'matrixSvg '+ instType });
 	svgElement.appendChild(gElement);
@@ -177,9 +172,10 @@ function createNewBox(id, instrumentName, colClass) {
 
 
 	// Create the download button for the matrix
-	var downloadButton = $('<button></button>').text("Download").attr({
+	var downloadButton = $('<a></a>').text("Download").attr({
 		"svg-id": 'drawingBox'+id,
-		"filename": 'matrix.png'
+		"filename": 'matrix.png',
+		"href": "#"
 	}).on("click", function() {
 		downloadPNGMatrix(
 			$(this).attr("svg-id"), 
@@ -187,10 +183,16 @@ function createNewBox(id, instrumentName, colClass) {
 		);
 	});
 
+	// Add the button and the intrument name in a div
+	var matrixInfo = $("<div></div>").append(instrumentNameEl, downloadButton).addClass('matrix-info ' + instType);
+
 	// The matrix container, in his "column"
-	var newRect = $('<div></div>').addClass('col-6 content-col '+colClass).append(
-		$("<div></div>").addClass("matrixContainer " + instType).append(svgElement).append(instrumentNameEl, downloadButton)
+	var newRect = $('<div></div>').addClass('col-5 content-col '+colClass).append(
+		$("<div></div>").addClass("matrixContainer " + instType).append(svgElement).append(matrixInfo)
 	);
+
+	// An empty column to space on the sides
+	var emptyCol = $('<div></div>').addClass('col-1');
 
 
 	// Depending on the id of the part (even or odd)
@@ -201,14 +203,15 @@ function createNewBox(id, instrumentName, colClass) {
 		rowId = 'row'+id/2;
 		var newRow = $("<div></div>").attr({ "id": rowId }).addClass("row content-row");
 		
+		newRow.append(emptyCol, newRect);
+
 		$("#matrixRowContainer").append(newRow);
 
 	} 
 	else {
 		rowId = 'row'+(id-1)/2;
+		$('#'+rowId).append(newRect, emptyCol);
 	}
-
-	$('#'+rowId).append(newRect);
 	
 }
 
@@ -219,7 +222,6 @@ function compareNotes(note1, note2) {
 
 
 function createRectangle(note1, note2, indexNote1, indexNote2) {
-	//console.log(note1, note2, indexNote1, indexNote2);
 
 	var size1 = realDuration ? note1.duration : 1;
 	var size2 = realDuration ? note2.duration : 1;
@@ -279,9 +281,6 @@ function nbRep(jstart, istart, part) {
     		indexNote1 = part.noteIndices[parseInt(j)+parseInt(i)];
     		indexNote2 = part.noteIndices[i];
 
-    		if(indexNote2 == null || indexNote1 == null) {
-    			console.log(j, i, indexNote1, indexNote2, part.noteIndices);
-    		}
     		note1 = part.measures[indexNote1.measure].notes[indexNote1.note];
     		note2 = part.measures[indexNote2.measure].notes[indexNote2.note];
 
@@ -296,10 +295,8 @@ function nbRep(jstart, istart, part) {
 
 function createRectangles(part, id) {
     nbNotesInRep = $("#nbNotesInRep").val();
-    console.log(nbNotesInRep);
     squaresAreColored = document.getElementById('squaresAreColored').checked;
     realDuration = document.getElementById('realDuration').checked;
-    spaceBetweenNotes = $("#spaceBetweenNotes").val();
 
     //Empty current rectangle list
     rectList = $("#rectList"+id.toString());

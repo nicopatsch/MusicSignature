@@ -15,6 +15,7 @@ h2 {
     font-variant: normal; 
     font-weight: 700; 
     line-height: 26.4px;
+    color:black;
 }
 
 #matrixRowContainer {
@@ -33,14 +34,14 @@ h2 {
     display: flex;
 }
 
-.col-6.content-col {
+.col-5.content-col {
     margin-top:-1px;
     margin-bottom:0px;
     padding-bottom: 5em;
     border-left: 1px solid black;
 }
 
-.col-6.empty-col {
+.col-5.empty-col {
     display: table-cell;
     vertical-align: top;
     /*height:0px;
@@ -48,7 +49,7 @@ h2 {
     margin: 0px;*/
 }
 
-.col-6.no-border {
+.col-5.no-border {
     border-left: 0px;
 }
 
@@ -58,60 +59,58 @@ h2 {
 }
 
 #header-row .content-col {
-    padding:2em;
+    padding:1em;
 }
 
-.instrumentName {
-    margin-top:1em;
+
+
+.flex-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+#song-info{
+    float: right;
+    text-align: center;
+}
+
+#song-selector {
+    margin:auto;
+    margin-left: 1em;
+    float: left;
+}
+
+#song-selector {
+    display:inline-block;
+}
+
+
+
+.matrix-info {
+    display: flex;
+    align-items: flex-start;
+}
+
+.matrix-info a {
+    color: #737373;
+    float: right;
+    margin: auto;
+    margin-right: 1em;
+}
+
+
+.matrix-info .instrumentName {
+    float: left;
+    margin: auto;
     margin-left: 1em;
     font-size: 18px;
-    text-align: left;
-}
-
-#songName {
-    text-align: left;
-    margin-left: 50px;
+    
 }
 
 
-.cuivre .wordrect {
-    fill: red;
-}
-
-.matrixHighlights {
-    /* So that we don't get spurious mouseLeave events when a highlight rect
-     * pops up on top of a wordrect. */
-    pointer-events: none;
-}
-
-rect.focalBlock, rect.alley {
-    fill: rgb(215, 235, 255);
-}
-
-.focalBlock.primary, .focalBlock.primary-maindiag {
-    fill-opacity: .9;
-}
-
-.focalBlock.incidental {
-    fill-opacity: .5;
-}
-
-rect.alley {
-    fill-opacity: .3;
-}
-
-.alley.lyrics-alley {
-    fill-opacity: 1;
-}
-
-rect.wordrect {
-    stroke: aqua;
-    /** Depending on the amount of text and the size of the viewport, individual
-     * rects can end up being really small, and hovering over them (and remaining
-     * there) turns into a very finnicky affair. This helps with that by adding
-     * some invisible padding around each rect. */
-    stroke-width: 1.5;
-    stroke-opacity: 0;
+.instrumentName {
+    /*margin-top:1em;*/
+    /*text-align: left;*/
 }
 
 
@@ -132,88 +131,3 @@ li.genre.grey.open a.genre {
 li.genre.grey a.genre {
     background-color: #bfbfbf;
 }
-
-
-
-/*Drop down menu*/
-/*.dropdown {
-    display: inline-block;
-}
-
-
-.dropdown-submenu {
-    top: 0;
-    left: 100%;
-    margin-top: -1px;
-}
-
-.dropdown-submenu .dropdown-menu {
-    top: 0;
-    left: 100%;
-    margin-top: -1px;
-}
-
-.dropdown-menu .grey {
-    background-color: #bfbfbf;
-}
-
-.dropdown-menu .grey:active {
-    background-color: #737373;
-}
-*/
-
-
-
-/*
-
-
-ul.dropdown-menu {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
-}
-
-li.dropdown-menu {
-  float: left;
-}
-
-li a.dropdown-menu, .dropbtn {
-  display: inline-block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-li a.dropdown-menu:hover, .dropdown:hover .dropbtn {
-  background-color: red;
-}
-
-li.dropdown {
-  display: inline-block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-}
-
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}*/
