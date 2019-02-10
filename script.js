@@ -9,7 +9,7 @@ $( document ).ready(function() {
     createSelectionMenu();
     addInstrumentColorsToCSS();
 
-    loadServerPartFile("Bohemian Rhapsody", "Queen", "./music-parts/Rock/80s/Queen-Bohemian_Rhapsody.xml");
+    loadServerPartFile("Bohemian Rhapsody", "Queen", "./music-parts/rock/80s/Queen-Bohemian_Rhapsody.xml");
 	//loadServerPartFile("Bohemian Rhapsody", "Queen", "./music-parts/Pop/Under_Pressure.xml");
 	//loadServerPartFile("Should I Stay or Should I Go", "The Clash", "./music-parts/Pop/Should_I_Stay_or_Should_I_Go.xml");
 
