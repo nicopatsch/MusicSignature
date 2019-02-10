@@ -66,11 +66,12 @@ h2 {
     padding:1em;
     position: relative;
     padding-right:0;
+    padding-bottom: 0.5em;
 }
 
 
 #logo {
-    margin-top: 1.1em;
+    margin-top: 1.2em;
 }
 
 .flex-container {
@@ -178,25 +179,43 @@ button,
 }
 
 
-.parameters {
-    margin-top: 2em;
-    float: right;
+.container-vertical {
+    width:100%;
 }
 
+.parameters {
+    width:100%;
+    margin:0.8em;
+    margin-bottom: 0;
+    margin-top:2em;
+    display: flex;
+    align-items: flex-end;
+}
 
+.parameters span {
+    line-height: 18px;
+}
+
+.parameters input {
+    float:right;
+    margin:auto;
+    margin-right: 0.8em;
+}
 
 
 
 .matrix-info {
     display: flex;
     align-items: flex-start;
+    justify-content: flex-end;
 }
 
 .matrix-info a {
     color: #737373;
     float: right;
     margin: auto;
-    margin-right: 1em;
+    margin-right: 0;
+    font-size: 14px;
 }
 
 
@@ -204,14 +223,14 @@ button,
     float: left;
     margin: auto;
     margin-left: 1em;
-    font-size: 16px;
+    font-size: 14px;
     
 }
 
 
 .instrumentName {
     transform-origin: left;
-    transform: rotate(-90deg) translate(1.2em, -2em);
+    transform: rotate(-90deg) translate(1.4em, -2em);
 }
 
 
