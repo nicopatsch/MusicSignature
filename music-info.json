@@ -4,7 +4,7 @@ musicList = {
 			"name": "classic",
 			"titleList": [
 				{ 
-					"name": "Adagio for Stringd",
+					"name": "Adagio for Strings",
 					"artist": "Samuel Barber",
 					"filename": "Adagio_for_Strings" 
 				},
@@ -112,13 +112,13 @@ musicList = {
 				{ 
 					"name": "Du Hast",
 					"artist": "Rammstein",
-					"filename": "Du_hast" 
+					"filename": "90s/Du_hast" 
 				},
 
 				{ 
 					"name": "Dragula",
 					"artist": "Rob Zombie",
-					"filename": "Dragula" 
+					"filename": "90s/Dragula" 
 				},
 
 				{ 
@@ -128,7 +128,7 @@ musicList = {
 				{ 
 					"name": "Dirty Deeds Done Dirt Cheap",
 					"artist": "AC/DC",
-					"filename": "Dirty_Deeds_Done_Dirt_Cheap" 
+					"filename": "00s/Dirty_Deeds_Done_Dirt_Cheap" 
 				}
 			]
 		},
@@ -146,25 +146,25 @@ musicList = {
 				{ 
 					"name": "Close to You (They Long to Be)",
 					"artist": "The Carpenters",
-					"filename": "Close_To_You_They_Long_To_Be" 
+					"filename": "70s/Close_To_You_They_Long_To_Be" 
 				},
 
 				{ 
 					"name": "Let It Be",
 					"artist": "John Lennon and Paul McCartney",
-					"filename": "Let_It_Be" 
+					"filename": "70s/Let_It_Be" 
 				},
 
 				{ 
 					"name": "Bad Bad Leroy Brown",
 					"artist": "Jim Croce",
-					"filename": "Bad_Bad_Leroy_Brown" 
+					"filename": "70s/Bad_Bad_Leroy_Brown" 
 				},
 
 				{ 
 					"name": "Come and Get Your Love",
 					"artist": "Lolly Vasquez",
-					"filename": "Come_and_Get_Your_Love" 
+					"filename": "70s/Come_and_Get_Your_Love" 
 				},
 
 			// ANNEES 80s
@@ -204,13 +204,13 @@ musicList = {
 				{ 
 					"name": "Barbie Girl",
 					"artist": "Aqua",
-					"filename": "00s/Barbie_Girl" 
+					"filename": "90s/Barbie_Girl" 
 				},
 
 				{ 
 					"name": "Don't Speak",
 					"artist": "No Doubt",
-					"filename": "00s/Dont_speak" 
+					"filename": "90s/Dont_speak" 
 				},
 
 				{ 
@@ -220,15 +220,15 @@ musicList = {
 				},
 
 				{ 
-					"name": "Mambo No. 5",
+					"name": "Wannabe",
 					"artist": "Spice Girls",
-					"filename": "00s/Wannabe" 
+					"filename": "90s/Wannabe" 
 				},
 
 				{ 
-					"name": "Wannabe",
+					"name": "Mambo No. 5",
 					"artist": "Lou Bega",
-					"filename": "00s/Mambo_no.5_Lou_Bega" 
+					"filename": "90s/Mambo_no.5_Lou_Bega" 
 				},
 
 			// ANNEES 00s
@@ -245,25 +245,25 @@ musicList = {
 				{ 
 					"name": "Sweet but psycho",
 					"artist": "Ava Max",
-					"filename": "Sweet_but_psycho" 
+					"filename": "00s/Sweet_but_psycho" 
 				},
 
 				{ 
 					"name": "Live Forever",
 					"artist": "Oasis",
-					"filename": "Live_Forever" 
+					"filename": "00s/Live_Forever" 
 				},
 
 				{ 
 					"name": "Get Lucky",
 					"artist": "Daft Punk",
-					"filename": "Get_Lucky-Daft_Punk" 
+					"filename": "00s/Get_Lucky-Daft_Punk" 
 				},
 
 				{ 
 					"name": "City Of Stars (La La Land)",
 					"artist": "Justin Hurwitz",
-					"filename": "La_La_Land-City_Of_Stars" 
+					"filename": "00s/La_La_Land-City_Of_Stars" 
 				}
 
 
@@ -416,13 +416,13 @@ musicList = {
 				{ 
 					"name": "Le Vent Nous Portera",
 					"artist": "Pneumolini",
-					"filename": "Le_vent_nous_portera_Moktar_Sound_System" 
+					"filename": "00s/Le_vent_nous_portera_Moktar_Sound_System" 
 				},
 
 				{ 
 					"name": "Une Derniere Danse",
 					"artist": "Kyo",
-					"filename": "Une_derniere_danse" 
+					"filename": "00s/Une_derniere_danse" 
 				}
 
 			]
