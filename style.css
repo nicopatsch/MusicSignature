@@ -167,8 +167,12 @@ button,
 #description {
     padding: 2em;
     padding-right: 0;
-    margin-bottom: 3em;
+    margin-bottom: 1.2em;
     width:100%;
+}
+
+#description strong {
+    font-weight: 500;
 }
 
 #description button {
