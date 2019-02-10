@@ -1,24 +1,32 @@
-var rectList;
-var nbNotesInRep
+var nbNotesInRep = 1;
 var spaceBetweenNotes = 0;
 var squaresAreColored = true;
 var fullSquare = true;
-var realDuration;
-var img;
+var realDuration = true;
+var maxNbParts = 0;
 
 $( document ).ready(function() {
-    //rectList = $("#rectList");
     createSelectionMenu();
     addInstrumentColorsToCSS();
 
-	loadServerPartFile("Bohemian Rhapsody", "Queen", "./music-parts/Pop/Under_Pressure.xml");
+    loadServerPartFile("Bohemian Rhapsody", "Queen", "./music-parts/Rock/80s/Queen-Bohemian_Rhapsody.xml");
+	//loadServerPartFile("Bohemian Rhapsody", "Queen", "./music-parts/Pop/Under_Pressure.xml");
+	//loadServerPartFile("Should I Stay or Should I Go", "The Clash", "./music-parts/Pop/Should_I_Stay_or_Should_I_Go.xml");
 
-	// $("#save-button").click(function() {
-
-
-	// });
 });
 
+
+function loadParametersFromHTML() {
+	nbNotesInRep = $("#nbNotesInRep").val();
+    maxNbParts = $("#maxNbParts").val();
+
+    if(document.getElementById('squaresAreColored')) 
+    	squaresAreColored = document.getElementById('squaresAreColored').checked;
+
+    if(document.getElementById('realDuration'))
+    	realDuration = document.getElementById('realDuration').checked;
+
+}
 
 
 function downloadPNGMatrix(svgID, fileName) {
@@ -70,14 +78,14 @@ function drawNextMatrix(partId, nbPartsToDisplay) {
 
 
 function displayMatrixXML() {
-    maxNbParts = $("#maxNbParts").val();
+	loadParametersFromHTML();
 
     //Clean current HTML
     $('#matrixRowContainer').empty();
     $('#matrixRowContainer').html(function(){return this.innerHTML});
 
-    $('#songName').text(musicJson.songName);
-    $('#artist').text(musicJson.artist);
+    $('#song-name').text(musicJson.songName);
+    $('#artist').text("– "+musicJson.artist);
 
 
     var nbPartsToDisplay;
@@ -278,9 +286,7 @@ function nbRep(jstart, istart, part) {
 
 
 function createRectangles(part, id) {
-    nbNotesInRep = $("#nbNotesInRep").val();
-    squaresAreColored = document.getElementById('squaresAreColored').checked;
-    realDuration = document.getElementById('realDuration').checked;
+    loadParametersFromHTML();
 
     //Empty current rectangle list
     rectList = $("#rectList"+id.toString());
@@ -355,6 +361,43 @@ function createRectangles(part, id) {
 }
 
 
+
+function createMusicElement(songObject, genreObject) {
+	var musicLi = $("<li></li>");
+
+	if(songObject.hasOwnProperty("year")) {
+		musicLi.append(songObject.year).addClass("year-element");
+	}
+
+	else {
+
+		var musicLi = $("<li></li>");
+
+		var musicFilePath = "./music-parts/" + genreObject.name + "/" + songObject.filename + ".xml";
+		var musicA = $("<a></a>").attr({
+	    	"tabindex" : "-1",
+	   		"href" : "#",
+	   		"filePath" : musicFilePath,
+	   		"songName" : songObject.name,
+	   		"artist" : songObject.artist
+	 	})
+		.text(songObject.name + " – " + songObject.artist);
+
+		musicA.on("click", function() {
+			loadServerPartFile(
+				$(this).attr("songName"), 
+				$(this).attr("artist"), 
+				$(this).attr("filePath")
+			);
+		});	
+
+		musicLi.append(musicA);
+	}
+
+	return musicLi;
+}
+
+
 function createSelectionMenu() {
 
 	var genreUl = $("#genre-ul");
@@ -375,33 +418,8 @@ function createSelectionMenu() {
 		console.log(genreObject.titleList)
 		var musicUl = $("<ul></ul>").addClass("dropdown-menu");
 		for (musicIndex in genreObject.titleList) {
-
 			//For each music in genre, create music element
-			var songObject = genreObject.titleList[musicIndex];
-
-			var musicLi = $("<li></li>");
-
-			var musicFilePath = "./music-parts/" + genreObject.name + "/" + songObject.filename + ".xml";
-			var musicA = $("<a></a>").attr({
-		    	"tabindex" : "-1",
-		   		"href" : "#",
-		   		"filePath" : musicFilePath,
-		   		"songName" : songObject.name,
-		   		"artist" : songObject.artist
-		 	})
-			.addClass("test")
-			.text(songObject.name + " – " + songObject.artist);
-
-			musicA.on("click", function() {
-				loadServerPartFile(
-					$(this).attr("songName"), 
-					$(this).attr("artist"), 
-					$(this).attr("filePath")
-				);
-			});	
-
-			musicLi.append(musicA);
-			musicUl.append(musicLi);
+			musicUl.append(createMusicElement(genreObject.titleList[musicIndex], genreObject));
 
 		}
 
@@ -428,31 +446,3 @@ function createSelectionMenu() {
 //     e.preventDefault();
 //   });
 // });
-
-
-$(document).ready(function(){
-  $('.dropdown-submenu a.test').hover(function(e){
-    $(this).next('ul').toggle();
-    e.stopPropagation();
-    e.preventDefault();
-  },
-  function(e) {
-  	//Nothing on hover out
-  });
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

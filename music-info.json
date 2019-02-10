@@ -1,57 +1,269 @@
 musicList = {
 	"genres": [
 		{ 
-			"name": "Classic",
+			"name": "classic",
 			"titleList": [
+				{ 
+					"name": "Adagio for Stringd",
+					"artist": "Samuel Barber",
+					"filename": "Adagio_for_Strings" 
+				},
+
+				{ 
+					"name": "Brandenburg Concerto No. 3",
+					"artist": "Johann Sebastian Bach",
+					"filename": "Bach_-_Brandenburg_Concerto_No._3" 
+				},
+
+				{ 
+					"name": "Symphony No.5 1st movement, Piano solo",
+					"artist": "Ludwig van Beethoven",
+					"filename": "Beethoven_Symphony_No._5_1st_movement_Piano_solo" 
+				},
+
+				{ 
+					"name": "Canon in D major",
+					"artist": "Johan Pachelbel",
+					"filename": "Canon_In_D_Major_By_Johan_Pachelbel" 
+				},
+
+				{ 
+					"name": "The Four Seasons Complete",
+					"artist": "Vivaldi",
+					"filename": "The_Four_Seasons_Complete" 
+				},
+
+				{ 
+					"name": "Fur Elise",
+					"artist": "Ludwig van Beethoven",
+					"filename": "Fur_Elise" 
+				}
 
 			]
 		},
 
 		{ 
-			"name": "Jazz",
+			"name": "jazz",
 			"titleList": [
 
+				{ 
+					"name": "All Blues 4/4",
+					"artist": "No artist",
+					"filename": "All_Blues_44" 
+				},
+
+				{ 
+					"name": "A Night in Tunisia",
+					"artist": "Dizzy Gillespie",
+					"filename": "A_Night_in_Tunisia" 
+				},
+
+				{ 
+					"name": "Autum Leaves",
+					"artist": "Sam Jones, Joseph Kosma",
+					"filename": "Autumn_leaves" 
+				},
+
+				{ 
+					"name": "Round Midnight",
+					"artist": "The Lonious Monk",
+					"filename": "Round_Mignight" 
+				},
+
+				{ 
+					"name": "So What",
+					"artist": "Miles Davis",
+					"filename": "So_What" 
+				},
+
+				{ 
+					"name": "Take the A-Train",
+					"artist": "Duke Ellington",
+					"filename": "Take_the_A_Train" 
+				}
 			]
 		},
 
 		{ 
-			"name": "Metal",
+			"name": "metal",
 			"titleList": [
+			// NOUVELLE ANNEE
+				{ 
+					"year": "80's"
+				},
 
+				{ 
+					"name": "Back in Black",
+					"artist": "AC/DC",
+					"filename": "80s/Back_in_Black" 
+				},
+
+				{ 
+					"name": "The Number Of The Beast",
+					"artist": "Iron Maiden",
+					"filename": "80s/The_Number_Of_The_Beast" 
+				},
+
+			// NOUVELLE ANNEE 
+				{ 
+					"year": "90's"
+				},
+
+				{ 
+					"name": "Du Hast",
+					"artist": "Rammstein",
+					"filename": "Du_hast" 
+				},
+
+				{ 
+					"name": "Dragula",
+					"artist": "Rob Zombie",
+					"filename": "Dragula" 
+				},
+
+				{ 
+					"year": "00's"
+				},
+
+				{ 
+					"name": "Dirty Deeds Done Dirt Cheap",
+					"artist": "AC/DC",
+					"filename": "Dirty_Deeds_Done_Dirt_Cheap" 
+				}
 			]
 		},
 
 		{ 
-			"name": "Pop",
+			"name": "pop",
 			"titleList": [
+
+
+			// ANNEES 70s
+				{ 
+					"year": "70's"
+				},
+
+				{ 
+					"name": "Close to You (They Long to Be)",
+					"artist": "The Carpenters",
+					"filename": "Close_To_You_They_Long_To_Be" 
+				},
+
+				{ 
+					"name": "Let It Be",
+					"artist": "John Lennon and Paul McCartney",
+					"filename": "Let_It_Be" 
+				},
+
+				{ 
+					"name": "Bad Bad Leroy Brown",
+					"artist": "Jim Croce",
+					"filename": "Bad_Bad_Leroy_Brown" 
+				},
+
+				{ 
+					"name": "Come and Get Your Love",
+					"artist": "Lolly Vasquez",
+					"filename": "Come_and_Get_Your_Love" 
+				},
+
+			// ANNEES 80s
+				{ 
+					"year": "80's"
+				},
+
 				{ 
 					"name": "All Night Long",
 					"artist": "Lionel Richie",
-					"filename": "All_Night_Long" 
+					"filename": "80s/All_Night_Long" 
 				},
 				
 				{ 
 					"name": "Beat It",
 					"artist": "Michael Jackson",
-					"filename": "Beat_It" 
-				},
-				
-				{ 
-					"name": "Bad Romance",
-					"artist": "Lady Gaga",
-					"filename": "Lady_Gaga-Bad_Romance" 
+					"filename": "80s/Beat_It" 
 				},
 
 				{ 
 					"name": "Should I Stay or Should I Go",
 					"artist": "The Clash",
-					"filename": "Should_I_Stay_or_Should_I_Go" 
+					"filename": "80s/Should_I_Stay_or_Should_I_Go" 
 				},
 
 				{ 
 					"name": "Under Pressure",
 					"artist": "Queen, David Bowie",
-					"filename": "Under_Pressure" 
+					"filename": "80s/Under_Pressure" 
+				},
+
+			// ANNEES 90s
+				{ 
+					"year": "90's"
+				},
+
+				{ 
+					"name": "Barbie Girl",
+					"artist": "Aqua",
+					"filename": "00s/Barbie_Girl" 
+				},
+
+				{ 
+					"name": "Don't Speak",
+					"artist": "No Doubt",
+					"filename": "00s/Dont_speak" 
+				},
+
+				{ 
+					"name": "Hit Me Baby One More Time",
+					"artist": "Britney Spears",
+					"filename": "00s/Hit_Me_Baby_One_More_Time" 
+				},
+
+				{ 
+					"name": "Mambo No. 5",
+					"artist": "Spice Girls",
+					"filename": "00s/Wannabe" 
+				},
+
+				{ 
+					"name": "Wannabe",
+					"artist": "Lou Bega",
+					"filename": "00s/Mambo_no.5_Lou_Bega" 
+				},
+
+			// ANNEES 00s
+				{ 
+					"year": "00's"
+				},
+
+				{ 
+					"name": "Bad Romance",
+					"artist": "Lady Gaga",
+					"filename": "00s/Lady_Gaga-Bad_Romance" 
+				},
+
+				{ 
+					"name": "Sweet but psycho",
+					"artist": "Ava Max",
+					"filename": "Sweet_but_psycho" 
+				},
+
+				{ 
+					"name": "Live Forever",
+					"artist": "Oasis",
+					"filename": "Live_Forever" 
+				},
+
+				{ 
+					"name": "Get Lucky",
+					"artist": "Daft Punk",
+					"filename": "Get_Lucky-Daft_Punk" 
+				},
+
+				{ 
+					"name": "City Of Stars (La La Land)",
+					"artist": "Justin Hurwitz",
+					"filename": "La_La_Land-City_Of_Stars" 
 				}
 
 
@@ -59,19 +271,160 @@ musicList = {
 		},
 
 		{ 
-			"name": "Rock",
+			"name": "rock",
 			"titleList": [
+
+			// NOUVELLE ANNEE 
+				{ 
+					"year": "70's"
+				},
+
+				{ 
+					"name": "Walk This Way",
+					"artist": "Aerosmith",
+					"filename": "70s/Walk_This_Way_Aerosmith" 
+				},
+
+				{ 
+					"name": "Comfortably Numb",
+					"artist": "Pink Floyd",
+					"filename": "70s/Comfortably_Numb" 
+				},
+
+			// NOUVELLE ANNEE 
+				{ 
+					"year": "80's"
+				},
+
 				{ 
 					"name": "Bohemian Rhapsody (voices)",
 					"artist": "Queen",
-					"filename": "Queen-Bohemian_Rhapsody_Voice" 
+					"filename": "80s/Queen-Bohemian_Rhapsody_Voice" 
 				},
 
 				{ 
 					"name": "Bohemian Rhapsody",
 					"artist": "Queen",
-					"filename": "Queen-Bohemian_Rhapsody" 
+					"filename": "80s/Queen-Bohemian_Rhapsody" 
 				},
+
+				{ 
+					"name": "I Want to Break Free",
+					"artist": "Queen",
+					"filename": "80s/Queen-I_want_to_break_free" 
+				},
+
+				{ 
+					"name": "Sweet Child o' Mine",
+					"artist": "Guns N' Roses",
+					"filename": "80s/Sweet_Child_o_Mine" 
+				},
+
+				{ 
+					"name": "Eye of the Tiger",
+					"artist": "Survivor",
+					"filename": "80s/Eye_of_the_Tiger" 
+				},
+
+			// NOUVELLE ANNEE 
+				{ 
+					"year": "90's"
+				},
+
+				{ 
+					"name": "Black Hole Sun",
+					"artist": "Chris Cornell",
+					"filename": "90s/Black_Hole_Sun" 
+				},
+
+				{ 
+					"name": "The Show Must Go On",
+					"artist": "Queen",
+					"filename": "90s/The_show_must_go_on" 
+				},
+
+
+			// NOUVELLE ANNEE 
+				{ 
+					"year": "00's"
+				},
+
+				{ 
+					"name": "Beautiful Day",
+					"artist": "Alex Gouge-Schajer, Austin Eamnarangkool, Ben Pevsner",
+					"filename": "00s/Black_Hole_Sun" 
+				},
+
+				{ 
+					"name": "Yellow - Look at the Stars",
+					"artist": "Coldplay",
+					"filename": "00s/Yellow" 
+				},
+
+				{ 
+					"name": "Californication",
+					"artist": "Red Hot Chili Peppers",
+					"filename": "00s/Californication" 
+				},
+			]
+		},
+
+		{ 
+			"name": "variété française",
+			"titleList": [
+			
+			// NOUVELLE ANNEE 
+				{ 
+					"year": "80's"
+				},
+
+				{ 
+					"name": "Il Jouait du Piano Debout",
+					"artist": "Michel Berger",
+					"filename": "80s/Il_jouait_du_piano_debout" 
+				},
+
+				{ 
+					"name": "Laventurier (guitare)",
+					"artist": "Indochine",
+					"filename": "80s/Laventurier_guitare" 
+				},
+
+			// NOUVELLE ANNEE 
+				{ 
+					"year": "90's"
+				},
+
+
+				{ 
+					"name": "La Nuit Je Mens",
+					"artist": "Alain Bachung",
+					"filename": "90s/Alain_Bashung_La_Nuit_Je_Mens" 
+				},
+
+				{ 
+					"name": "Belle (Notre Dame de Paris)",
+					"artist": "Richard Cocciante",
+					"filename": "90s/Belle_Notre_Dame_De_Paris" 
+				},
+
+			// NOUVELLE ANNEE 
+				{ 
+					"year": "00's"
+				},
+
+				{ 
+					"name": "Le Vent Nous Portera",
+					"artist": "Pneumolini",
+					"filename": "Le_vent_nous_portera_Moktar_Sound_System" 
+				},
+
+				{ 
+					"name": "Une Derniere Danse",
+					"artist": "Kyo",
+					"filename": "Une_derniere_danse" 
+				}
+
 			]
 		}
 	]
@@ -114,6 +467,11 @@ instrumentList = [
 
 	{
 		"name": "recorder",
+		"type": "synthesizer"
+	},
+
+	{
+		"name": "electric guitar",
 		"type": "synthesizer"
 	},
 
@@ -237,12 +595,22 @@ instrumentList = [
 	},
 
 	{
-		"name": "electric guitar",
+		"name": "bass guitar",
 		"type": "string"
 	},
 
 	{
-		"name": "bass guitar",
+		"name": "violins",
+		"type": "string"
+	},
+
+	{
+		"name": "violins 1",
+		"type": "string"
+	},
+
+	{
+		"name": "violins 2",
 		"type": "string"
 	},
 

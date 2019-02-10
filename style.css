@@ -10,7 +10,7 @@ svg.matrixSvg {
 
 h2 { 
     font-family: "Helvetica Neue"; 
-    font-size: 24px; 
+    font-size: 20px; 
     font-style: normal; 
     font-variant: normal; 
     font-weight: 700; 
@@ -54,35 +54,134 @@ h2 {
 }
 
 
+
+
+/*** HEADER STYLING ***/
 #header-row {
     border-top: 0px;
 }
 
 #header-row .content-col {
     padding:1em;
+    position: relative;
 }
 
 
+#logo {
+    margin-top: 1.1em;
+}
 
 .flex-container {
     display: flex;
     align-items: flex-start;
 }
 
-#song-info{
-    float: right;
-    text-align: center;
-}
+
 
 #song-selector {
-    margin:auto;
-    margin-left: 1em;
     float: left;
-}
-
-#song-selector {
     display:inline-block;
 }
+
+
+#song-info, 
+#song-selector {
+    margin:0.8em;
+}
+
+#song-info{
+    text-align: left;
+    margin-top: 1em;
+}
+
+#song-info h2 {
+    margin:0;
+}
+
+
+#artist {
+    font-size: 14px;
+    font-weight: 300;
+    white-space:nowrap;
+}
+
+
+#custom-file {
+    position: absolute;
+    right:0;
+    bottom: 0;
+}
+
+.inputfile + label,
+#custom-file {
+    font-weight: 300;
+    color: #737373;
+}
+
+
+/*** GENERAL BUTTON AND INPUT STYLING ***/
+
+.btn,
+button,
+.parameters input,
+#genre-ul,
+#genre-ul ul {
+    border-color:#8c8c8c;
+    border-radius:2px;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.parameters input {
+    padding-left:5px;
+}
+
+#genre-ul, #genre-ul ul {
+    padding: 0;
+}
+
+#genre-ul ul {
+    top: -2px;
+    margin-left:5px;
+}
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+/*.inputfile + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: black;
+    display: inline-block;
+}*/
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    /*background-color: #d4d4d4;*/
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+
+#music-menu > button.btn.btn-default {
+    text-transform: uppercase;
+}
+
+
+.parameters {
+    margin-top: 2em;
+    float: right;
+}
+
+
 
 
 
@@ -109,8 +208,8 @@ h2 {
 
 
 .instrumentName {
-    /*margin-top:1em;*/
-    /*text-align: left;*/
+    transform-origin: left;
+    transform: rotate(-90deg) translate(1em, -2em);
 }
 
 
@@ -124,10 +223,19 @@ svg.matrix {
 
 
 li.genre.grey.open a.genre {
-    background-color: #737373;
+    background-color: #999999;
 }
 
 
 li.genre.grey a.genre {
     background-color: #bfbfbf;
 }
+
+
+.year-element {
+    text-align: center;
+    background-color: #bfbfbf;
+}
+
+
+

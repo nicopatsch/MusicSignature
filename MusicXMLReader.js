@@ -162,7 +162,11 @@ function getInstrumentName(part) {
         return element.attributes.id == partID;
     });
     var instrumentNameObj = getByName(instrumentPart, "score-instrument");
-    return instrumentNameObj.children[0].children[0].text;
+
+    if (instrumentNameObj.children[0].children[0] == null) return "Unknown intrument";
+
+    var instrumentName = instrumentNameObj.children[0].children[0].text
+    return instrumentName != null ? instrumentName : "Unknown intrument";
 }
 
 function reduceJsonPart(part) {

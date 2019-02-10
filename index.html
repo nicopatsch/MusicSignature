@@ -31,7 +31,7 @@
 
     <div id="header-row" class="row content-row">
       <div class="col-1">
-        <h2>MOTIF</h2>
+        <h2 id="logo">MOTIF</h2>
       </div>
 
       <div class="col-5 content-col">
@@ -41,34 +41,38 @@
           <div id="song-selector">
             <div id="music-menu" class="dropdown">
               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" data-hover="dropdown" data-animations="{bottom} {left} {top} {right}">
-               Select your song <span class="caret"></span>
+               Select your song
               </button>
               <ul id="genre-ul" class="dropdown-menu"></ul>
             </div>
           </div>
 
-          <div id="song-info">
-            <h2 id="songName"></h2>
-            <h2 id="artist"></h2>
+          <div id="song-info" class="flex-container" >
+            <h2><span id="song-name"></span> <span id="artist"></span></h2>
           </div>
 
         </div>
-
-        <br/>MusicXML file : <input type='file' id="musicSheet" accept='text/xml' onclick="this.value = null;" onchange='readMusicXMLFile(event)' multiple>
-        Number of notes in a repetition: <input type="number" id="nbNotesInRep" name="nbNotesInRep" min="1" max="50" value="2">
+        <div class="parameters">
+          Number of notes in a repetition: <input type="number" id="nbNotesInRep" name="nbNotesInRep" min="1" max="50" value="2">
+        </div>
         <!-- Max number of instruments to be displayed : <input type="number" id="maxNbParts" name="maxNbParts" min="1" max="50" value="5"> -->
         
         <!-- Space between notes : <input type="number" id="spaceBetweenNotes" name="spaceBetweenNotes" min="0" max="50" value="0"> <br> -->
         
-        Color squares :<input type="checkbox" id="squaresAreColored" name="squaresAreColored"> <br>
+        <!-- Color squares :<input type="checkbox" id="squaresAreColored" name="squaresAreColored"> <br> -->
 
-        Real duration :<input type="checkbox" id="realDuration" name="realDuration" checked> <br>
+        <!-- Real duration :<input type="checkbox" id="realDuration" name="realDuration" checked> <br> -->
 
         <!-- Full square :<input type="checkbox" id="fullSquare" name="fullSquare" checked> <br> -->
 
 
       </div>
       <div class="col-5 content-col">
+        <div id="custom-file">
+          Or upload your own MusicXML file:
+          <input type="file" name="file" id="file-uploader" accept='text/xml' onclick="this.value = null;" onchange='readMusicXMLFile(event)' class="inputfile"/>
+          <label for="file-uploader">Choose a file</label>
+        </div>
       </div>
 
       <div class="col-1">
