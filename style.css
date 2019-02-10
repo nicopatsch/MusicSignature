@@ -18,6 +18,7 @@ h2 {
     color:black;
 }
 
+
 #matrixRowContainer {
     margin:auto;
     width: 100%;
@@ -64,6 +65,7 @@ h2 {
 #header-row .content-col {
     padding:1em;
     position: relative;
+    padding-right:0;
 }
 
 
@@ -202,14 +204,14 @@ button,
     float: left;
     margin: auto;
     margin-left: 1em;
-    font-size: 18px;
+    font-size: 16px;
     
 }
 
 
 .instrumentName {
     transform-origin: left;
-    transform: rotate(-90deg) translate(1em, -2em);
+    transform: rotate(-90deg) translate(1.2em, -2em);
 }
 
 
