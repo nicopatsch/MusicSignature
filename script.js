@@ -13,6 +13,14 @@ $( document ).ready(function() {
 	//loadServerPartFile("Bohemian Rhapsody", "Queen", "./music-parts/Pop/Under_Pressure.xml");
 	//loadServerPartFile("Should I Stay or Should I Go", "The Clash", "./music-parts/Pop/Should_I_Stay_or_Should_I_Go.xml");
 
+	$('#description-toggler').on('click', function(e) {
+		document.getElementById('description-content').style.display = "block";
+	})
+
+	$('#description-less').on('click', function(e) {
+		document.getElementById('description-content').style.display = "none";
+	})
+
 });
 
 

@@ -5,10 +5,16 @@ svg.matrixSvg {
 }
 
 * {
-    font-family: 'Helvetica';
+    font-family: 'Helvetica Neue';
 }
 
-h2 { 
+p {
+    font-size: 1em;
+}
+
+
+h2,
+#songName { 
     font-family: "Helvetica Neue"; 
     font-size: 20px; 
     font-style: normal; 
@@ -112,7 +118,7 @@ h2 {
 #custom-file {
     position: absolute;
     right:0;
-    bottom: 0;
+    bottom: 0.1em;
 }
 
 .inputfile + label,
@@ -157,13 +163,36 @@ button,
     z-index: -1;
 }
 
-/*.inputfile + label {
-    font-size: 1.25em;
-    font-weight: 700;
-    color: white;
-    background-color: black;
-    display: inline-block;
-}*/
+
+#description {
+    padding: 2em;
+    padding-right: 0;
+    margin-bottom: 3em;
+    width:100%;
+}
+
+#description button {
+    border:none;
+    padding: 0;
+    font-weight: 300;
+    font-size:1em;
+    float: right;
+}
+
+#description button:hover,
+#description button:active,
+#description button:focus {
+    text-decoration: underline;
+    border: none;
+    text-shadow: none;
+    box-shadow: none;
+}
+
+#description-content {
+    margin-top:2em;
+    display: none;
+    text-align: justify; 
+}
 
 .inputfile:focus + label,
 .inputfile + label:hover {
@@ -189,6 +218,7 @@ button,
     margin-bottom: 0;
     margin-top:2em;
     display: flex;
+    font-weight: 300;
     align-items: flex-end;
 }
 
@@ -256,6 +286,10 @@ li.genre.grey a.genre {
 .year-element {
     text-align: center;
     background-color: #bfbfbf;
+}
+
+.caret.caret-up {
+    transform: rotate(180deg) ;
 }
 
 
