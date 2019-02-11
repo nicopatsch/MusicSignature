@@ -323,11 +323,15 @@ function createRectangles(part, id) {
     var note1X = 0, note2X = 0;
     var totalDuration = 0;
 
-    for(var j in part.noteIndices) {
+	// Use this if you want to limit the number of notes
+    //var nbNotesToProcess = Math.min(part.noteIndices.length, 2000); 
+    var nbNotesToProcess = part.noteIndices.length;
+
+    for(var j = 0; j < nbNotesToProcess; j++) {
     	totalDuration = Math.max(totalDuration, note2X);
     	note1X = parseInt(j);
     	note2X = 0;
-    	for(var i = 0; i<part.noteIndices.length - j; i++) {
+    	for(var i = 0; i< nbNotesToProcess - j; i++) {
     		//Getting the corresponding notes
     		indexNote1 = part.noteIndices[parseInt(j)+parseInt(i)];
     		note1 = part.measures[indexNote1.measure].notes[indexNote1.note];
@@ -365,7 +369,7 @@ function createRectangles(part, id) {
     console.log(totalDuration);
 
 
-    var maxIndex = realDuration ? totalDuration : part.nbOfNotes;
+    var maxIndex = realDuration ? totalDuration : nbNotesToProcess;
     //var maxIndex = indexNote1;
     jQuery("#drawingBox"+id.toString()).attr("viewBox", "0 0 " + ((spaceBetweenNotes+1)*maxIndex).toString() + " " + ((spaceBetweenNotes+1)*maxIndex).toString());
 

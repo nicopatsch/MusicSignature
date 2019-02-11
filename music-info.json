@@ -285,11 +285,11 @@ musicList = {
 					"filename": "70s/Walk_This_Way_Aerosmith" 
 				},
 
-				{ 
+				/*{ 
 					"name": "Comfortably Numb",
 					"artist": "Pink Floyd",
 					"filename": "70s/Comfortably_Numb" 
-				},
+				},*/
 
 			// NOUVELLE ANNEE 
 				{ 
