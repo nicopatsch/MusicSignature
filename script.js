@@ -37,14 +37,16 @@ function loadParametersFromHTML() {
 }
 
 
-function downloadPNGMatrix(svgID, fileName) {
+function downloadPNGMatrix(svgID, fileName, instrument) {
 	var canvas = document.getElementById("canvas");
 	
 	// Adding the style of the stylesheet inside the <svg> element, 
 	// otherwise we won't have any color.
 	$.when($.get("style.css"))
     .done(function(response) {
-        $('<style />').text(response).prependTo($('#'+svgID));
+    	var svgCSS = 'rect' + ' { fill: ' + instrumentColor(instrument) + '; }\n';
+
+		$('<style />').text(response + "\n" + svgCSS).prependTo($('#'+svgID));
 
 
         var svg = document.querySelector( '#'+svgID);
@@ -190,14 +192,17 @@ function createNewBox(id, instrumentName) {
 
 
 	// Create the download button for the matrix
+	var fileName = musicJson.songName.replace(" ", "_") + "_" + musicJson.artist + "_" + instrumentName + ".png";
 	var downloadButton = $('<a></a>').text("Download").attr({
 		"svg-id": 'drawingBox'+id,
-		"filename": 'matrix.png',
-		"href": "#"
+		"filename": fileName,
+		"href": "#",
+		"instrument":instrumentName
 	}).on("click", function() {
 		downloadPNGMatrix(
 			$(this).attr("svg-id"), 
-			$(this).attr("filename")
+			$(this).attr("filename"),
+			$(this).attr("instrument")
 		);
 	});
 
