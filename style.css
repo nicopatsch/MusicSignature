@@ -198,6 +198,11 @@ button,
     text-align: justify; 
 }
 
+
+#description, #custom-file {
+    /*font-size: 0.9em;*/
+}
+
 .inputfile:focus + label,
 .inputfile + label:hover {
     /*background-color: #d4d4d4;*/
