@@ -15,7 +15,7 @@ p {
 h2,
 #songName { 
     font-family: "Helvetica Neue"; 
-    font-size: 20px; 
+    font-size: 22px; 
     font-style: normal; 
     font-variant: normal; 
     font-weight: 700; 
@@ -110,7 +110,7 @@ h2,
 
 
 #artist {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 300;
     white-space:nowrap;
 }
