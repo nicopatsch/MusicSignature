@@ -13,14 +13,24 @@ function getByName(object, name) {
 
 function cleanXMLContent(fileContent) {
     if (window.DOMParser) {
+        
+        //var t0 = performance.now();
         parser = new DOMParser();
         musicXML = parser.parseFromString(fileContent, "text/xml");
-        
+        //var t1 = performance.now();
+        //console.log("    Timer parse XML 1 : " + (t1-t0));
+
 
         // This will delete all the unnecesary line breaks
         var regex = /(\r|\n|\r\n) */g; 
         fileContent = fileContent.replace(regex, "");
-        return parseXml(fileContent);
+        
+        //var t0 = performance.now();
+        var parsedXML = parseXml(fileContent);
+        //var t1 = performance.now();
+        //console.log("    Timer parse XML 2 : " + (t1-t0));
+        
+        return parsedXML;
         
     }
 }
@@ -41,18 +51,33 @@ function loadServerPartFile(songName, artist, filePath) {
     result = xmlhttp.responseText;
     }
 
+    //var t0 = performance.now();
     fullMusicJson = cleanXMLContent(result);
+    //var t1 = performance.now();
+    //console.log("  Timer clean XML : " + (t1-t0));
+
+
+    //var t0 = performance.now();   
     musicJson = reduceJsonFile();
+    //var t1 = performance.now();
+    //console.log("  Timer reduce Json file : " + (t1-t0));
 
     //  Here, we decide to use the song name and title specified in the musicList.json 
     //  (passed as arguments to this function).
     //  If we want to keep the song name and song title as said in the file,
     //  just comment the next 2 lines.
+    
     musicJson.songName = songName;
     musicJson.artist = artist;
+    
+    
 
 
+    //var t0 = performance.now();
     displayMatrixXML();
+    //var t1 = performance.now();
+    //console.log("  Timer display matrix: " + (t1-t0));
+    
 }
 
 

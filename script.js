@@ -9,9 +9,13 @@ $( document ).ready(function() {
     createSelectionMenu();
     addInstrumentColorsToCSS();
 
+    //var t0 = performance.now();
     loadServerPartFile("Bohemian Rhapsody", "Queen", "./music-parts/rock/80s/Queen-Bohemian_Rhapsody.xml");
 	//loadServerPartFile("Bohemian Rhapsody", "Queen", "./music-parts/Pop/Under_Pressure.xml");
 	//loadServerPartFile("Should I Stay or Should I Go", "The Clash", "./music-parts/Pop/Should_I_Stay_or_Should_I_Go.xml");
+	//var t1 = performance.now();
+	//console.log("Timer : " + (t1-t0));
+
 
 	$('#description-toggler').on('click', function(e) {
 		document.getElementById('description-content').style.display = "block";
@@ -310,7 +314,7 @@ function createRectangles(part, id) {
 
     maxFreq = part.maxFreq;
     minFreq = part.minFreq;
-    console.log('minFreq: ', minFreq, ', maxFreq: ', maxFreq);
+    //console.log('minFreq: ', minFreq, ', maxFreq: ', maxFreq);
 
 
 
@@ -366,7 +370,7 @@ function createRectangles(part, id) {
     	}
     }
 
-    console.log(totalDuration);
+    //console.log(totalDuration);
 
 
     var maxIndex = realDuration ? totalDuration : nbNotesToProcess;
@@ -432,7 +436,7 @@ function createSelectionMenu() {
 		    "href" : "#"
 		  }).addClass("test genre").text(genreObject.name);
 
-		console.log(genreObject.titleList)
+		//console.log(genreObject.titleList)
 		var musicUl = $("<ul></ul>").addClass("dropdown-menu");
 		for (musicIndex in genreObject.titleList) {
 			//For each music in genre, create music element
