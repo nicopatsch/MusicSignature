@@ -82,6 +82,7 @@ h2,
 .flex-container {
     display: flex;
     align-items: flex-start;
+    height:100%;
 }
 
 
@@ -100,6 +101,7 @@ h2,
 #song-info{
     text-align: left;
     margin-top: 1em;
+    height:auto;
 }
 
 #song-info h2 {
@@ -115,9 +117,8 @@ h2,
 
 
 #custom-file {
-    position: absolute;
-    right:0;
-    bottom: 0.1em;
+    float:right;
+    margin-left: auto;
 }
 
 .inputfile + label,
@@ -165,9 +166,9 @@ button,
 
 #description {
     padding: 1em;
-    padding-bottom: 3em;
+    padding-bottom: 2em;
     padding-right: 0;
-    margin-bottom: 1.2em;
+    margin-bottom: 0.5em;
     width:100%;
 }
 
@@ -199,8 +200,14 @@ button,
 }
 
 
-#description, #custom-file {
-    /*font-size: 0.9em;*/
+#description .signature, 
+#custom-file {
+    font-size: 0.9em;
+}
+
+#description .signature {
+    float: right;
+    margin-top:2em;
 }
 
 .inputfile:focus + label,
@@ -219,25 +226,32 @@ button,
 
 .container-vertical {
     width:100%;
+    height:100%;
 }
 
 .parameters {
-    width:100%;
-    margin:0.8em;
+    /*width:100%;*/
+    /*margin:0.8em;
     margin-bottom: 0;
-    margin-top:3em;
-    display: flex;
+    margin-top:3em;*/
     font-weight: 300;
-    align-items: flex-end;
+    margin-top:3.8em;
+    margin-bottom:0.8em;
+    float:right;
 }
 
 
 .parameters input {
-    float:right;
-    margin:auto;
+    /*float:right;
     margin-right: 0.8em;
+    margin-left: auto;*/
 }
 
+
+.parameters input,
+.parameters span {
+    /*float:right;*/
+}    
 
 
 .matrix-info {
