@@ -276,6 +276,13 @@ svg.matrix {
     cursor: crosshair;
 }
 
+.genre {
+    text-transform: capitalize;
+}
+
+.year-element {
+    text-transform: none;
+}
 
 li.genre.grey.open a.genre {
     background-color: #999999;

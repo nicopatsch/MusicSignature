@@ -4,6 +4,10 @@ musicList = {
 			"name": "classic",
 			"titleList": [
 				{ 
+					"year": "Best of classical music"
+				},
+
+				{ 
 					"name": "Adagio for Strings",
 					"artist": "Samuel Barber",
 					"filename": "Adagio_for_Strings" 
@@ -45,6 +49,9 @@ musicList = {
 		{ 
 			"name": "jazz",
 			"titleList": [
+				{ 
+					"year": "Best of jazz music"
+				},
 
 				{ 
 					"name": "All Blues 4/4",
@@ -370,7 +377,7 @@ musicList = {
 		},
 
 		{ 
-			"name": "variété française",
+			"name": "french variety",
 			"titleList": [
 			
 			// NOUVELLE ANNEE 
@@ -668,7 +675,58 @@ instrumentList = [
 	{
 		"name": "baritone",
 		"type": "copper"
+	},
+
+	{
+		"name": "NEW_INSTRUMENT_NAME",
+		"type": "NEW_INSTRUMENT_TYPE"
+	},
+
+	{
+		"name": "NEW_INSTRUMENT_NAME",
+		"type": "NEW_INSTRUMENT_TYPE"
+	},
+
+	{
+		"name": "NEW_INSTRUMENT_NAME",
+		"type": "NEW_INSTRUMENT_TYPE"
+	},
+
+	{
+		"name": "NEW_INSTRUMENT_NAME",
+		"type": "NEW_INSTRUMENT_TYPE"
+	},
+
+	{
+		"name": "NEW_INSTRUMENT_NAME",
+		"type": "NEW_INSTRUMENT_TYPE"
+	},
+
+	{
+		"name": "NEW_INSTRUMENT_NAME",
+		"type": "NEW_INSTRUMENT_TYPE"
+	},
+
+	{
+		"name": "NEW_INSTRUMENT_NAME",
+		"type": "NEW_INSTRUMENT_TYPE"
+	},
+
+	{
+		"name": "NEW_INSTRUMENT_NAME",
+		"type": "NEW_INSTRUMENT_TYPE"
+	},
+
+	{
+		"name": "NEW_INSTRUMENT_NAME",
+		"type": "NEW_INSTRUMENT_TYPE"
+	},
+
+	{
+		"name": "NEW_INSTRUMENT_NAME",
+		"type": "NEW_INSTRUMENT_TYPE"
 	}
+
 ];
 
 
