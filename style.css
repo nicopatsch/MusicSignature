@@ -134,7 +134,7 @@ h2,
 
 #custom-file {
     float:right;
-    margin-left: auto;
+    margin-left: 10em;
 }
 
 .inputfile + label,
