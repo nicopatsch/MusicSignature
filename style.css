@@ -1,3 +1,19 @@
+/*rect {
+  transition: transform .2s;
+  transform-origin: center center;
+  transform-box: fill-box;
+}
+
+rect:hover {
+  transform: scale(5); 
+}
+
+
+*/
+
+
+
+
 svg.matrixSvg {
 
     border: 1px solid;
@@ -166,9 +182,8 @@ button,
 
 #description {
     padding: 1em;
-    padding-bottom: 2em;
     padding-right: 0;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.4em;
     width:100%;
 }
 
@@ -200,14 +215,15 @@ button,
 }
 
 
-#description .signature, 
+.signature, 
 #custom-file {
-    font-size: 0.9em;
+    font-size: 0.85em;
 }
 
-#description .signature {
+.signature {
     float: right;
-    margin-top:2em;
+    margin-top: 0.5em;
+    margin-bottom: 0.3em;
 }
 
 .inputfile:focus + label,
@@ -235,7 +251,7 @@ button,
     margin-bottom: 0;
     margin-top:3em;*/
     font-weight: 300;
-    margin-top:3.8em;
+    margin-top:3em;
     margin-bottom:0.8em;
     float:right;
 }
