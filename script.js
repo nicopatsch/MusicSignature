@@ -10,20 +10,22 @@ $( document ).ready(function() {
     addInstrumentColorsToCSS();
 
     //var t0 = performance.now();
-    loadServerPartFile("Bohemian Rhapsody", "Queen", "./music-parts/rock/80s/Queen-Bohemian_Rhapsody.xml");
+    //loadServerPartFile("Bohemian Rhapsody", "Queen", "./music-parts/rock/80s/Queen-Bohemian_Rhapsody.xml");
 	//loadServerPartFile("Bohemian Rhapsody", "Queen", "./music-parts/Pop/Under_Pressure.xml");
 	//loadServerPartFile("Should I Stay or Should I Go", "The Clash", "./music-parts/Pop/Should_I_Stay_or_Should_I_Go.xml");
+	loadServerPartFile("Should I", "Rilès", "./music-parts/other/riles_should_i.xml");
+
 	//var t1 = performance.now();
 	//console.log("Timer : " + (t1-t0));
 
 
 	$('#description-toggler').on('click', function(e) {
 		document.getElementById('description-content').style.display = "block";
-	})
+	});
 
 	$('#description-less').on('click', function(e) {
 		document.getElementById('description-content').style.display = "none";
-	})
+	});
 
 });
 
@@ -48,7 +50,7 @@ function downloadPNGMatrix(svgID, fileName, instrument) {
 	// otherwise we won't have any color.
 	$.when($.get("style.css"))
     .done(function(response) {
-    	var svgCSS = 'rect' + ' { fill: ' + instrumentColor(instrument) + '; }\n';
+    	var svgCSS = '.noterect' + ' { fill: ' + instrumentColor(instrument) + '; }\n';
 
 		$('<style />').text(response + "\n" + svgCSS).prependTo($('#'+svgID));
 
@@ -126,16 +128,104 @@ function printSquare(x, y, width, height, color) {
 	var newSquare;
 	alreadyExistingSquare = $("#" + newID);
 	if(alreadyExistingSquare.length==0) {
-		//newSquare = '<rect id="' + newID + '" class="wordrect" x="' + Math.round((spaceBetweenNotes+1)*x-width/2) + '" y="' + Math.round((spaceBetweenNotes+1)*y-height/2) + '" width="' + width + '" height="' + height + '"></rect>';
+		//newSquare = '<rect id="' + newID + '" class="noterect" x="' + Math.round((spaceBetweenNotes+1)*x-width/2) + '" y="' + Math.round((spaceBetweenNotes+1)*y-height/2) + '" width="' + width + '" height="' + height + '"></rect>';
 		newSquare = $('<rect></rect>').attr({
 			"id": newID,
 			"x": Math.round((spaceBetweenNotes+1)*x-width/2),
 			"y": Math.round((spaceBetweenNotes+1)*y-height/2),
 			"width": width,
 			"height": height
-		}).addClass('wordrect');
+		}).addClass('noterect');
 	}
 	rectList.append(newSquare);
+}
+
+
+function createWrapperSquare(note1start, note1end, note2start, note2end, side, partID) {
+	
+
+	// TODO :Currently, when hovering over a wrapper, the code doesn't detect all the other identical
+	// series in the music. I need to find a way to make the code link all the identical repetitions 
+	// to each other at some point in the algorithm.
+
+
+
+	if(note1start.position == note2start.position && note1end.position == note2end.position) return;
+
+	var x = Math.round(note1start.timeCode + note1end.timeCode)/2;
+	var y = Math.round(note2start.timeCode + note2end.timeCode)/2;
+	
+	var width = Math.round(Math.abs(note1end.timeCode - note1start.timeCode));
+	var height = Math.round(Math.abs(note2end.timeCode - note2start.timeCode));
+	var newID = partID.toString() + "-" + x.toString() + "-" + y.toString() + "-" + width.toString() + "-" + height.toString();
+	alreadyExistingSquare = $("#wrapper-" + newID);
+	//if(alreadyExistingSquare.length!=0) return;	
+	
+	var classHorizontal = partID.toString() + "-" + y.toString() + "-" + width.toString();
+	var classVertical = partID.toString() + "-" + x.toString() + "-" + height.toString();
+
+	var newWrapper = makeSVG('rect', {
+		"id": "wrapper-"+newID,
+		"x": Math.round(x-width/2),
+		"y": Math.round(y-height/2),
+		"width": width,
+		"height": height,
+		"fill": "transparent",
+		"class": classVertical + " " + classHorizontal + " reprect"
+	});
+	var gElement = document.getElementById('drawingBox'+partID);
+	gElement.appendChild(newWrapper);
+
+
+	var verticalID = "vertical-wrapper-"+classVertical;
+	if(/*$('#'+verticalID)*/true) { // condition to be remade
+		var newVerticalWrapper = makeSVG('rect', {
+			"id": verticalID,
+			"x": Math.round(x-width/2),
+			"y": 0,
+			"width": width,
+			"height": side,
+			"fill": "transparent",
+			"class": classVertical + " column"
+		});
+
+		gElement.prepend(newVerticalWrapper);
+	}
+
+	var horizontalID = "horizontal-wrapper-"+classHorizontal;
+	if(/*$('#'+horisontalID)*/true) { // condition to be remade
+		var newHorizontalWrapper = makeSVG('rect', {
+			"id": horizontalID,
+			"x": 0,
+			"y": Math.round(y-height/2),
+			"width": side,
+			"height": height,
+			"fill": "transparent",
+			"class": classHorizontal + " row"
+		});
+
+		gElement.prepend(newHorizontalWrapper);
+	}
+
+	
+	$(newWrapper).mouseenter(function() {
+		
+		$("#"+verticalID).addClass("hover");
+		$("#"+horizontalID).addClass("hover");
+
+		$("."+classVertical + ".reprect").addClass("hover");
+		$("."+classHorizontal + ".reprect").addClass("hover");
+	}).mouseout(function(){
+
+		$("#"+verticalID).removeClass("hover");
+		$("#"+horizontalID).removeClass("hover");
+
+		$("."+classVertical + ".reprect").removeClass("hover");
+		$("."+classHorizontal + ".reprect").removeClass("hover");
+	});
+
+
+
 }
 
 
@@ -159,8 +249,17 @@ function addInstrumentColorsToCSS() {
 	var cssStyle = "";
 
 	Object.keys(typeColors).forEach(function(type, index) {
-		cssStyle += '.' + type + ' rect' + ' { fill: ' + typeColors[type] + '; }\n';
-		cssStyle += 'svg.matrixSvg.' + type + ' { border-color: ' + /*typeColors[type]*/'black' + '; }\n';
+		
+		// Styling the note squares
+		cssStyle += '.' + type + ' .noterect' + ' { fill: ' + typeColors[type] + '; }\n';
+		
+		// Styling the note repetition wrappers
+		cssStyle += '.' + type + ' rect.column.hover' + ' { fill: ' + typeColors[type] + '; opacity:0.2  }\n';
+		cssStyle += '.' + type + ' rect.row.hover' + ' { fill: ' + typeColors[type] + '; opacity:0.2 }\n';
+		cssStyle += '.' + type + ' rect.reprect.hover' + ' { fill: ' + typeColors[type] + '; opacity:0.4 }\n';
+		
+
+		cssStyle += 'svg.matrixSvg.' + type + ' { border-color: ' + 'black' + '; }\n';
 		cssStyle += '.' + type + ' { color: ' + typeColors[type] + '; }\n';
 		cssStyle += '\n';
 	});
@@ -248,7 +347,7 @@ function compareNotes(note1, note2) {
 }
 
 
-function createRectangle(note1, note2, indexNote1, indexNote2) {
+function createRectangle(note1, note2) {
 
 	var size1 = realDuration ? note1.duration : 1;
 	var size2 = realDuration ? note2.duration : 1;
@@ -280,7 +379,6 @@ function createRectangle(note1, note2, indexNote1, indexNote2) {
 
 function nbRep(jstart, istart, part) {
 	var nbChecked = 0;
-
 	for(var j = jstart; j < part.noteIndices.length; j++) {
 		for(var i = istart; i < part.noteIndices.length; i++) {
 			if(parseInt(j)+parseInt(i) >= part.noteIndices.length) return nbChecked;
@@ -317,24 +415,34 @@ function createRectangles(part, id) {
     //console.log('minFreq: ', minFreq, ', maxFreq: ', maxFreq);
 
 
+    // Initializing note1 and note2 with first note.
+    indexNote0 = part.noteIndices[0];
+    var note1 = part.measures[indexNote0.measure].notes[indexNote0.note];
+	var note2 = part.measures[indexNote0.measure].notes[indexNote0.note];
 
-    var note1, note2;
+	var note1temp, note2temp;
+
     var indexNote1, indexNote2;
     //var indexNote1 = part.noteIndices[0];
     var currentlyInRep = false;
     var repLength;
 
-    var note1X = 0, note2X = 0;
     var totalDuration = 0;
 
 	// Use this if you want to limit the number of notes
     //var nbNotesToProcess = Math.min(part.noteIndices.length, 2000); 
     var nbNotesToProcess = part.noteIndices.length;
+    
+    var lastNoteIndex = part.noteIndices[part.noteIndices.length - 1];
+    var lastNote = part.measures[lastNoteIndex.measure].notes[lastNoteIndex.note];
+    
+    var maxIndex = realDuration ? lastNote.timeCode + lastNote.duration : nbNotesToProcess;
+
+
+
 
     for(var j = 0; j < nbNotesToProcess; j++) {
-    	totalDuration = Math.max(totalDuration, note2X);
-    	note1X = parseInt(j);
-    	note2X = 0;
+    	totalDuration = Math.max(totalDuration, note2.timeCode);
     	for(var i = 0; i< nbNotesToProcess - j; i++) {
     		//Getting the corresponding notes
     		indexNote1 = part.noteIndices[parseInt(j)+parseInt(i)];
@@ -344,37 +452,35 @@ function createRectangles(part, id) {
 
     		repLength = nbRep(j, i, part);
 
-    		note1X += note1.duration;
-    		note2X += note2.duration;
 
     		if(repLength >= nbNotesInRep) {
-    			// for(var n = 0; n < repLength; n++) {
+    			for(var n = 0; n < repLength; n++) {
   
-		    	// 	//Getting the corresponding notes
-		    	// 	indexNote1 = part.noteIndices[parseInt(j)+parseInt(i)+n];
-		    	// 	note1 = part.measures[indexNote1.measure].notes[indexNote1.note];
-		    	// 	indexNote2 = part.noteIndices[i+n];
-		    	// 	note2 = part.measures[indexNote2.measure].notes[indexNote2.note];
+		    		//Getting the corresponding notes
+		    		indexNote1 = part.noteIndices[parseInt(j)+parseInt(i)+n];
+		    		note1temp = part.measures[indexNote1.measure].notes[indexNote1.note];
+		    		indexNote2 = part.noteIndices[i+n];
+		    		note2temp = part.measures[indexNote2.measure].notes[indexNote2.note];
 
-		    	// 	createRectangle(note1, note2, parseInt(j)+parseInt(i)+n, i+n);
+		    		createRectangle(note1temp, note2temp);
 
-		    	// }
+		    	}
 
-			    // j+=n;
-			    // i+=n;
-			    
 
-			    //createRectangle(note1, note2, parseInt(j)+parseInt(i), i);
-			    createRectangle(note1, note2, note1X, note2X);
+		    	i+=repLength;
+		    	//i = note2.position + repLength;
+
+			    //createRectangle(note1, note2);
+			    createWrapperSquare(note1, note1temp, note2, note2temp, maxIndex, id);
+			    createWrapperSquare(note2, note2temp, note1, note1temp, maxIndex, id);
 		    }
+
     	}
     }
 
     //console.log(totalDuration);
 
 
-    var maxIndex = realDuration ? totalDuration : nbNotesToProcess;
-    //var maxIndex = indexNote1;
     jQuery("#drawingBox"+id.toString()).attr("viewBox", "0 0 " + ((spaceBetweenNotes+1)*maxIndex).toString() + " " + ((spaceBetweenNotes+1)*maxIndex).toString());
 
     // Refreshing HTML element so that new rectangles appear

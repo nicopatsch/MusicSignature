@@ -11,7 +11,36 @@ rect:hover {
 
 */
 
+/*.noterect {
+    stroke: transparent;
+    stroke-width: 8px;
+}
+.rep-wrapper {
+    pointer-events: all;
+}
+.rep-wrapper.hover-line {
+    fill:red;
+}*/
 
+
+.matrixSvg .column,
+.matrixSvg .row {
+    pointer-events: none;
+    z-index:-1;
+}
+.reprect {
+    z-index: 0;
+}
+
+
+.column, .row {
+    fill:transparent;
+    opacity: 0.2;
+}
+
+rect.column.hover, rect.row.hover {
+    opacity: 0.2;
+}
 
 
 svg.matrixSvg {
