@@ -57,6 +57,15 @@ p {
     font-size: 1em;
 }
 
+a.a-disabled {
+    color: #737373;
+}
+
+strong a.a-disabled,
+a.a-disabled strong {
+    color: #333447;
+}
+
 h2,
 #songName { 
     font-family: "Helvetica Neue"; 
@@ -366,3 +375,7 @@ li.genre.grey a.genre {
 
 
 
+
+#footer > .content-col {
+    padding:2em;
+}
