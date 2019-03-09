@@ -229,7 +229,8 @@ button,
     font-weight: 500;
 }
 
-#description button {
+#description button,
+#update-btn {
     border:none;
     padding: 0;
     font-weight: 300;
@@ -252,6 +253,10 @@ button,
     text-align: justify; 
 }
 
+
+#update-btn {
+    margin-left:1em;
+}
 
 .signature, 
 #custom-file {

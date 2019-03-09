@@ -70,7 +70,11 @@ function loadServerPartFile(songName, artist, filePath) {
     musicJson.songName = songName;
     musicJson.artist = artist;
     
-    
+    // Bind reload button to this song
+    $('#update-btn').unbind("click");
+    $('#update-btn').on("click", function() {
+        loadServerPartFile(songName, artist, filePath);
+    });
 
 
     //var t0 = performance.now();
@@ -102,6 +106,12 @@ var readMusicXMLFile = function(event) {
 
         fullMusicJson = cleanXMLContent(fileContent);
         musicJson = reduceJsonFile();
+
+        // Bind reload button to this song
+        $('#update-btn').unbind("click");
+        $('#update-btn').on("click", function() {
+            loadServerPartFile(songName, artist, filePath);
+        });
 
         displayMatrixXML();
 

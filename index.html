@@ -22,6 +22,8 @@
 
     <link rel="stylesheet" type="text/css" href="grid/simple-grid.min.css">
     <link rel="stylesheet" type="text/css" href="simple-grid.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
 
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
   </head>
@@ -49,9 +51,11 @@
             </div>
           </div>
 
+
           <div class="container-vertical">
             <div id="song-info" class="flex-container" >
               <h2><span id="song-name"></span> <span id="artist"></span></h2>
+              <button id="update-btn"><i class="fas fa-redo fa-sm mr-2 v-align-middle" style="color: {{ icon_color }};"></i></button>
             </div>
 
             <div class="parameters">
@@ -114,7 +118,7 @@
       </div>
 
       <div class="col-5 content-col">
-        
+
           <p>MusicSignature is a coding project by Nicolas Patschkowski. Here is <a href="https://github.com/nicopatsch/MusicSignature">the GitHub repo</a>.</p>
           
           <p>If you want to see more of my projects, check out <a href="https://nicopatsch.github.io/portfolio/">my portfolio</a>.</p>
