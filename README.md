@@ -22,12 +22,11 @@ This project was largely inspired by [SongSim](https://colinmorris.github.io/Son
 
 ## TODO
 This is what I'm planning to do next:
-<li type="checkbox">Implement an update button</li>
-<li type="checkbox">Implement an automatic update feature</li>
-<li type="checkbox">Add an explanation page (like [this about page on SongSim](https://colinmorris.github.io/SongSim/#/about)) with examples and explanation of the different types of patterns.</li>
-<li type="checkbox">Add a gallery (like [this one on SongSim](https://colinmorris.github.io/SongSim/#/gallery))</li>
-<li type="checkbox"></li>
 
+- [ ] Implement an update button
+- [ ] Implement an automatic update feature
+- [ ] Add an explanation page (like [this about page on SongSim](https://colinmorris.github.io/SongSim/#/about)) with examples and explanation of the different types of patterns.
+- [ ] Add a gallery (like [this one on SongSim](https://colinmorris.github.io/SongSim/#/gallery))
 
 ---
 
