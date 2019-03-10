@@ -41,6 +41,12 @@ musicList = {
 					"name": "Fur Elise",
 					"artist": "Ludwig van Beethoven",
 					"filename": "Fur_Elise" 
+				},
+
+				{ 
+					"name": "Ride of The Valkyries",
+					"artist": "Richard Wagner",
+					"filename": "Wagner-Ride_of_The_Valkyries" 
 				}
 
 			]
