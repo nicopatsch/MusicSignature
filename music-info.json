@@ -105,12 +105,6 @@ musicList = {
 					"filename": "80s/Back_in_Black" 
 				},
 
-				{ 
-					"name": "The Number Of The Beast",
-					"artist": "Iron Maiden",
-					"filename": "80s/The_Number_Of_The_Beast" 
-				},
-
 			// NOUVELLE ANNEE 
 				{ 
 					"year": "90's"
