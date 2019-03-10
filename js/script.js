@@ -5,18 +5,21 @@ var fullSquare = true;
 var realDuration = true;
 var maxNbParts = 0;
 
+var timers = { "nbRep": 0, "createRectangle": 0, "createWrapperSquare": 0, "printSquare": 0 };
+
 $( document ).ready(function() {
     createSelectionMenu();
     addInstrumentColorsToCSS();
 
-    //var t0 = performance.now();
+    var t0 = performance.now();
     //loadServerPartFile("Bohemian Rhapsody", "Queen", "./music-parts/rock/80s/Queen-Bohemian_Rhapsody.xml");
 	//loadServerPartFile("Bohemian Rhapsody", "Queen", "./music-parts/Pop/Under_Pressure.xml");
 	//loadServerPartFile("Should I Stay or Should I Go", "The Clash", "./music-parts/Pop/Should_I_Stay_or_Should_I_Go.xml");
-	loadServerPartFile("Should I", "Rilès", "./music-parts/other/riles_should_i.xml");
+	//loadServerPartFile("Should I", "Rilès", "./music-parts/other/riles_should_i.xml");
+	loadServerPartFile("All Blues 4/4", "No artist", "./music-parts/jazz/All_Blues_44.xml");
 
-	//var t1 = performance.now();
-	//console.log("Timer : " + (t1-t0));
+	var t1 = performance.now();
+	console.log("Timer : " + (t1-t0));
 
 
 	$('#description-toggler').on('click', function(e) {
@@ -48,9 +51,9 @@ function downloadPNGMatrix(svgID, fileName, instrument) {
 	
 	// Adding the style of the stylesheet inside the <svg> element, 
 	// otherwise we won't have any color.
-	$.when($.get("style.css"))
+	$.when($.get("css/style.css"))
     .done(function(response) {
-    	var svgCSS = '.noterect' + ' { fill: ' + instrumentColor(instrument) + '; }\n';
+    	var svgCSS = '.rectList > rect' + ' { fill: ' + instrumentColor(instrument) + '; }\n';
 
 		$('<style />').text(response + "\n" + svgCSS).prependTo($('#'+svgID));
 
@@ -80,16 +83,23 @@ function downloadPNGMatrix(svgID, fileName, instrument) {
 
 
 function drawNextMatrix(partId, nbPartsToDisplay) {
+	timers.nbRep = 0;
+	timers.createRectangle = 0;
+	timers.createWrapperSquare = 0;
+	timers.printSquare = 0;
+
 	if(partId < nbPartsToDisplay) {
 		var part = musicJson.parts[partId];
 		var instrumentName = part.instrumentName;
 
 		createNewBox(partId, instrumentName);
     	createRectangles(part, partId);
+
+    	setTimeout(function() {
+			console.log(timers);
+    		drawNextMatrix(partId + 1, nbPartsToDisplay)
+    	}, 1);
 	}
-	setTimeout(function() {
-    	drawNextMatrix(partId + 1, nbPartsToDisplay)
-    }, 1);
 }
 
 
@@ -124,7 +134,7 @@ function displayMatrixXML() {
 
 function printSquare(x, y, width, height, color) {
 	//TODO DELETE COLOR
-	var newID = x.toString() + "-" + y.toString();
+	var newID = Math.round((spaceBetweenNotes+1)*x-width/2).toString() + "-" + Math.round((spaceBetweenNotes+1)*y-height/2).toString();
 	var newSquare;
 	alreadyExistingSquare = $("#" + newID);
 	if(alreadyExistingSquare.length==0) {
@@ -135,7 +145,7 @@ function printSquare(x, y, width, height, color) {
 			"y": Math.round((spaceBetweenNotes+1)*y-height/2),
 			"width": width,
 			"height": height
-		}).addClass('noterect');
+		});
 	}
 	rectList.append(newSquare);
 }
@@ -152,11 +162,12 @@ function createWrapperSquare(note1start, note1end, note2start, note2end, side, p
 
 	if(note1start.position == note2start.position && note1end.position == note2end.position) return;
 
-	var x = Math.round(note1start.timeCode + note1end.timeCode)/2;
-	var y = Math.round(note2start.timeCode + note2end.timeCode)/2;
-	
 	var width = Math.round(Math.abs(note1end.timeCode - note1start.timeCode));
 	var height = Math.round(Math.abs(note2end.timeCode - note2start.timeCode));
+
+	var x = Math.round(note1start.timeCode + note1end.timeCode)/2-width/2;
+	var y = Math.round(note2start.timeCode + note2end.timeCode)/2-height/2;
+	
 	var newID = partID.toString() + "-" + x.toString() + "-" + y.toString() + "-" + width.toString() + "-" + height.toString();
 	alreadyExistingSquare = $("#wrapper-" + newID);
 	//if(alreadyExistingSquare.length!=0) return;	
@@ -166,11 +177,10 @@ function createWrapperSquare(note1start, note1end, note2start, note2end, side, p
 
 	var newWrapper = makeSVG('rect', {
 		"id": "wrapper-"+newID,
-		"x": Math.round(x-width/2),
-		"y": Math.round(y-height/2),
+		"x": x,
+		"y": y,
 		"width": width,
 		"height": height,
-		"fill": "transparent",
 		"class": classVertical + " " + classHorizontal + " reprect"
 	});
 	var gElement = document.getElementById('drawingBox'+partID);
@@ -181,11 +191,10 @@ function createWrapperSquare(note1start, note1end, note2start, note2end, side, p
 	if(/*$('#'+verticalID)*/true) { // condition to be remade
 		var newVerticalWrapper = makeSVG('rect', {
 			"id": verticalID,
-			"x": Math.round(x-width/2),
+			"x": x,
 			"y": 0,
 			"width": width,
 			"height": side,
-			"fill": "transparent",
 			"class": classVertical + " column"
 		});
 
@@ -197,10 +206,9 @@ function createWrapperSquare(note1start, note1end, note2start, note2end, side, p
 		var newHorizontalWrapper = makeSVG('rect', {
 			"id": horizontalID,
 			"x": 0,
-			"y": Math.round(y-height/2),
+			"y": y,
 			"width": side,
 			"height": height,
-			"fill": "transparent",
 			"class": classHorizontal + " row"
 		});
 
@@ -251,7 +259,7 @@ function addInstrumentColorsToCSS() {
 	Object.keys(typeColors).forEach(function(type, index) {
 		
 		// Styling the note squares
-		cssStyle += '.' + type + ' .noterect' + ' { fill: ' + typeColors[type] + '; }\n';
+		cssStyle += '.' + type + ' > .rectList > rect ' + ' { fill: ' + typeColors[type] + '; }\n';
 		
 		// Styling the note repetition wrappers
 		cssStyle += '.' + type + ' rect.column.hover' + ' { fill: ' + typeColors[type] + '; opacity:0.2  }\n';
@@ -282,7 +290,7 @@ function createNewBox(id, instrumentName) {
 	var instType = instrumentType(instrumentName);
 
 	// Create the SVG element
-	var gElement = makeSVG('g', { 'id': 'rectList'+id });
+	var gElement = makeSVG('g', { 'id': 'rectList'+id, 'class': 'rectList' });
 	var svgElement = makeSVG('svg', { 'id': 'drawingBox'+id, 'class':'matrixSvg '+ instType });
 	svgElement.appendChild(gElement);
 	
@@ -359,16 +367,22 @@ function createRectangle(note1, note2) {
 	if(note1.isRest || note2.isRest) return;
 
 	if(note1.isUnpitched || note2.isUnpitched) {
+		var t0 = performance.now();
 		printSquare(position1, position2, size1, size2, "black");
 		printSquare(position2, position1, size2, size1, "black");
+		var t1 = performance.now();
+	    timers.printSquare += (t1-t0);
 	}
 
 	else {
 		if(compareNotes(note1, note2)) {
 			identical = true;
 			var color = squaresAreColored ? colorify(note1.freq-minFreq, maxFreq-minFreq) : "black";
+			var t0 = performance.now();
 			printSquare(position1, position2, size1, size2, color);
 			printSquare(position2, position1, size2, size1, color);
+			var t1 = performance.now();
+	    	timers.printSquare += (t1-t0);
 		}
 	}
 
@@ -430,8 +444,8 @@ function createRectangles(part, id) {
     var totalDuration = 0;
 
 	// Use this if you want to limit the number of notes
-    //var nbNotesToProcess = Math.min(part.noteIndices.length, 2000); 
-    var nbNotesToProcess = part.noteIndices.length;
+    var nbNotesToProcess = Math.min(part.noteIndices.length, 100); 
+    //var nbNotesToProcess = part.noteIndices.length;
     
     var lastNoteIndex = part.noteIndices[part.noteIndices.length - 1];
     var lastNote = part.measures[lastNoteIndex.measure].notes[lastNoteIndex.note];
@@ -450,7 +464,10 @@ function createRectangles(part, id) {
     		indexNote2 = part.noteIndices[i];
     		note2 = part.measures[indexNote2.measure].notes[indexNote2.note];
 
+    		var t0 = performance.now();
     		repLength = nbRep(j, i, part);
+    		var t1 = performance.now();
+		    timers.nbRep += (t1-t0);
 
 
     		if(repLength >= nbNotesInRep) {
@@ -462,7 +479,11 @@ function createRectangles(part, id) {
 		    		indexNote2 = part.noteIndices[i+n];
 		    		note2temp = part.measures[indexNote2.measure].notes[indexNote2.note];
 
+		    		var t0 = performance.now();
 		    		createRectangle(note1temp, note2temp);
+		    		var t1 = performance.now();
+		    		timers.createRectangle += (t1-t0);
+
 
 		    	}
 
@@ -471,8 +492,11 @@ function createRectangles(part, id) {
 		    	//i = note2.position + repLength;
 
 			    //createRectangle(note1, note2);
+			    var t0 = performance.now();
 			    createWrapperSquare(note1, note1temp, note2, note2temp, maxIndex, id);
 			    createWrapperSquare(note2, note2temp, note1, note1temp, maxIndex, id);
+	    		var t1 = performance.now();
+	    		timers.createWrapperSquare += (t1-t0);
 		    }
 
     	}

@@ -22,6 +22,11 @@ rect:hover {
     fill:red;
 }*/
 
+.matrixSvg .column,
+.matrixSvg .row,
+.reprect {
+    fill: transparent;
+}
 
 .matrixSvg .column,
 .matrixSvg .row {
@@ -32,13 +37,7 @@ rect:hover {
     z-index: 0;
 }
 
-
-.column, .row {
-    fill:transparent;
-    opacity: 0.2;
-}
-
-rect.column.hover, rect.row.hover {
+.matrixSvg > .column.hover, .matrixSvg > .row.hover {
     opacity: 0.2;
 }
 
