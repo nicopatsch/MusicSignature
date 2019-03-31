@@ -1,7 +1,6 @@
 var musicXML;
 var musicJson;
-var fullMusicJson;
-
+global.fullMusicJson;
 
 
 function getByName(object, name) {
@@ -14,21 +13,15 @@ function getByName(object, name) {
 function cleanXMLContent(fileContent) {
     if (window.DOMParser) {
         
-        var t0 = performance.now();
         parser = new DOMParser();
         musicXML = parser.parseFromString(fileContent, "text/xml");
-        var t1 = performance.now();
-        console.log("    Timer parse XML 1 : " + (t1-t0));
 
 
         // This will delete all the unnecesary line breaks
         var regex = /(\r|\n|\r\n) */g; 
         fileContent = fileContent.replace(regex, "");
         
-        var t0 = performance.now();
         var parsedXML = parseXml(fileContent);
-        var t1 = performance.now();
-        console.log("    Timer parse XML 2 : " + (t1-t0));
         
         return parsedXML;
         
@@ -48,19 +41,21 @@ function loadServerPartFile(songName, artist, filePath) {
     xmlhttp.open("GET", filePath, false);
     xmlhttp.send();
     if (xmlhttp.status==200) {
-    result = xmlhttp.responseText;
+        result = xmlhttp.responseText;
     }
 
-    var t0 = performance.now();
-    fullMusicJson = cleanXMLContent(result);
-    var t1 = performance.now();
-    console.log("  Timer clean XML : " + (t1-t0));
+    global.fullMusicJson = cleanXMLContent(result);
+    makeMusicJSON(songName, artist);    
+       
+}
 
 
-    var t0 = performance.now();   
+
+function makeMusicJSON(songName, artist) {
+    
+    //console.log(global.fullMusicJson);
+
     musicJson = reduceJsonFile();
-    var t1 = performance.now();
-    console.log("  Timer reduce Json file : " + (t1-t0));
 
     //  Here, we decide to use the song name and title specified in the musicList.json 
     //  (passed as arguments to this function).
@@ -69,21 +64,7 @@ function loadServerPartFile(songName, artist, filePath) {
     
     musicJson.songName = songName;
     musicJson.artist = artist;
-    
-    // Bind reload button to this song
-    $('#update-btn').unbind("click");
-    $('#update-btn').on("click", function() {
-        loadServerPartFile(songName, artist, filePath);
-    });
-
-
-    var t0 = performance.now();
-    displayMatrixXML();
-    var t1 = performance.now();
-    console.log("  Timer display matrix: " + (t1-t0));
-    
 }
-
 
 
 
@@ -104,7 +85,7 @@ var readMusicXMLFile = function(event) {
         // get file content 
         fileContent = e.target.result;
 
-        fullMusicJson = cleanXMLContent(fileContent);
+        global.fullMusicJson = cleanXMLContent(fileContent);
         musicJson = reduceJsonFile();
 
         // Bind reload button to this song
@@ -192,7 +173,7 @@ function getInstrumentName(part) {
     //Getting the instrument name (aaarf)
     var partID = part.attributes.id;
 
-    var partList = getByName(fullMusicJson.children[0], "part-list");
+    var partList = getByName(global.fullMusicJson.children[0], "part-list");
     var instrumentPart = partList.children.find(function(element) {
         return element.attributes.id == partID;
     });
@@ -248,7 +229,7 @@ function reduceJsonPart(part) {
 
 
 function reduceJsonFile() {
-    var children = fullMusicJson.children[0].children;
+    var children = global.fullMusicJson.children[0].children;
 
     //Get basic info on the song
     var songName;
@@ -282,3 +263,10 @@ function reduceJsonFile() {
     console.log(songName, artist);
     return { 'songName': songName, "artist": artist, 'parts': jsonParts};
 }
+
+
+global.loadServerPartFile = loadServerPartFile;
+global.readMusicXMLFile = readMusicXMLFile;
+global.makeMusicJSON = makeMusicJSON;
+
+global.musicJson = musicJson;

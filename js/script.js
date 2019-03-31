@@ -7,30 +7,6 @@ var maxNbParts = 0;
 
 var timers = { "nbRep": 0, "createRectangle": 0, "createWrapperSquare": 0, "printSquare": 0 };
 
-$( document ).ready(function() {
-    createSelectionMenu();
-    addInstrumentColorsToCSS();
-
-    var t0 = performance.now();
-    //loadServerPartFile("Bohemian Rhapsody", "Queen", "./music-parts/rock/80s/Queen-Bohemian_Rhapsody.xml");
-	//loadServerPartFile("Bohemian Rhapsody", "Queen", "./music-parts/Pop/Under_Pressure.xml");
-	//loadServerPartFile("Should I Stay or Should I Go", "The Clash", "./music-parts/Pop/Should_I_Stay_or_Should_I_Go.xml");
-	//loadServerPartFile("Should I", "Rilès", "./music-parts/other/riles_should_i.xml");
-	loadServerPartFile("All Blues 4/4", "No artist", "./music-parts/jazz/All_Blues_44.xml");
-
-	var t1 = performance.now();
-	console.log("Timer : " + (t1-t0));
-
-
-	$('#description-toggler').on('click', function(e) {
-		document.getElementById('description-content').style.display = "block";
-	});
-
-	$('#description-less').on('click', function(e) {
-		document.getElementById('description-content').style.display = "none";
-	});
-
-});
 
 
 function loadParametersFromHTML() {
@@ -581,19 +557,8 @@ function createSelectionMenu() {
 
 
 		greyLi = !greyLi;
-		// <li class="dropdown-submenu">
-  //         <a class="test" tabindex="-1" href="#">Classic<span class="caret"></span></a>
-  //         <ul class="dropdown-menu"></ul>
-  //       </li>
 	}
 }
 
 
-
-// $(document).ready(function(){
-//   $('.dropdown-submenu a.test').on("click", function(e){
-//     $(this).next('ul').toggle();
-//     e.stopPropagation();
-//     e.preventDefault();
-//   });
-// });
+global.instrumentType = instrumentType;

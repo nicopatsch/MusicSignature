@@ -132,3 +132,12 @@ class Unpitched {
         this.position = position;
     }
 }
+
+
+global.pitchDict = pitchDict;
+global.stepToAccDict = stepToAccDict;
+global.accToStepDict = accToStepDict;
+
+global.Note = Note;
+global.Unpitched = Unpitched;
+global.Rest = Rest;

@@ -740,3 +740,7 @@ typeColors = {
 	"copper" : "#ff6600", //Orange
 	"unknown": "black"
 };
+
+global.musicList = musicList;
+global.instrumentList = instrumentList;
+global.typeColors = typeColors;
