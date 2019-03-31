@@ -65,7 +65,7 @@ function drawNextMatrix(partId, nbPartsToDisplay) {
 	timers.printSquare = 0;
 
 	if(partId < nbPartsToDisplay) {
-		var part = musicJson.parts[partId];
+		var part = global.musicJson.parts[partId];
 		var instrumentName = part.instrumentName;
 
 		createNewBox(partId, instrumentName);
@@ -86,13 +86,13 @@ function displayMatrixXML() {
     $('#matrixRowContainer').empty();
     $('#matrixRowContainer').html(function(){return this.innerHTML});
 
-    $('#song-name').text(musicJson.songName);
-    $('#artist').text("– "+musicJson.artist);
+    $('#song-name').text(global.musicJson.songName);
+    $('#artist').text("– "+global.musicJson.artist);
 
 
     var nbPartsToDisplay;
-    if(maxNbParts) nbPartsToDisplay = Math.min(maxNbParts, musicJson.parts.length);
-    else nbPartsToDisplay = musicJson.parts.length;
+    if(maxNbParts) nbPartsToDisplay = Math.min(maxNbParts, global.musicJson.parts.length);
+    else nbPartsToDisplay = global.musicJson.parts.length;
 	
 	drawNextMatrix(0, nbPartsToDisplay);
 
@@ -279,7 +279,7 @@ function createNewBox(id, instrumentName) {
 
 
 	// Create the download button for the matrix
-	var fileName = musicJson.songName.replace(" ", "_") + "_" + musicJson.artist + "_" + instrumentName + ".png";
+	var fileName = global.musicJson.songName.replace(" ", "_") + "_" + global.musicJson.artist + "_" + instrumentName + ".png";
 	var downloadButton = $('<a></a>').text("Download").attr({
 		"svg-id": 'drawingBox'+id,
 		"filename": fileName,
@@ -343,22 +343,22 @@ function createRectangle(note1, note2) {
 	if(note1.isRest || note2.isRest) return;
 
 	if(note1.isUnpitched || note2.isUnpitched) {
-		var t0 = performance.now();
+		// var t0 = performance.now();
 		printSquare(position1, position2, size1, size2, "black");
 		printSquare(position2, position1, size2, size1, "black");
-		var t1 = performance.now();
-	    timers.printSquare += (t1-t0);
+		// var t1 = performance.now();
+	    // timers.printSquare += (t1-t0);
 	}
 
 	else {
 		if(compareNotes(note1, note2)) {
 			identical = true;
 			var color = squaresAreColored ? colorify(note1.freq-minFreq, maxFreq-minFreq) : "black";
-			var t0 = performance.now();
+			// var t0 = performance.now();
 			printSquare(position1, position2, size1, size2, color);
 			printSquare(position2, position1, size2, size1, color);
-			var t1 = performance.now();
-	    	timers.printSquare += (t1-t0);
+			// var t1 = performance.now();
+	  //   	timers.printSquare += (t1-t0);
 		}
 	}
 
@@ -440,10 +440,10 @@ function createRectangles(part, id) {
     		indexNote2 = part.noteIndices[i];
     		note2 = part.measures[indexNote2.measure].notes[indexNote2.note];
 
-    		var t0 = performance.now();
+    		// var t0 = performance.now();
     		repLength = nbRep(j, i, part);
-    		var t1 = performance.now();
-		    timers.nbRep += (t1-t0);
+    		// var t1 = performance.now();
+		    // timers.nbRep += (t1-t0);
 
 
     		if(repLength >= nbNotesInRep) {
@@ -455,10 +455,10 @@ function createRectangles(part, id) {
 		    		indexNote2 = part.noteIndices[i+n];
 		    		note2temp = part.measures[indexNote2.measure].notes[indexNote2.note];
 
-		    		var t0 = performance.now();
+		    		// var t0 = performance.now();
 		    		createRectangle(note1temp, note2temp);
-		    		var t1 = performance.now();
-		    		timers.createRectangle += (t1-t0);
+		    		// var t1 = performance.now();
+		    		// timers.createRectangle += (t1-t0);
 
 
 		    	}
@@ -468,11 +468,11 @@ function createRectangles(part, id) {
 		    	//i = note2.position + repLength;
 
 			    //createRectangle(note1, note2);
-			    var t0 = performance.now();
+			    // var t0 = performance.now();
 			    createWrapperSquare(note1, note1temp, note2, note2temp, maxIndex, id);
 			    createWrapperSquare(note2, note2temp, note1, note1temp, maxIndex, id);
-	    		var t1 = performance.now();
-	    		timers.createWrapperSquare += (t1-t0);
+	    		// var t1 = performance.now();
+	    		// timers.createWrapperSquare += (t1-t0);
 		    }
 
     	}
@@ -562,3 +562,4 @@ function createSelectionMenu() {
 
 
 global.instrumentType = instrumentType;
+global.displayMatrixXML = displayMatrixXML;

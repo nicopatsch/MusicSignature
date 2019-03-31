@@ -7,43 +7,122 @@ const fs = require('fs');
 
 var DomParser = require('dom-parser');
 const parseXml = require('@rgrove/parse-xml');
+const jsdom = require("jsdom");
 
-
-fs.writeFile("./output/test_file.txt", "test", function(err) {
-    if(err) {
-    	console.log("nooooope");
-        return console.log(err);
-    }
-
-    console.log("The file was saved!");
-}); 
-
+var HTMLFileContent;
 
 
 main();
 
-
-
 function main() {
 	var songList = musicList.genres[0].titleList;
 
-	for(var i = 1; i < songList.length ; i++) {
+	for(var i = 1; i < /*songList.length*/2 ; i++) {
 		var song = songList[i];
 		loadFile(song);
-		console.log(global.musicJson);
 
-		fs.writeFile("./output/"+song.filename+".html", "test content", function(err) {
-		    if(err) {
-		    	console.log("nooooope");
-		        return console.log(err);
-		    }
+		setTimeout(function() {
+			var resultingHTML;
+			// resultingHTML = createPage();
 
-		    console.log("The file was saved!");
-		});
+
+
+
+			fs.readFile("./index.html", function (err, data) {
+				if (err) {
+					throw err; 
+			  	}
+
+			
+			  	HTMLFileContent = data.toString();
+			  	//HTMLFileContent = "<div><p id='id1'>Text</p></div>";
+
+			  	const { JSDOM } = jsdom;
+
+			    const dom = new JSDOM(HTMLFileContent);
+			    const { document } = dom.window;
+
+			    const $ = (require('jquery'))(dom.window);
+
+			    global.document = document;
+				global.$ = $;
+				global.jQuery = $;
+
+				// console.log(document.documentElement.outerHTML);
+				displayMatrixXML();
+
+				// console.log($('html').html());
+				resultingHTML = $('html').html();
+				// console.log($('html').html());
+				//console.log(document.documentElement.outerHTML);
+				console.log(resultingHTML);
+
+				printHTMLToFile(song, resultingHTML);
+
+			});
+
+
+
+
+			
+
+    	}, 1000);
+
 
 	}
 
 }
+
+
+function printHTMLToFile(song, htmlString) {
+	fs.writeFile("./output/"+song.filename+".html", htmlString, function(err) {
+	    if(err) {
+	    	console.log("nooooope");
+	        return console.log(err);
+	    }
+
+	    console.log("The file was saved!");
+	});
+}
+
+
+
+function createPage() {
+	fs.readFile("./index.html", function (err, data) {
+		if (err) {
+			throw err; 
+	  	}
+
+	
+	  	HTMLFileContent = data.toString();
+	  	//HTMLFileContent = "<div><p id='id1'>Text</p></div>";
+
+	  	const { JSDOM } = jsdom;
+
+	    const dom = new JSDOM(HTMLFileContent);
+	    const { document } = dom.window;
+
+	    const $ = (require('jquery'))(dom.window);
+
+	    global.document = document;
+		global.$ = $;
+		global.jQuery = $;
+
+		// console.log(document.documentElement.outerHTML);
+		displayMatrixXML();
+
+		// console.log($('html').html());
+		result = $('html').html();
+		return result;
+		// console.log($('html').html());
+		//console.log(document.documentElement.outerHTML);
+
+
+	});
+}
+
+
+
 
 
 function cleanXMLContent(fileContent) {
@@ -71,11 +150,9 @@ function loadFile(song) {
 			throw err; 
 	  	}
 	  	XMLFileContent = data.toString();
-
 	  	global.fullMusicJson = cleanXMLContent(XMLFileContent);
-	  	makeMusicJSON(song.songName, song.artist);
-	})
-
+	  	makeMusicJSON(song.name, song.artist);
+	});
 }
 
 

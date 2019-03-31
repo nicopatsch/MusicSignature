@@ -1,0 +1,12 @@
+{
+  "name": "music_signature",
+  "version": "1.0.0",
+  "dependencies": {
+    "dom-parser": "^1.0.0",
+    "@rgrove/parse-xml": "^1.0.0",
+    "jsdom": "^1.0.0"
+  },
+  "scripts": {
+    "start": "node js/prepare-pages.js"
+  }
+}

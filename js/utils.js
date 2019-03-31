@@ -137,6 +137,7 @@ class Unpitched {
 global.pitchDict = pitchDict;
 global.stepToAccDict = stepToAccDict;
 global.accToStepDict = accToStepDict;
+global.colorify = colorify;
 
 global.Note = Note;
 global.Unpitched = Unpitched;

@@ -1,5 +1,5 @@
 var musicXML;
-var musicJson;
+global.musicJson;
 global.fullMusicJson;
 
 
@@ -55,15 +55,16 @@ function makeMusicJSON(songName, artist) {
     
     //console.log(global.fullMusicJson);
 
-    musicJson = reduceJsonFile();
-
+    global.musicJson = reduceJsonFile();
     //  Here, we decide to use the song name and title specified in the musicList.json 
     //  (passed as arguments to this function).
     //  If we want to keep the song name and song title as said in the file,
     //  just comment the next 2 lines.
     
-    musicJson.songName = songName;
-    musicJson.artist = artist;
+    console.log(songName, artist);
+
+    global.musicJson.songName = songName;
+    global.musicJson.artist = artist;
 }
 
 
@@ -86,7 +87,7 @@ var readMusicXMLFile = function(event) {
         fileContent = e.target.result;
 
         global.fullMusicJson = cleanXMLContent(fileContent);
-        musicJson = reduceJsonFile();
+        global.musicJson = reduceJsonFile();
 
         // Bind reload button to this song
         $('#update-btn').unbind("click");
@@ -269,4 +270,4 @@ global.loadServerPartFile = loadServerPartFile;
 global.readMusicXMLFile = readMusicXMLFile;
 global.makeMusicJSON = makeMusicJSON;
 
-global.musicJson = musicJson;
+// global.musicJson = musicJson;
