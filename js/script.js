@@ -59,22 +59,16 @@ function downloadPNGMatrix(svgID, fileName, instrument) {
 
 
 function drawNextMatrix(partId, nbPartsToDisplay) {
-	timers.nbRep = 0;
-	timers.createRectangle = 0;
-	timers.createWrapperSquare = 0;
-	timers.printSquare = 0;
 
 	if(partId < nbPartsToDisplay) {
+		//console.log("should display new matrix");
 		var part = global.musicJson.parts[partId];
 		var instrumentName = part.instrumentName;
 
 		createNewBox(partId, instrumentName);
     	createRectangles(part, partId);
 
-    	setTimeout(function() {
-			console.log(timers);
-    		drawNextMatrix(partId + 1, nbPartsToDisplay)
-    	}, 1);
+    	drawNextMatrix(partId + 1, nbPartsToDisplay);
 	}
 }
 
@@ -420,7 +414,7 @@ function createRectangles(part, id) {
     var totalDuration = 0;
 
 	// Use this if you want to limit the number of notes
-    var nbNotesToProcess = Math.min(part.noteIndices.length, 100); 
+    var nbNotesToProcess = Math.min(part.noteIndices.length, 1000); 
     //var nbNotesToProcess = part.noteIndices.length;
     
     var lastNoteIndex = part.noteIndices[part.noteIndices.length - 1];
@@ -489,37 +483,16 @@ function createRectangles(part, id) {
 
 
 
-function createMusicElement(songObject, genreObject) {
-	var musicLi = $("<li></li>");
+function createMusicElement(songObject) {
+	var musicLi = $("<li></li>").addClass("song");
 
-	if(songObject.hasOwnProperty("year")) {
-		musicLi.append(songObject.year).addClass("year-element");
-	}
+	var musicA = $("<a></a>").attr({
+    	"tabindex" : "-1",
+   		"href" : "../output/"+songObject.filename+".html"
+ 	})
+	.text(songObject.name + " – " + songObject.artist);
 
-	else {
-
-		var musicLi = $("<li></li>");
-
-		var musicFilePath = "./music-parts/" + genreObject.name + "/" + songObject.filename + ".xml";
-		var musicA = $("<a></a>").attr({
-	    	"tabindex" : "-1",
-	   		"href" : "#",
-	   		"filePath" : musicFilePath,
-	   		"songName" : songObject.name,
-	   		"artist" : songObject.artist
-	 	})
-		.text(songObject.name + " – " + songObject.artist);
-
-		musicA.on("click", function() {
-			loadServerPartFile(
-				$(this).attr("songName"), 
-				$(this).attr("artist"), 
-				$(this).attr("filePath")
-			);
-		});	
-
-		musicLi.append(musicA);
-	}
+	musicLi.append(musicA);
 
 	return musicLi;
 }
@@ -527,39 +500,78 @@ function createMusicElement(songObject, genreObject) {
 
 function createSelectionMenu() {
 
+	var genreHistory = [];
+	var song;
+
 	var genreUl = $("#genre-ul");
 	var greyLi = false;
 
-	for (genreIndex in musicList.genres) {
-		//For each genre, create genre element
-		var genreObject = musicList.genres[genreIndex];
+	for(songId in musicList) {
+		song = musicList[songId];
+		if(genreHistory.find(function(inst) {
+			return inst == song.genre;
+		}) == null) {
+			// This genre has never been found
+			
+			var newGenreLi = $("<li></li>").attr({ "id": song.genre }).addClass("dropdown genre");
+			if(greyLi) newGenreLi.addClass("grey");
 
-		var genreLi = $("<li></li>").addClass("dropdown genre");
-		if(greyLi) genreLi.addClass("grey");
+			var musicUl = $("<ul></ul>").addClass("dropdown-menu song-ul");
 
-		var genreA = $("<a></a>").attr({
-		    "tabindex" : "-1",
-		    "href" : "#"
-		  }).addClass("test genre").text(genreObject.name);
+			var genreA = $("<a></a>").attr({
+			    "tabindex" : "-1",
+			    "href" : "#"
+			}).addClass("genre").text(song.genre);
 
-		//console.log(genreObject.titleList)
-		var musicUl = $("<ul></ul>").addClass("dropdown-menu");
-		for (musicIndex in genreObject.titleList) {
-			//For each music in genre, create music element
-			musicUl.append(createMusicElement(genreObject.titleList[musicIndex], genreObject));
 
+			newGenreLi.append(genreA, musicUl);
+			genreUl.append(newGenreLi);
+
+			genreHistory.push(song.genre);
 		}
 
-		//Add everything to genre element
-
-		genreLi.append(genreA, musicUl);
-		genreUl.append(genreLi);
+		var musicUl = $('#'+song.genre).children("ul");
+		musicUl.append(createMusicElement(song));
 
 
-		greyLi = !greyLi;
 	}
+
+
+
+	// var genreUl = $("#genre-ul");
+	// var greyLi = false;
+
+	// for (genreIndex in musicList.genres) {
+	// 	//For each genre, create genre element
+	// 	var genreObject = musicList.genres[genreIndex];
+
+	// 	var genreLi = $("<li></li>").addClass("dropdown genre");
+	// 	if(greyLi) genreLi.addClass("grey");
+
+	// 	var genreA = $("<a></a>").attr({
+	// 	    "tabindex" : "-1",
+	// 	    "href" : "#"
+	// 	  }).addClass("test genre").text(genreObject.name);
+
+	// 	//console.log(genreObject.titleList)
+	// 	var musicUl = $("<ul></ul>").addClass("dropdown-menu");
+	// 	for (musicIndex in genreObject.titleList) {
+	// 		//For each music in genre, create music element
+	// 		musicUl.append(createMusicElement(genreObject.titleList[musicIndex], genreObject));
+
+	// 	}
+
+	// 	//Add everything to genre element
+
+	// 	genreLi.append(genreA, musicUl);
+	// 	genreUl.append(genreLi);
+
+
+	// 	greyLi = !greyLi;
+	// }
 }
 
 
 global.instrumentType = instrumentType;
 global.displayMatrixXML = displayMatrixXML;
+global.createSelectionMenu = createSelectionMenu;

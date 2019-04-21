@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en"><head>
+	
+		<script src="../js/jquery-1.8.1.js"></script>
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	    <link href="../css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+
+
+	    <link rel="stylesheet" type="text/css" href="../grid/simple-grid.min.css">
+	    <link rel="stylesheet" type="text/css" href="../css/simple-grid.min.css">
+	    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+
+	    <link rel="stylesheet" type="text/css" href="../css/style.css">
+		<script src="../js/bootstrap-dropdownhover.min.js"></script>
+	    <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
+
+	</head>
+
+
+	<body>
+	    <canvas style="display:none;" width="5000" height="5000" id="canvas"></canvas>
+	    <div id="png-container"></div>
+
+	    <div id="header-row" class="row content-row">
+	      <div class="col-1">
+	        <h2 id="logo">MOTIF</h2>
+	      </div>
+
+	      <div class="col-5 content-col">
+
+	        <div class="flex-container">
+
+	          <div id="song-selector">
+	            <div id="music-menu" class="dropdown">
+	              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" data-hover="dropdown" data-animations="{bottom} {left} {top} {right}">
+	               Select your song
+	              </button>
+	              <ul id="genre-ul" class="dropdown-menu"><li id="classic" class="dropdown genre"><a tabindex="-1" href="#" class="genre">classic</a><ul class="dropdown-menu song-ul"><li class="song"><a tabindex="-1" href="../output/Adagio_for_Strings.html">Adagio for Strings – Samuel Barber</a></li><li class="song"><a tabindex="-1" href="../output/Beethoven_Symphony_No._5_1st_movement_Piano_solo.html">Symphony No.5 1st movement, Piano solo – Ludwig van Beethoven</a></li><li class="song"><a tabindex="-1" href="../output/Canon_In_D_Major_By_Johan_Pachelbel.html">Canon in D major – Johan Pachelbel</a></li><li class="song"><a tabindex="-1" href="../output/The_Four_Seasons_Complete.html">The Four Seasons Complete – Vivaldi</a></li><li class="song"><a tabindex="-1" href="../output/Fur_Elise.html">Fur Elise – Ludwig van Beethoven</a></li></ul></li><li id="jazz" class="dropdown genre"><a tabindex="-1" href="#" class="genre">jazz</a><ul class="dropdown-menu song-ul"><li class="song"><a tabindex="-1" href="../output/All_Blues_44.html">All Blues 4/4 – No artist</a></li><li class="song"><a tabindex="-1" href="../output/A_Night_in_Tunisia.html">A Night in Tunisia – Dizzy Gillespie</a></li><li class="song"><a tabindex="-1" href="../output/Autumn_leaves.html">Autum Leaves – Sam Jones, Joseph Kosma</a></li><li class="song"><a tabindex="-1" href="../output/Round_Mignight.html">Round Midnight – The Lonious Monk</a></li><li class="song"><a tabindex="-1" href="../output/So_What.html">So What – Miles Davis</a></li><li class="song"><a tabindex="-1" href="../output/Take_the_A_Train.html">Take the A-Train – Duke Ellington</a></li></ul></li><li id="metal" class="dropdown genre"><a tabindex="-1" href="#" class="genre">metal</a><ul class="dropdown-menu song-ul"><li class="song"><a tabindex="-1" href="../output/Back_in_Black.html">Back in Black – AC/DC</a></li><li class="song"><a tabindex="-1" href="../output/Du_hast.html">Du Hast – Rammstein</a></li><li class="song"><a tabindex="-1" href="../output/Dragula.html">Dragula – Rob Zombie</a></li><li class="song"><a tabindex="-1" href="../output/Dirty_Deeds_Done_Dirt_Cheap.html">Dirty Deeds Done Dirt Cheap – AC/DC</a></li></ul></li><li id="pop" class="dropdown genre"><a tabindex="-1" href="#" class="genre">pop</a><ul class="dropdown-menu song-ul"><li class="song"><a tabindex="-1" href="../output/Close_To_You_They_Long_To_Be.html">Close to You (They Long to Be) – The Carpenters</a></li><li class="song"><a tabindex="-1" href="../output/Let_It_Be.html">Let It Be – John Lennon and Paul McCartney</a></li><li class="song"><a tabindex="-1" href="../output/Bad_Bad_Leroy_Brown.html">Bad Bad Leroy Brown – Jim Croce</a></li><li class="song"><a tabindex="-1" href="../output/Come_and_Get_Your_Love.html">Come and Get Your Love – Lolly Vasquez</a></li><li class="song"><a tabindex="-1" href="../output/All_Night_Long.html">All Night Long – Lionel Richie</a></li><li class="song"><a tabindex="-1" href="../output/Beat_It.html">Beat It – Michael Jackson</a></li><li class="song"><a tabindex="-1" href="../output/Should_I_Stay_or_Should_I_Go.html">Should I Stay or Should I Go – The Clash</a></li><li class="song"><a tabindex="-1" href="../output/Under_Pressure.html">Under Pressure – Queen, David Bowie</a></li><li class="song"><a tabindex="-1" href="../output/Barbie_Girl.html">Barbie Girl – Aqua</a></li><li class="song"><a tabindex="-1" href="../output/Dont_speak.html">Don't Speak – No Doubt</a></li><li class="song"><a tabindex="-1" href="../output/Hit_Me_Baby_One_More_Time.html">Hit Me Baby One More Time – Britney Spears</a></li><li class="song"><a tabindex="-1" href="../output/Wannabe.html">Wannabe – Spice Girls</a></li><li class="song"><a tabindex="-1" href="../output/Mambo_no.5_Lou_Bega.html">Mambo No. 5 – Lou Bega</a></li><li class="song"><a tabindex="-1" href="../output/Lady_Gaga-Bad_Romance.html">Bad Romance – Lady Gaga</a></li><li class="song"><a tabindex="-1" href="../output/Sweet_but_psycho.html">Sweet but psycho – Ava Max</a></li><li class="song"><a tabindex="-1" href="../output/Live_Forever.html">Live Forever – Oasis</a></li><li class="song"><a tabindex="-1" href="../output/Get_Lucky-Daft_Punk.html">Get Lucky – Daft Punk</a></li><li class="song"><a tabindex="-1" href="../output/La_La_Land-City_Of_Stars.html">City Of Stars (La La Land) – Justin Hurwitz</a></li></ul></li><li id="rock" class="dropdown genre"><a tabindex="-1" href="#" class="genre">rock</a><ul class="dropdown-menu song-ul"><li class="song"><a tabindex="-1" href="../output/Walk_This_Way_Aerosmith.html">Walk This Way – Aerosmith</a></li><li class="song"><a tabindex="-1" href="../output/Queen-Bohemian_Rhapsody_Voice.html">Bohemian Rhapsody (voices) – Queen</a></li><li class="song"><a tabindex="-1" href="../output/Queen-Bohemian_Rhapsody.html">Bohemian Rhapsody – Queen</a></li><li class="song"><a tabindex="-1" href="../output/Queen-I_want_to_break_free.html">I Want to Break Free – Queen</a></li><li class="song"><a tabindex="-1" href="../output/Sweet_Child_o_Mine.html">Sweet Child o' Mine – Guns N' Roses</a></li><li class="song"><a tabindex="-1" href="../output/Eye_of_the_Tiger.html">Eye of the Tiger – Survivor</a></li><li class="song"><a tabindex="-1" href="../output/Black_Hole_Sun.html">Black Hole Sun – Chris Cornell</a></li><li class="song"><a tabindex="-1" href="../output/The_show_must_go_on.html">The Show Must Go On – Queen</a></li><li class="song"><a tabindex="-1" href="../output/Black_Hole_Sun.html">Beautiful Day – Alex Gouge-Schajer, Austin Eamnarangkool, Ben Pevsner</a></li><li class="song"><a tabindex="-1" href="../output/Yellow.html">Yellow - Look at the Stars – Coldplay</a></li><li class="song"><a tabindex="-1" href="../output/Californication.html">Californication – Red Hot Chili Peppers</a></li></ul></li><li id="french variety" class="dropdown genre"><a tabindex="-1" href="#" class="genre">french variety</a><ul class="dropdown-menu song-ul"></ul></li></ul>
+	            </div>
+	          </div>
+
+
+	          <div class="container-vertical">
+	            <div id="song-info" class="flex-container">
+	              <h2><span id="song-name">Live Forever</span> <span id="artist">– Oasis</span></h2>
+	              <button id="update-btn"><i class="fas fa-redo fa-sm mr-2 v-align-middle" style="color: {{ icon_color }};"></i></button>
+	            </div>
+
+	            <div class="parameters">
+	              <span>Number of notes in a repetition: </span><input type="number" id="nbNotesInRep" name="nbNotesInRep" min="1" max="50" value="2">
+	            </div>
+	          </div>
+
+	        </div>
+	        <!-- Max number of instruments to be displayed : <input type="number" id="maxNbParts" name="maxNbParts" min="1" max="50" value="5"> -->
+	        
+	        <!-- Space between notes : <input type="number" id="spaceBetweenNotes" name="spaceBetweenNotes" min="0" max="50" value="0"> <br> -->
+	        
+	        <!-- Color squares :<input type="checkbox" id="squaresAreColored" name="squaresAreColored"> <br> -->
+
+	        <!-- Real duration :<input type="checkbox" id="realDuration" name="realDuration" checked> <br> -->
+
+	        <!-- Full square :<input type="checkbox" id="fullSquare" name="fullSquare" checked> <br> -->
+
+
+	      </div>
+	      <div class="col-5 content-col">
+	        <div id="description">
+	          <button id="description-toggler">What is MOTIF?</button>
+	          <div id="description-content">
+	            <p>
+	              This project aims at showing the repetition in music. Select a song, and you will see, for each instrument playing in the song, the pattern that the notes create, the <em>signature</em> of the instrument. On a <em>signature</em>, each column and each rown corresponds to a note. When a pixel is lit up, it means that the two corresponding notes (the one of the row and the one of the column) are the same.
+	            </p>
+	            <p>
+	              You can modify the <em>number of notes in a repetition</em> in order to select melodies that are longer or shorter. If you select 5, for instance, you will only see the notes that belong to a melody of 5 notes or more and that is repeted at least twice across the song.
+	            </p>
+	            <p>
+	              This project was largely inspired by the work <a href="https://colinmorris.github.io/SongSim/">SongSim</a> by <strong>Colin Morris</strong>, a tool that shows the repetition in the lyrics of songs.
+	              <button id="description-less"><span class="caret caret-up"></span> Less</button>
+	            </p>
+	          </div>
+	          <br>
+	          <br>
+	        </div>
+	        <p class="signature">
+	              <strong><a class="a-disabled" href="https://cargocollective.com/sixtine_philippe/">Sixtine Philippe</a></strong> x <strong><a class="a-disabled" href="https://nicopatsch.github.io/portfolio/">Nicolas Patschkowski</a></strong>
+	            </p>
+	        <div id="custom-file">
+	          Or upload your own MusicXML file:
+	          <input type="file" name="file" id="file-uploader" accept="text/xml" onclick="this.value = null;" onchange="readMusicXMLFile(event)" class="inputfile">
+	          <label for="file-uploader">Choose a file</label>
+	        </div>
+	      </div>
+
+	      <div class="col-1">
+	      </div>
+	    </div>
+	    
+	    <div id="matrixRowContainer"><div id="row0" class="row content-row"><div class="col-1"></div><div class="col-5 content-col"><div class="matrixContainer drum"><svg id="drawingBox0" class="matrixSvg drum" viewBox="0 0 402548 402548"><g id="rectList0" class="rectList"></g></svg><div class="matrix-info drum"><h3 class="instrumentName" id="instrumentName0">Acoustic Bass Drum</h3><a svg-id="drawingBox0" filename="Live_Forever_Oasis_Acoustic Bass Drum.png" href="#" instrument="Acoustic Bass Drum">Download</a></div></div></div></div></div>
+
+
+	    <div id="footer" class="row content-row">
+	      
+	      <div class="col-1">
+	      </div>
+
+	      <div class="col-5 content-col">
+
+	          <p>MusicSignature is a coding project by Nicolas Patschkowski. Here is <a href="https://github.com/nicopatsch/MusicSignature">the GitHub repo</a>.</p>
+	          
+	          <p>If you want to see more of my projects, check out <a href="https://nicopatsch.github.io/portfolio/">my portfolio</a>.</p>
+
+	      </div>
+
+	      <div class="col-5 content-col">
+	      </div>
+
+	      <div class="col-1">
+	      </div>
+	    </div>
+
+	
+
+</body></html>

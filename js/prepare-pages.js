@@ -11,92 +11,58 @@ const jsdom = require("jsdom");
 
 var HTMLFileContent;
 
-
 main();
 
 function main() {
-	var songList = musicList.genres[0].titleList;
 
-	for(var i = 1; i < /*songList.length*/2 ; i++) {
-		var song = songList[i];
-		loadFile(song);
+	//Code also a function that copies index.html and puts the scripts necesary for browser-side rendering
+	
 
-		setTimeout(function() {
-			var resultingHTML;
-			// resultingHTML = createPage();
-
-
-
-
-			fs.readFile("./index.html", function (err, data) {
-				if (err) {
-					throw err; 
-			  	}
-
-			
-			  	HTMLFileContent = data.toString();
-			  	//HTMLFileContent = "<div><p id='id1'>Text</p></div>";
-
-			  	const { JSDOM } = jsdom;
-
-			    const dom = new JSDOM(HTMLFileContent);
-			    const { document } = dom.window;
-
-			    const $ = (require('jquery'))(dom.window);
-
-			    global.document = document;
-				global.$ = $;
-				global.jQuery = $;
-
-				// console.log(document.documentElement.outerHTML);
-				displayMatrixXML();
-
-				// console.log($('html').html());
-				resultingHTML = $('html').html();
-				// console.log($('html').html());
-				//console.log(document.documentElement.outerHTML);
-				console.log(resultingHTML);
-
-				printHTMLToFile(song, resultingHTML);
-
-			});
-
-
-
-
-			
-
-    	}, 1000);
-
-
-	}
+	// This function will recursively call the preparation of each page one by one
+	createPageFromFile(0);
 
 }
 
 
-function printHTMLToFile(song, htmlString) {
+function printHTMLToFile(songId, htmlString) {
+
+	var song = musicList[songId];
+
 	fs.writeFile("./output/"+song.filename+".html", htmlString, function(err) {
 	    if(err) {
 	    	console.log("nooooope");
 	        return console.log(err);
 	    }
 
-	    console.log("The file was saved!");
+	    console.log(song.name, "--> OK");
+
+
+		if(songId < musicList.length - 1) {
+			createPageFromFile(songId+1);
+		}
+
+		else {
+			console.log("Every song page has been prepare!");
+		}
+
 	});
 }
 
 
 
-function createPage() {
-	fs.readFile("./index.html", function (err, data) {
+function createPage(songId) {
+
+	var resultingHTML;
+	fs.readFile("./template/index.html", function (err, data) {
+
 		if (err) {
 			throw err; 
 	  	}
-
 	
 	  	HTMLFileContent = data.toString();
-	  	//HTMLFileContent = "<div><p id='id1'>Text</p></div>";
 
+
+	  	/*** Preparing everything needed to run jQuery ***/
 	  	const { JSDOM } = jsdom;
 
 	    const dom = new JSDOM(HTMLFileContent);
@@ -108,18 +74,42 @@ function createPage() {
 		global.$ = $;
 		global.jQuery = $;
 
-		// console.log(document.documentElement.outerHTML);
-		displayMatrixXML();
 
-		// console.log($('html').html());
-		result = $('html').html();
-		return result;
-		// console.log($('html').html());
-		//console.log(document.documentElement.outerHTML);
+		/*** Preparing the page... ***/
+		
+		try {
+			displayMatrixXML();
+		}
+		catch(err) {
+			console.log(err);
+			if(songId < musicList.length - 1) {
+				createPageFromFile(songId+1);
+			}
+			return;
+		}
+	
+		createSelectionMenu();
 
 
+
+
+
+		/*** Capturing and printing the page ***/
+		// Once the page creation is over, we capture it and print it to a file
+		resultingHTML = "<!doctype html>\n" + $('html')[0].outerHTML;
+
+		var song = musicList[songId];
+
+		printHTMLToFile(songId, resultingHTML);
+
+
+
+		
 	});
 }
+
+
+
 
 
 
@@ -141,8 +131,15 @@ function cleanXMLContent(fileContent) {
 }
 
 
-function loadFile(song) {
-	var filepath = "./music-parts/classic/"+song.filename+".xml";
+
+function createPageFromFile(songId) {
+
+	var song = musicList[songId];
+
+	console.log(songId, song.name, song.artist);
+	
+	var year = song.hasOwnProperty("year") ? "/" + song.year : "";
+	var filepath = "./music-parts/"+song.genre+year+"/"+song.filename+".xml";
 
 	var XMLFileContent;
 	fs.readFile( filepath, function (err, data) {
@@ -152,20 +149,7 @@ function loadFile(song) {
 	  	XMLFileContent = data.toString();
 	  	global.fullMusicJson = cleanXMLContent(XMLFileContent);
 	  	makeMusicJSON(song.name, song.artist);
+
+	  	createPage(songId);
 	});
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

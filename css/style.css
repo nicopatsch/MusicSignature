@@ -207,6 +207,18 @@ button,
     margin-left:3px;
 }
 
+#genre-ul > li.open:nth-child(even) a.genre,
+.song-ul > li:nth-child(even) a:hover { 
+    background-color: #999999;
+}
+
+
+#genre-ul > li:nth-child(even) a.genre,
+.song-ul > li:nth-child(even) a { 
+    background-color: #bfbfbf;
+}
+
+
 .inputfile {
     width: 0.1px;
     height: 0.1px;
@@ -358,14 +370,14 @@ svg.matrix {
     text-transform: none;
 }
 
-li.genre.grey.open a.genre {
+/*li.genre.grey.open a.genre {
     background-color: #999999;
 }
 
 
 li.genre.grey a.genre {
     background-color: #bfbfbf;
-}
+}*/
 
 
 .year-element {

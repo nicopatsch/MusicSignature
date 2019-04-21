@@ -61,7 +61,7 @@ function makeMusicJSON(songName, artist) {
     //  If we want to keep the song name and song title as said in the file,
     //  just comment the next 2 lines.
     
-    console.log(songName, artist);
+    //console.log(songName, artist);
 
     global.musicJson.songName = songName;
     global.musicJson.artist = artist;
@@ -261,7 +261,6 @@ function reduceJsonFile() {
 
 
 
-    console.log(songName, artist);
     return { 'songName': songName, "artist": artist, 'parts': jsonParts};
 }
 

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en"><head>
+	
+		<script src="../js/jquery-1.8.1.js"></script>
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	    <link href="../css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+
+
+	    <link rel="stylesheet" type="text/css" href="../grid/simple-grid.min.css">
+	    <link rel="stylesheet" type="text/css" href="../css/simple-grid.min.css">
+	    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+
+	    <link rel="stylesheet" type="text/css" href="../css/style.css">
+		<script src="../js/bootstrap-dropdownhover.min.js"></script>
+	    <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
+
+	</head>
+
+
+	<body>
+	    <canvas style="display:none;" width="5000" height="5000" id="canvas"></canvas>
+	    <div id="png-container"></div>
+
+	    <div id="header-row" class="row content-row">
+	      <div class="col-1">
+	        <h2 id="logo">MOTIF</h2>
+	      </div>
+
+	      <div class="col-5 content-col">
+
+	        <div class="flex-container">
+
+	          <div id="song-selector">
+	            <div id="music-menu" class="dropdown">
+	              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" data-hover="dropdown" data-animations="{bottom} {left} {top} {right}">
+	               Select your song
+	              </button>
+	              <ul id="genre-ul" class="dropdown-menu"><li id="classic" class="dropdown genre"><a tabindex="-1" href="#" class="genre">classic</a><ul class="dropdown-menu song-ul"><li class="song"><a tabindex="-1" href="../output/Adagio_for_Strings.html">Adagio for Strings – Samuel Barber</a></li><li class="song"><a tabindex="-1" href="../output/Beethoven_Symphony_No._5_1st_movement_Piano_solo.html">Symphony No.5 1st movement, Piano solo – Ludwig van Beethoven</a></li><li class="song"><a tabindex="-1" href="../output/Canon_In_D_Major_By_Johan_Pachelbel.html">Canon in D major – Johan Pachelbel</a></li><li class="song"><a tabindex="-1" href="../output/The_Four_Seasons_Complete.html">The Four Seasons Complete – Vivaldi</a></li><li class="song"><a tabindex="-1" href="../output/Fur_Elise.html">Fur Elise – Ludwig van Beethoven</a></li></ul></li><li id="jazz" class="dropdown genre"><a tabindex="-1" href="#" class="genre">jazz</a><ul class="dropdown-menu song-ul"><li class="song"><a tabindex="-1" href="../output/All_Blues_44.html">All Blues 4/4 – No artist</a></li><li class="song"><a tabindex="-1" href="../output/A_Night_in_Tunisia.html">A Night in Tunisia – Dizzy Gillespie</a></li><li class="song"><a tabindex="-1" href="../output/Autumn_leaves.html">Autum Leaves – Sam Jones, Joseph Kosma</a></li><li class="song"><a tabindex="-1" href="../output/Round_Mignight.html">Round Midnight – The Lonious Monk</a></li><li class="song"><a tabindex="-1" href="../output/So_What.html">So What – Miles Davis</a></li><li class="song"><a tabindex="-1" href="../output/Take_the_A_Train.html">Take the A-Train – Duke Ellington</a></li></ul></li><li id="metal" class="dropdown genre"><a tabindex="-1" href="#" class="genre">metal</a><ul class="dropdown-menu song-ul"><li class="song"><a tabindex="-1" href="../output/Back_in_Black.html">Back in Black – AC/DC</a></li><li class="song"><a tabindex="-1" href="../output/Du_hast.html">Du Hast – Rammstein</a></li><li class="song"><a tabindex="-1" href="../output/Dragula.html">Dragula – Rob Zombie</a></li><li class="song"><a tabindex="-1" href="../output/Dirty_Deeds_Done_Dirt_Cheap.html">Dirty Deeds Done Dirt Cheap – AC/DC</a></li></ul></li><li id="pop" class="dropdown genre"><a tabindex="-1" href="#" class="genre">pop</a><ul class="dropdown-menu song-ul"><li class="song"><a tabindex="-1" href="../output/Close_To_You_They_Long_To_Be.html">Close to You (They Long to Be) – The Carpenters</a></li><li class="song"><a tabindex="-1" href="../output/Let_It_Be.html">Let It Be – John Lennon and Paul McCartney</a></li><li class="song"><a tabindex="-1" href="../output/Bad_Bad_Leroy_Brown.html">Bad Bad Leroy Brown – Jim Croce</a></li><li class="song"><a tabindex="-1" href="../output/Come_and_Get_Your_Love.html">Come and Get Your Love – Lolly Vasquez</a></li><li class="song"><a tabindex="-1" href="../output/All_Night_Long.html">All Night Long – Lionel Richie</a></li><li class="song"><a tabindex="-1" href="../output/Beat_It.html">Beat It – Michael Jackson</a></li><li class="song"><a tabindex="-1" href="../output/Should_I_Stay_or_Should_I_Go.html">Should I Stay or Should I Go – The Clash</a></li><li class="song"><a tabindex="-1" href="../output/Under_Pressure.html">Under Pressure – Queen, David Bowie</a></li><li class="song"><a tabindex="-1" href="../output/Barbie_Girl.html">Barbie Girl – Aqua</a></li><li class="song"><a tabindex="-1" href="../output/Dont_speak.html">Don't Speak – No Doubt</a></li><li class="song"><a tabindex="-1" href="../output/Hit_Me_Baby_One_More_Time.html">Hit Me Baby One More Time – Britney Spears</a></li><li class="song"><a tabindex="-1" href="../output/Wannabe.html">Wannabe – Spice Girls</a></li><li class="song"><a tabindex="-1" href="../output/Mambo_no.5_Lou_Bega.html">Mambo No. 5 – Lou Bega</a></li><li class="song"><a tabindex="-1" href="../output/Lady_Gaga-Bad_Romance.html">Bad Romance – Lady Gaga</a></li><li class="song"><a tabindex="-1" href="../output/Sweet_but_psycho.html">Sweet but psycho – Ava Max</a></li><li class="song"><a tabindex="-1" href="../output/Live_Forever.html">Live Forever – Oasis</a></li><li class="song"><a tabindex="-1" href="../output/Get_Lucky-Daft_Punk.html">Get Lucky – Daft Punk</a></li><li class="song"><a tabindex="-1" href="../output/La_La_Land-City_Of_Stars.html">City Of Stars (La La Land) – Justin Hurwitz</a></li></ul></li><li id="rock" class="dropdown genre"><a tabindex="-1" href="#" class="genre">rock</a><ul class="dropdown-menu song-ul"><li class="song"><a tabindex="-1" href="../output/Walk_This_Way_Aerosmith.html">Walk This Way – Aerosmith</a></li><li class="song"><a tabindex="-1" href="../output/Queen-Bohemian_Rhapsody_Voice.html">Bohemian Rhapsody (voices) – Queen</a></li><li class="song"><a tabindex="-1" href="../output/Queen-Bohemian_Rhapsody.html">Bohemian Rhapsody – Queen</a></li><li class="song"><a tabindex="-1" href="../output/Queen-I_want_to_break_free.html">I Want to Break Free – Queen</a></li><li class="song"><a tabindex="-1" href="../output/Sweet_Child_o_Mine.html">Sweet Child o' Mine – Guns N' Roses</a></li><li class="song"><a tabindex="-1" href="../output/Eye_of_the_Tiger.html">Eye of the Tiger – Survivor</a></li><li class="song"><a tabindex="-1" href="../output/Black_Hole_Sun.html">Black Hole Sun – Chris Cornell</a></li><li class="song"><a tabindex="-1" href="../output/The_show_must_go_on.html">The Show Must Go On – Queen</a></li><li class="song"><a tabindex="-1" href="../output/Black_Hole_Sun.html">Beautiful Day – Alex Gouge-Schajer, Austin Eamnarangkool, Ben Pevsner</a></li><li class="song"><a tabindex="-1" href="../output/Yellow.html">Yellow - Look at the Stars – Coldplay</a></li><li class="song"><a tabindex="-1" href="../output/Californication.html">Californication – Red Hot Chili Peppers</a></li></ul></li><li id="french variety" class="dropdown genre"><a tabindex="-1" href="#" class="genre">french variety</a><ul class="dropdown-menu song-ul"></ul></li></ul>
+	            </div>
+	          </div>
+
+
+	          <div class="container-vertical">
+	            <div id="song-info" class="flex-container">
+	              <h2><span id="song-name">Mambo No. 5</span> <span id="artist">– Lou Bega</span></h2>
+	              <button id="update-btn"><i class="fas fa-redo fa-sm mr-2 v-align-middle" style="color: {{ icon_color }};"></i></button>
+	            </div>
+
+	            <div class="parameters">
+	              <span>Number of notes in a repetition: </span><input type="number" id="nbNotesInRep" name="nbNotesInRep" min="1" max="50" value="2">
+	            </div>
+	          </div>
+
+	        </div>
+	        <!-- Max number of instruments to be displayed : <input type="number" id="maxNbParts" name="maxNbParts" min="1" max="50" value="5"> -->
+	        
+	        <!-- Space between notes : <input type="number" id="spaceBetweenNotes" name="spaceBetweenNotes" min="0" max="50" value="0"> <br> -->
+	        
+	        <!-- Color squares :<input type="checkbox" id="squaresAreColored" name="squaresAreColored"> <br> -->
+
+	        <!-- Real duration :<input type="checkbox" id="realDuration" name="realDuration" checked> <br> -->
+
+	        <!-- Full square :<input type="checkbox" id="fullSquare" name="fullSquare" checked> <br> -->
+
+
+	      </div>
+	      <div class="col-5 content-col">
+	        <div id="description">
+	          <button id="description-toggler">What is MOTIF?</button>
+	          <div id="description-content">
+	            <p>
+	              This project aims at showing the repetition in music. Select a song, and you will see, for each instrument playing in the song, the pattern that the notes create, the <em>signature</em> of the instrument. On a <em>signature</em>, each column and each rown corresponds to a note. When a pixel is lit up, it means that the two corresponding notes (the one of the row and the one of the column) are the same.
+	            </p>
+	            <p>
+	              You can modify the <em>number of notes in a repetition</em> in order to select melodies that are longer or shorter. If you select 5, for instance, you will only see the notes that belong to a melody of 5 notes or more and that is repeted at least twice across the song.
+	            </p>
+	            <p>
+	              This project was largely inspired by the work <a href="https://colinmorris.github.io/SongSim/">SongSim</a> by <strong>Colin Morris</strong>, a tool that shows the repetition in the lyrics of songs.
+	              <button id="description-less"><span class="caret caret-up"></span> Less</button>
+	            </p>
+	          </div>
+	          <br>
+	          <br>
+	        </div>
+	        <p class="signature">
+	              <strong><a class="a-disabled" href="https://cargocollective.com/sixtine_philippe/">Sixtine Philippe</a></strong> x <strong><a class="a-disabled" href="https://nicopatsch.github.io/portfolio/">Nicolas Patschkowski</a></strong>
+	            </p>
+	        <div id="custom-file">
+	          Or upload your own MusicXML file:
+	          <input type="file" name="file" id="file-uploader" accept="text/xml" onclick="this.value = null;" onchange="readMusicXMLFile(event)" class="inputfile">
+	          <label for="file-uploader">Choose a file</label>
+	        </div>
+	      </div>
+
+	      <div class="col-1">
+	      </div>
+	    </div>
+	    
+	    <div id="matrixRowContainer"><div id="row0" class="row content-row"><div class="col-1"></div><div class="col-5 content-col"><div class="matrixContainer unknown"><svg id="drawingBox0" class="matrixSvg unknown"><g id="rectList0" class="rectList"><rect id="40-40" x="40" y="40" width="3" height="3"></rect><rect id="43-43" x="43" y="43" width="2" height="2"></rect><rect id="46-46" x="46" y="46" width="1" height="1"></rect><rect id="47-47" x="47" y="47" width="1" height="1"></rect><rect id="48-48" x="48" y="48" width="1" height="1"></rect><rect id="49-49" x="49" y="49" width="1" height="1"></rect><rect id="50-50" x="50" y="50" width="1" height="1"></rect><rect id="51-51" x="51" y="51" width="1" height="1"></rect><rect id="54-54" x="54" y="54" width="1" height="1"></rect><rect id="55-55" x="55" y="55" width="1" height="1"></rect><rect id="57-57" x="57" y="57" width="2" height="2"></rect><rect id="59-59" x="59" y="59" width="2" height="2"></rect><rect id="62-62" x="62" y="62" width="1" height="1"></rect><rect id="63-63" x="63" y="63" width="1" height="1"></rect><rect id="66-66" x="66" y="66" width="1" height="1"></rect><rect id="67-67" x="67" y="67" width="1" height="1"></rect><rect id="68-68" x="68" y="68" width="1" height="1"></rect><rect id="69-69" x="69" y="69" width="1" height="1"></rect><rect id="70-70" x="70" y="70" width="1" height="1"></rect><rect id="71-71" x="71" y="71" width="1" height="1"></rect><rect id="74-74" x="74" y="74" width="1" height="1"></rect><rect id="75-75" x="75" y="75" width="1" height="1"></rect><rect id="78-78" x="78" y="78" width="1" height="1"></rect><rect id="79-79" x="79" y="79" width="1" height="1"></rect><rect id="80-80" x="80" y="80" width="1" height="1"></rect><rect id="81-81" x="81" y="81" width="1" height="1"></rect><rect id="82-82" x="82" y="82" width="1" height="1"></rect><rect id="83-83" x="83" y="83" width="1" height="1"></rect><rect id="86-86" x="86" y="86" width="1" height="1"></rect><rect id="87-87" x="87" y="87" width="1" height="1"></rect><rect id="88-88" x="88" y="88" width="1" height="1"></rect><rect id="89-89" x="89" y="89" width="1" height="1"></rect><rect id="91-91" x="91" y="91" width="2" height="2"></rect><rect id="93-93" x="93" y="93" width="2" height="2"></rect><rect id="155-155" x="155" y="155" width="1" height="1"></rect><rect id="156-156" x="156" y="156" width="1" height="1"></rect><rect id="157-157" x="157" y="157" width="1" height="1"></rect><rect id="158-158" x="158" y="158" width="1" height="1"></rect><rect id="159-159" x="159" y="159" width="1" height="1"></rect><rect id="160-160" x="160" y="160" width="1" height="1"></rect><rect id="161-161" x="161" y="161" width="1" height="1"></rect><rect id="164-164" x="164" y="164" width="1" height="1"></rect><rect id="167-167" x="167" y="167" width="1" height="1"></rect><rect id="171-171" x="171" y="171" width="1" height="1"></rect><rect id="172-172" x="172" y="172" width="1" height="1"></rect><rect id="173-173" x="173" y="173" width="1" height="1"></rect><rect id="174-174" x="174" y="174" width="1" height="1"></rect><rect id="175-175" x="175" y="175" width="1" height="1"></rect><rect id="176-176" x="176" y="176" width="1" height="1"></rect><rect id="177-177" x="177" y="177" width="1" height="1"></rect><rect id="180-180" x="180" y="180" width="1" height="1"></rect><rect id="183-183" x="183" y="183" width="1" height="1"></rect><rect id="187-187" x="187" y="187" width="1" height="1"></rect><rect id="188-188" x="188" y="188" width="1" height="1"></rect><rect id="189-189" x="189" y="189" width="1" height="1"></rect><rect id="190-190" x="190" y="190" width="1" height="1"></rect><rect id="191-191" x="191" y="191" width="1" height="1"></rect><rect id="193-193" x="193" y="193" width="2" height="2"></rect><rect id="196-196" x="196" y="196" width="1" height="1"></rect><rect id="199-199" x="199" y="199" width="1" height="1"></rect><rect id="203-203" x="203" y="203" width="1" height="1"></rect><rect id="204-204" x="204" y="204" width="1" height="1"></rect><rect id="205-205" x="205" y="205" width="1" height="1"></rect><rect id="206-206" x="206" y="206" width="1" height="1"></rect><rect id="207-207" x="207" y="207" width="1" height="1"></rect><rect id="209-209" x="209" y="209" width="2" height="2"></rect><rect id="212-212" x="212" y="212" width="1" height="1"></rect><rect id="215-215" x="215" y="215" width="1" height="1"></rect><rect id="219-219" x="219" y="219" width="1" height="1"></rect><rect id="220-220" x="220" y="220" width="1" height="1"></rect><rect id="221-221" x="221" y="221" width="1" height="1"></rect><rect id="222-222" x="222" y="222" width="1" height="1"></rect><rect id="223-223" x="223" y="223" width="1" height="1"></rect><rect id="231-231" x="231" y="231" width="2" height="2"></rect><rect id="233-233" x="233" y="233" width="2" height="2"></rect><rect id="236-236" x="236" y="236" width="1" height="1"></rect><rect id="237-237" x="237" y="237" width="1" height="1"></rect><rect id="243-243" x="243" y="243" width="1" height="1"></rect><rect id="244-244" x="244" y="244" width="1" height="1"></rect><rect id="245-245" x="245" y="245" width="1" height="1"></rect><rect id="246-246" x="246" y="246" width="1" height="1"></rect><rect id="247-247" x="247" y="247" width="1" height="1"></rect><rect id="249-249" x="249" y="249" width="2" height="2"></rect><rect id="252-252" x="252" y="252" width="1" height="1"></rect><rect id="253-253" x="253" y="253" width="1" height="1"></rect><rect id="331-331" x="331" y="331" width="1" height="1"></rect><rect id="332-332" x="332" y="332" width="1" height="1"></rect><rect id="333-333" x="333" y="333" width="1" height="1"></rect><rect id="334-334" x="334" y="334" width="1" height="1"></rect><rect id="335-335" x="335" y="335" width="1" height="1"></rect><rect id="336-336" x="336" y="336" width="1" height="1"></rect><rect id="337-337" x="337" y="337" width="1" height="1"></rect><rect id="340-340" x="340" y="340" width="1" height="1"></rect><rect id="343-343" x="343" y="343" width="1" height="1"></rect><rect id="347-347" x="347" y="347" width="1" height="1"></rect><rect id="348-348" x="348" y="348" width="1" height="1"></rect><rect id="349-349" x="349" y="349" width="1" height="1"></rect><rect id="350-350" x="350" y="350" width="1" height="1"></rect><rect id="351-351" x="351" y="351" width="1" height="1"></rect><rect id="352-352" x="352" y="352" width="1" height="1"></rect><rect id="353-353" x="353" y="353" width="1" height="1"></rect><rect id="356-356" x="356" y="356" width="1" height="1"></rect><rect id="359-359" x="359" y="359" width="1" height="1"></rect><rect id="363-363" x="363" y="363" width="1" height="1"></rect><rect id="364-364" x="364" y="364" width="1" height="1"></rect><rect id="365-365" x="365" y="365" width="1" height="1"></rect><rect id="366-366" x="366" y="366" width="1" height="1"></rect><rect id="367-367" x="367" y="367" width="1" height="1"></rect><rect id="369-369" x="369" y="369" width="2" height="2"></rect><rect id="372-372" x="372" y="372" width="1" height="1"></rect><rect id="375-375" x="375" y="375" width="1" height="1"></rect><rect id="379-379" x="379" y="379" width="1" height="1"></rect><rect id="380-380" x="380" y="380" width="1" height="1"></rect><rect id="381-381" x="381" y="381" width="1" height="1"></rect><rect id="382-382" x="382" y="382" width="1" height="1"></rect><rect id="383-383" x="383" y="383" width="1" height="1"></rect><rect id="385-385" x="385" y="385" width="2" height="2"></rect><rect id="388-388" x="388" y="388" width="1" height="1"></rect><rect id="391-391" x="391" y="391" width="1" height="1"></rect><rect id="399-399" x="399" y="399" width="2" height="2"></rect><rect id="401-401" x="401" y="401" width="2" height="2"></rect><rect id="404-404" x="404" y="404" width="1" height="1"></rect><rect id="405-405" x="405" y="405" width="1" height="1"></rect><rect id="411-411" x="411" y="411" width="1" height="1"></rect><rect id="412-412" x="412" y="412" width="1" height="1"></rect><rect id="413-413" x="413" y="413" width="1" height="1"></rect><rect id="414-414" x="414" y="414" width="1" height="1"></rect><rect id="415-415" x="415" y="415" width="1" height="1"></rect><rect id="417-417" x="417" y="417" width="2" height="2"></rect><rect id="420-420" x="420" y="420" width="1" height="1"></rect><rect id="421-421" x="421" y="421" width="1" height="1"></rect><rect id="428-428" x="428" y="428" width="8" height="8"></rect><rect id="438-438" x="438" y="438" width="4" height="4"></rect><rect id="460-460" x="460" y="460" width="8" height="8"></rect><rect id="470-470" x="470" y="470" width="4" height="4"></rect><rect id="492-492" x="492" y="492" width="8" height="8"></rect><rect id="502-502" x="502" y="502" width="4" height="4"></rect><rect id="603-603" x="603" y="603" width="1" height="1"></rect><rect id="604-604" x="604" y="604" width="1" height="1"></rect><rect id="605-605" x="605" y="605" width="1" height="1"></rect><rect id="606-606" x="606" y="606" width="1" height="1"></rect><rect id="607-607" x="607" y="607" width="1" height="1"></rect><rect id="608-608" x="608" y="608" width="1" height="1"></rect><rect id="609-609" x="609" y="609" width="1" height="1"></rect><rect id="612-612" x="612" y="612" width="1" height="1"></rect><rect id="615-615" x="615" y="615" width="1" height="1"></rect><rect id="619-619" x="619" y="619" width="1" height="1"></rect><rect id="620-620" x="620" y="620" width="1" height="1"></rect><rect id="621-621" x="621" y="621" width="1" height="1"></rect><rect id="622-622" x="622" y="622" width="1" height="1"></rect><rect id="623-623" x="623" y="623" width="1" height="1"></rect><rect id="624-624" x="624" y="624" width="1" height="1"></rect><rect id="625-625" x="625" y="625" width="1" height="1"></rect><rect id="628-628" x="628" y="628" width="1" height="1"></rect><rect id="631-631" x="631" y="631" width="1" height="1"></rect><rect id="635-635" x="635" y="635" width="1" height="1"></rect><rect id="636-636" x="636" y="636" width="1" height="1"></rect><rect id="637-637" x="637" y="637" width="1" height="1"></rect><rect id="638-638" x="638" y="638" width="1" height="1"></rect><rect id="639-639" x="639" y="639" width="1" height="1"></rect><rect id="641-641" x="641" y="641" width="2" height="2"></rect><rect id="644-644" x="644" y="644" width="1" height="1"></rect><rect id="647-647" x="647" y="647" width="1" height="1"></rect><rect id="651-651" x="651" y="651" width="1" height="1"></rect><rect id="652-652" x="652" y="652" width="1" height="1"></rect><rect id="653-653" x="653" y="653" width="1" height="1"></rect><rect id="654-654" x="654" y="654" width="1" height="1"></rect><rect id="655-655" x="655" y="655" width="1" height="1"></rect><rect id="657-657" x="657" y="657" width="2" height="2"></rect><rect id="660-660" x="660" y="660" width="1" height="1"></rect><rect id="663-663" x="663" y="663" width="1" height="1"></rect><rect id="671-671" x="671" y="671" width="2" height="2"></rect><rect id="673-673" x="673" y="673" width="2" height="2"></rect><rect id="676-676" x="676" y="676" width="1" height="1"></rect><rect id="677-677" x="677" y="677" width="1" height="1"></rect><rect id="683-683" x="683" y="683" width="1" height="1"></rect><rect id="684-684" x="684" y="684" width="1" height="1"></rect><rect id="685-685" x="685" y="685" width="1" height="1"></rect><rect id="686-686" x="686" y="686" width="1" height="1"></rect><rect id="687-687" x="687" y="687" width="1" height="1"></rect><rect id="689-689" x="689" y="689" width="2" height="2"></rect><rect id="692-692" x="692" y="692" width="1" height="1"></rect><rect id="693-693" x="693" y="693" width="1" height="1"></rect><rect id="716-716" x="716" y="716" width="1" height="1"></rect><rect id="717-717" x="717" y="717" width="1" height="1"></rect></g></svg><div class="matrix-info unknown"><h3 class="instrumentName" id="instrumentName0">Си♭ Труба</h3><a svg-id="drawingBox0" filename="Mambo_No. 5_Lou Bega_Си♭ Труба.png" href="#" instrument="Си♭ Труба">Download</a></div></div></div></div></div>
+
+
+	    <div id="footer" class="row content-row">
+	      
+	      <div class="col-1">
+	      </div>
+
+	      <div class="col-5 content-col">
+
+	          <p>MusicSignature is a coding project by Nicolas Patschkowski. Here is <a href="https://github.com/nicopatsch/MusicSignature">the GitHub repo</a>.</p>
+	          
+	          <p>If you want to see more of my projects, check out <a href="https://nicopatsch.github.io/portfolio/">my portfolio</a>.</p>
+
+	      </div>
+
+	      <div class="col-5 content-col">
+	      </div>
+
+	      <div class="col-1">
+	      </div>
+	    </div>
+
+	
+
+</body></html>
