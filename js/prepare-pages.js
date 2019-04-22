@@ -42,7 +42,7 @@ function printHTMLToFile(songId, htmlString) {
 		}
 
 		else {
-			console.log("Every song page has been prepare!");
+			console.log("Every song page has been prepared!");
 		}
 
 	});
@@ -53,7 +53,7 @@ function printHTMLToFile(songId, htmlString) {
 function createPage(songId) {
 
 	var resultingHTML;
-	fs.readFile("./template/index.html", function (err, data) {
+	fs.readFile("./template/index2.html", function (err, data) {
 
 		if (err) {
 			throw err; 
@@ -89,7 +89,7 @@ function createPage(songId) {
 		}
 	
 		createSelectionMenu();
-
+		addInstrumentColorsToCSS();
 
 
 

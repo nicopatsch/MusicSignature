@@ -139,25 +139,32 @@ function createWrapperSquare(note1start, note1end, note2start, note2end, side, p
 	var y = Math.round(note2start.timeCode + note2end.timeCode)/2-height/2;
 	
 	var newID = partID.toString() + "-" + x.toString() + "-" + y.toString() + "-" + width.toString() + "-" + height.toString();
-	alreadyExistingSquare = $("#wrapper-" + newID);
-	//if(alreadyExistingSquare.length!=0) return;	
 	
 	var classHorizontal = partID.toString() + "-" + y.toString() + "-" + width.toString();
 	var classVertical = partID.toString() + "-" + x.toString() + "-" + height.toString();
 
+	var wrapperID = "wrapper-"+newID;
+	var verticalID = "vertical-wrapper-"+classVertical;
+	var horizontalID = "horizontal-wrapper-"+classHorizontal;
+
+	alreadyExistingSquare = $("#"+wrapperID);
+	//if(alreadyExistingSquare.length!=0) return;	
+	
 	var newWrapper = makeSVG('rect', {
-		"id": "wrapper-"+newID,
+		"id": wrapperID,
 		"x": x,
 		"y": y,
 		"width": width,
 		"height": height,
-		"class": classVertical + " " + classHorizontal + " reprect"
+		"class": classVertical + " " + classHorizontal + " reprect",
+		"horizontal": classHorizontal,
+		"vertical": classVertical
 	});
 	var gElement = document.getElementById('drawingBox'+partID);
 	gElement.appendChild(newWrapper);
 
 
-	var verticalID = "vertical-wrapper-"+classVertical;
+	
 	if(/*$('#'+verticalID)*/true) { // condition to be remade
 		var newVerticalWrapper = makeSVG('rect', {
 			"id": verticalID,
@@ -171,8 +178,7 @@ function createWrapperSquare(note1start, note1end, note2start, note2end, side, p
 		gElement.prepend(newVerticalWrapper);
 	}
 
-	var horizontalID = "horizontal-wrapper-"+classHorizontal;
-	if(/*$('#'+horisontalID)*/true) { // condition to be remade
+	if(/*$('#'+horizontalID)*/true) { // condition to be remade
 		var newHorizontalWrapper = makeSVG('rect', {
 			"id": horizontalID,
 			"x": 0,
@@ -184,24 +190,6 @@ function createWrapperSquare(note1start, note1end, note2start, note2end, side, p
 
 		gElement.prepend(newHorizontalWrapper);
 	}
-
-	
-	$(newWrapper).mouseenter(function() {
-		
-		$("#"+verticalID).addClass("hover");
-		$("#"+horizontalID).addClass("hover");
-
-		$("."+classVertical + ".reprect").addClass("hover");
-		$("."+classHorizontal + ".reprect").addClass("hover");
-	}).mouseout(function(){
-
-		$("#"+verticalID).removeClass("hover");
-		$("#"+horizontalID).removeClass("hover");
-
-		$("."+classVertical + ".reprect").removeClass("hover");
-		$("."+classHorizontal + ".reprect").removeClass("hover");
-	});
-
 
 
 }
@@ -575,3 +563,4 @@ function createSelectionMenu() {
 global.instrumentType = instrumentType;
 global.displayMatrixXML = displayMatrixXML;
 global.createSelectionMenu = createSelectionMenu;
+global.addInstrumentColorsToCSS = addInstrumentColorsToCSS;

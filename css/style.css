@@ -36,8 +36,13 @@ rect:hover {
 .reprect {
     z-index: 0;
 }
+.reprect {
 
-.matrixSvg > .column.hover, .matrixSvg > .row.hover {
+    opacity:1;
+}
+
+.matrixSvg > .column.hover, 
+.matrixSvg > .row.hover {
     opacity: 0.2;
 }
 
@@ -46,6 +51,7 @@ svg.matrixSvg {
 
     border: 1px solid;
     background-color: white;
+    cursor: crosshair;
 }
 
 * {

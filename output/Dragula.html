@@ -18,7 +18,63 @@
 		<script src="../js/bootstrap-dropdownhover.min.js"></script>
 	    <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
 
-	</head>
+	<style>.keyboard > .rectList > rect  { fill: #0000e6; }
+.keyboard rect.column.hover { fill: #0000e6; opacity:0.2  }
+.keyboard rect.row.hover { fill: #0000e6; opacity:0.2 }
+.keyboard rect.reprect.hover { fill: #0000e6; opacity:0.4 }
+svg.matrixSvg.keyboard { border-color: black; }
+.keyboard { color: #0000e6; }
+
+.voice > .rectList > rect  { fill: #ff1a66; }
+.voice rect.column.hover { fill: #ff1a66; opacity:0.2  }
+.voice rect.row.hover { fill: #ff1a66; opacity:0.2 }
+.voice rect.reprect.hover { fill: #ff1a66; opacity:0.4 }
+svg.matrixSvg.voice { border-color: black; }
+.voice { color: #ff1a66; }
+
+.drum > .rectList > rect  { fill: #ffcc00; }
+.drum rect.column.hover { fill: #ffcc00; opacity:0.2  }
+.drum rect.row.hover { fill: #ffcc00; opacity:0.2 }
+.drum rect.reprect.hover { fill: #ffcc00; opacity:0.4 }
+svg.matrixSvg.drum { border-color: black; }
+.drum { color: #ffcc00; }
+
+.synthesizer > .rectList > rect  { fill: black; }
+.synthesizer rect.column.hover { fill: black; opacity:0.2  }
+.synthesizer rect.row.hover { fill: black; opacity:0.2 }
+.synthesizer rect.reprect.hover { fill: black; opacity:0.4 }
+svg.matrixSvg.synthesizer { border-color: black; }
+.synthesizer { color: black; }
+
+.woodwind > .rectList > rect  { fill: #008000; }
+.woodwind rect.column.hover { fill: #008000; opacity:0.2  }
+.woodwind rect.row.hover { fill: #008000; opacity:0.2 }
+.woodwind rect.reprect.hover { fill: #008000; opacity:0.4 }
+svg.matrixSvg.woodwind { border-color: black; }
+.woodwind { color: #008000; }
+
+.string > .rectList > rect  { fill: #e60000; }
+.string rect.column.hover { fill: #e60000; opacity:0.2  }
+.string rect.row.hover { fill: #e60000; opacity:0.2 }
+.string rect.reprect.hover { fill: #e60000; opacity:0.4 }
+svg.matrixSvg.string { border-color: black; }
+.string { color: #e60000; }
+
+.copper > .rectList > rect  { fill: #ff6600; }
+.copper rect.column.hover { fill: #ff6600; opacity:0.2  }
+.copper rect.row.hover { fill: #ff6600; opacity:0.2 }
+.copper rect.reprect.hover { fill: #ff6600; opacity:0.4 }
+svg.matrixSvg.copper { border-color: black; }
+.copper { color: #ff6600; }
+
+.unknown > .rectList > rect  { fill: black; }
+.unknown rect.column.hover { fill: black; opacity:0.2  }
+.unknown rect.row.hover { fill: black; opacity:0.2 }
+.unknown rect.reprect.hover { fill: black; opacity:0.4 }
+svg.matrixSvg.unknown { border-color: black; }
+.unknown { color: black; }
+
+</style></head>
 
 
 	<body>
@@ -39,7 +95,7 @@
 	              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" data-hover="dropdown" data-animations="{bottom} {left} {top} {right}">
 	               Select your song
 	              </button>
-	              <ul id="genre-ul" class="dropdown-menu"><li id="classic" class="dropdown genre"><a tabindex="-1" href="#" class="genre">classic</a><ul class="dropdown-menu song-ul"><li class="song"><a tabindex="-1" href="../output/Adagio_for_Strings.html">Adagio for Strings – Samuel Barber</a></li><li class="song"><a tabindex="-1" href="../output/Beethoven_Symphony_No._5_1st_movement_Piano_solo.html">Symphony No.5 1st movement, Piano solo – Ludwig van Beethoven</a></li><li class="song"><a tabindex="-1" href="../output/Canon_In_D_Major_By_Johan_Pachelbel.html">Canon in D major – Johan Pachelbel</a></li><li class="song"><a tabindex="-1" href="../output/The_Four_Seasons_Complete.html">The Four Seasons Complete – Vivaldi</a></li><li class="song"><a tabindex="-1" href="../output/Fur_Elise.html">Fur Elise – Ludwig van Beethoven</a></li></ul></li><li id="jazz" class="dropdown genre"><a tabindex="-1" href="#" class="genre">jazz</a><ul class="dropdown-menu song-ul"><li class="song"><a tabindex="-1" href="../output/All_Blues_44.html">All Blues 4/4 – No artist</a></li><li class="song"><a tabindex="-1" href="../output/A_Night_in_Tunisia.html">A Night in Tunisia – Dizzy Gillespie</a></li><li class="song"><a tabindex="-1" href="../output/Autumn_leaves.html">Autum Leaves – Sam Jones, Joseph Kosma</a></li><li class="song"><a tabindex="-1" href="../output/Round_Mignight.html">Round Midnight – The Lonious Monk</a></li><li class="song"><a tabindex="-1" href="../output/So_What.html">So What – Miles Davis</a></li><li class="song"><a tabindex="-1" href="../output/Take_the_A_Train.html">Take the A-Train – Duke Ellington</a></li></ul></li><li id="metal" class="dropdown genre"><a tabindex="-1" href="#" class="genre">metal</a><ul class="dropdown-menu song-ul"><li class="song"><a tabindex="-1" href="../output/Back_in_Black.html">Back in Black – AC/DC</a></li><li class="song"><a tabindex="-1" href="../output/Du_hast.html">Du Hast – Rammstein</a></li><li class="song"><a tabindex="-1" href="../output/Dragula.html">Dragula – Rob Zombie</a></li><li class="song"><a tabindex="-1" href="../output/Dirty_Deeds_Done_Dirt_Cheap.html">Dirty Deeds Done Dirt Cheap – AC/DC</a></li></ul></li><li id="pop" class="dropdown genre"><a tabindex="-1" href="#" class="genre">pop</a><ul class="dropdown-menu song-ul"><li class="song"><a tabindex="-1" href="../output/Close_To_You_They_Long_To_Be.html">Close to You (They Long to Be) – The Carpenters</a></li><li class="song"><a tabindex="-1" href="../output/Let_It_Be.html">Let It Be – John Lennon and Paul McCartney</a></li><li class="song"><a tabindex="-1" href="../output/Bad_Bad_Leroy_Brown.html">Bad Bad Leroy Brown – Jim Croce</a></li><li class="song"><a tabindex="-1" href="../output/Come_and_Get_Your_Love.html">Come and Get Your Love – Lolly Vasquez</a></li><li class="song"><a tabindex="-1" href="../output/All_Night_Long.html">All Night Long – Lionel Richie</a></li><li class="song"><a tabindex="-1" href="../output/Beat_It.html">Beat It – Michael Jackson</a></li><li class="song"><a tabindex="-1" href="../output/Should_I_Stay_or_Should_I_Go.html">Should I Stay or Should I Go – The Clash</a></li><li class="song"><a tabindex="-1" href="../output/Under_Pressure.html">Under Pressure – Queen, David Bowie</a></li><li class="song"><a tabindex="-1" href="../output/Barbie_Girl.html">Barbie Girl – Aqua</a></li><li class="song"><a tabindex="-1" href="../output/Dont_speak.html">Don't Speak – No Doubt</a></li><li class="song"><a tabindex="-1" href="../output/Hit_Me_Baby_One_More_Time.html">Hit Me Baby One More Time – Britney Spears</a></li><li class="song"><a tabindex="-1" href="../output/Wannabe.html">Wannabe – Spice Girls</a></li><li class="song"><a tabindex="-1" href="../output/Mambo_no.5_Lou_Bega.html">Mambo No. 5 – Lou Bega</a></li><li class="song"><a tabindex="-1" href="../output/Lady_Gaga-Bad_Romance.html">Bad Romance – Lady Gaga</a></li><li class="song"><a tabindex="-1" href="../output/Sweet_but_psycho.html">Sweet but psycho – Ava Max</a></li><li class="song"><a tabindex="-1" href="../output/Live_Forever.html">Live Forever – Oasis</a></li><li class="song"><a tabindex="-1" href="../output/Get_Lucky-Daft_Punk.html">Get Lucky – Daft Punk</a></li><li class="song"><a tabindex="-1" href="../output/La_La_Land-City_Of_Stars.html">City Of Stars (La La Land) – Justin Hurwitz</a></li></ul></li><li id="rock" class="dropdown genre"><a tabindex="-1" href="#" class="genre">rock</a><ul class="dropdown-menu song-ul"><li class="song"><a tabindex="-1" href="../output/Walk_This_Way_Aerosmith.html">Walk This Way – Aerosmith</a></li><li class="song"><a tabindex="-1" href="../output/Queen-Bohemian_Rhapsody_Voice.html">Bohemian Rhapsody (voices) – Queen</a></li><li class="song"><a tabindex="-1" href="../output/Queen-Bohemian_Rhapsody.html">Bohemian Rhapsody – Queen</a></li><li class="song"><a tabindex="-1" href="../output/Queen-I_want_to_break_free.html">I Want to Break Free – Queen</a></li><li class="song"><a tabindex="-1" href="../output/Sweet_Child_o_Mine.html">Sweet Child o' Mine – Guns N' Roses</a></li><li class="song"><a tabindex="-1" href="../output/Eye_of_the_Tiger.html">Eye of the Tiger – Survivor</a></li><li class="song"><a tabindex="-1" href="../output/Black_Hole_Sun.html">Black Hole Sun – Chris Cornell</a></li><li class="song"><a tabindex="-1" href="../output/The_show_must_go_on.html">The Show Must Go On – Queen</a></li><li class="song"><a tabindex="-1" href="../output/Black_Hole_Sun.html">Beautiful Day – Alex Gouge-Schajer, Austin Eamnarangkool, Ben Pevsner</a></li><li class="song"><a tabindex="-1" href="../output/Yellow.html">Yellow - Look at the Stars – Coldplay</a></li><li class="song"><a tabindex="-1" href="../output/Californication.html">Californication – Red Hot Chili Peppers</a></li></ul></li><li id="french variety" class="dropdown genre"><a tabindex="-1" href="#" class="genre">french variety</a><ul class="dropdown-menu song-ul"></ul></li></ul>
+	              <ul id="genre-ul" class="dropdown-menu"><li id="classic" class="dropdown genre"><a tabindex="-1" href="#" class="genre">classic</a><ul class="dropdown-menu song-ul"><li class="song"><a tabindex="-1" href="../output/Adagio_for_Strings.html">Adagio for Strings – Samuel Barber</a></li><li class="song"><a tabindex="-1" href="../output/Beethoven_Symphony_No._5_1st_movement_Piano_solo.html">Symphony No.5 1st movement, Piano solo – Ludwig van Beethoven</a></li><li class="song"><a tabindex="-1" href="../output/Canon_In_D_Major_By_Johan_Pachelbel.html">Canon in D major – Johan Pachelbel</a></li><li class="song"><a tabindex="-1" href="../output/The_Four_Seasons_Complete.html">The Four Seasons Complete – Vivaldi</a></li><li class="song"><a tabindex="-1" href="../output/Fur_Elise.html">Fur Elise – Ludwig van Beethoven</a></li></ul></li><li id="jazz" class="dropdown genre"><a tabindex="-1" href="#" class="genre">jazz</a><ul class="dropdown-menu song-ul"><li class="song"><a tabindex="-1" href="../output/All_Blues_44.html">All Blues 4/4 – No artist</a></li><li class="song"><a tabindex="-1" href="../output/A_Night_in_Tunisia.html">A Night in Tunisia – Dizzy Gillespie</a></li><li class="song"><a tabindex="-1" href="../output/Autumn_leaves.html">Autum Leaves – Sam Jones, Joseph Kosma</a></li><li class="song"><a tabindex="-1" href="../output/Round_Mignight.html">Round Midnight – The Lonious Monk</a></li><li class="song"><a tabindex="-1" href="../output/So_What.html">So What – Miles Davis</a></li><li class="song"><a tabindex="-1" href="../output/Take_the_A_Train.html">Take the A-Train – Duke Ellington</a></li></ul></li><li id="metal" class="dropdown genre"><a tabindex="-1" href="#" class="genre">metal</a><ul class="dropdown-menu song-ul"><li class="song"><a tabindex="-1" href="../output/Back_in_Black.html">Back in Black – AC/DC</a></li><li class="song"><a tabindex="-1" href="../output/Du_hast.html">Du Hast – Rammstein</a></li><li class="song"><a tabindex="-1" href="../output/Dragula.html">Dragula – Rob Zombie</a></li><li class="song"><a tabindex="-1" href="../output/Dirty_Deeds_Done_Dirt_Cheap.html">Dirty Deeds Done Dirt Cheap – AC/DC</a></li></ul></li><li id="pop" class="dropdown genre"><a tabindex="-1" href="#" class="genre">pop</a><ul class="dropdown-menu song-ul"><li class="song"><a tabindex="-1" href="../output/Close_To_You_They_Long_To_Be.html">Close to You (They Long to Be) – The Carpenters</a></li><li class="song"><a tabindex="-1" href="../output/Let_It_Be.html">Let It Be – John Lennon and Paul McCartney</a></li><li class="song"><a tabindex="-1" href="../output/Bad_Bad_Leroy_Brown.html">Bad Bad Leroy Brown – Jim Croce</a></li><li class="song"><a tabindex="-1" href="../output/Come_and_Get_Your_Love.html">Come and Get Your Love – Lolly Vasquez</a></li><li class="song"><a tabindex="-1" href="../output/All_Night_Long.html">All Night Long – Lionel Richie</a></li><li class="song"><a tabindex="-1" href="../output/Beat_It.html">Beat It – Michael Jackson</a></li><li class="song"><a tabindex="-1" href="../output/Should_I_Stay_or_Should_I_Go.html">Should I Stay or Should I Go – The Clash</a></li><li class="song"><a tabindex="-1" href="../output/Under_Pressure.html">Under Pressure – Queen, David Bowie</a></li><li class="song"><a tabindex="-1" href="../output/Barbie_Girl.html">Barbie Girl – Aqua</a></li><li class="song"><a tabindex="-1" href="../output/Dont_speak.html">Don't Speak – No Doubt</a></li><li class="song"><a tabindex="-1" href="../output/Hit_Me_Baby_One_More_Time.html">Hit Me Baby One More Time – Britney Spears</a></li><li class="song"><a tabindex="-1" href="../output/Wannabe.html">Wannabe – Spice Girls</a></li><li class="song"><a tabindex="-1" href="../output/Mambo_no.5_Lou_Bega.html">Mambo No. 5 – Lou Bega</a></li><li class="song"><a tabindex="-1" href="../output/Lady_Gaga-Bad_Romance.html">Bad Romance – Lady Gaga</a></li><li class="song"><a tabindex="-1" href="../output/Sweet_but_psycho.html">Sweet but psycho – Ava Max</a></li><li class="song"><a tabindex="-1" href="../output/Live_Forever.html">Live Forever – Oasis</a></li><li class="song"><a tabindex="-1" href="../output/Get_Lucky-Daft_Punk.html">Get Lucky – Daft Punk</a></li><li class="song"><a tabindex="-1" href="../output/La_La_Land-City_Of_Stars.html">City Of Stars (La La Land) – Justin Hurwitz</a></li></ul></li><li id="rock" class="dropdown genre"><a tabindex="-1" href="#" class="genre">rock</a><ul class="dropdown-menu song-ul"><li class="song"><a tabindex="-1" href="../output/Walk_This_Way_Aerosmith.html">Walk This Way – Aerosmith</a></li><li class="song"><a tabindex="-1" href="../output/Queen-Bohemian_Rhapsody_Voice.html">Bohemian Rhapsody (voices) – Queen</a></li><li class="song"><a tabindex="-1" href="../output/Queen-Bohemian_Rhapsody.html">Bohemian Rhapsody – Queen</a></li><li class="song"><a tabindex="-1" href="../output/Sweet_Child_o_Mine.html">Sweet Child o' Mine – Guns N' Roses</a></li><li class="song"><a tabindex="-1" href="../output/Eye_of_the_Tiger.html">Eye of the Tiger – Survivor</a></li><li class="song"><a tabindex="-1" href="../output/Black_Hole_Sun.html">Black Hole Sun – Chris Cornell</a></li><li class="song"><a tabindex="-1" href="../output/The_show_must_go_on.html">The Show Must Go On – Queen</a></li><li class="song"><a tabindex="-1" href="../output/Beautiful_Day.html">Beautiful Day – Alex Gouge-Schajer, Austin Eamnarangkool, Ben Pevsner</a></li><li class="song"><a tabindex="-1" href="../output/Yellow.html">Yellow - Look at the Stars – Coldplay</a></li><li class="song"><a tabindex="-1" href="../output/Californication.html">Californication – Red Hot Chili Peppers</a></li></ul></li><li id="french variety" class="dropdown genre"><a tabindex="-1" href="#" class="genre">french variety</a><ul class="dropdown-menu song-ul"></ul></li></ul>
 	            </div>
 	          </div>
 
@@ -125,4 +181,7 @@
 
 	
 
+	<script src="../js/index.js"></script>
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+  	<script src="../js/bootstrap-dropdownhover.min.js"></script>
 </body></html>
